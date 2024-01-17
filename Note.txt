@@ -1,0 +1,45 @@
+Upcoming Features:
+1. Password Hide and Show in UI.
+2. Need to write instruction on Passenger & Driver Signup Page.
+
+
+3. PHP Code to Show the location in Google Maps according to the $userLocation Variable.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Location on Google Maps</title>
+</head>
+<body>
+
+<?php
+// Your PHP code for getting user location
+function get_IP_address()
+{
+  // ... (your existing PHP code)
+}
+
+$ip = get_IP_address();
+
+$loc = file_get_contents("http://ip-api.com/json/$ip");
+$locationObj = json_decode($loc);
+$latitude = $locationObj->lat;
+$longitude = $locationObj->lon;
+
+$userLocation = $latitude . "," . $longitude;
+?>
+
+<!-- HTML button with onclick event to open Google Maps -->
+<button onclick="showLocationOnMap('<?php echo $userLocation; ?>')">Show My Location on Google Maps</button>
+
+<!-- JavaScript function to open Google Maps -->
+<script>
+function showLocationOnMap(location) {
+  // Open Google Maps with the specified location
+  window.open('https://www.google.com/maps?q=' + location, '_blank');
+}
+</script>
+
+</body>
+</html>
