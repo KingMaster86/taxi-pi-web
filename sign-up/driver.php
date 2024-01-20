@@ -43,18 +43,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $driverPhoneNoEl = $_POST['driver-phone-no'];
   $driverUsernameEl = $_POST['driver-username'];
   $passwordEl = $_POST['password'];
+  //! Encrypted Password using password_hash().
+  $encryptedPassword = password_hash($passwordEl, PASSWORD_DEFAULT);
+
   $confirmPasswordEl = $_POST['confirm-password'];
   $driverAddressLineEl = $_POST['driver-address-line-1'];
   $driverCityNameEl = $_POST['driver-city-name'];
   $driverCountryNameEl = $_POST['driver-country-name'];
   $driverIdCardNoEl = $_POST['driver-id-card-no'];
-  $locationLatitudeEl = $_POST['location-latitude'];
-  $locationLongitudeEl = $_POST['location-longitude'];
+  $locationLatitudeEl = $latitudeValue;
+  $locationLongitudeEl = $longitudeValue;
   $driverWorkStartTimeEl = $_POST['work-start-time'];
   $driverWorkEndingTimeEl = $_POST['work-ending-time'];
+  $availabilityStatus = "available";
 
-  //Need to check availability status
+  $filterByPhoneNumber = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_phone_no = $driverPhoneNoEl");
+  $filterByEmail = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_email = '$driverEmailEl'");
+  $filterByUsername = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_username = '$driverUsernameEl'");
 
+  if ($filterByPhoneNumber) {
+    echo "<script>alert('The phone number already exist! Try with another phone number.')</script>";
+  } elseif ($filterByEmail) {
+    echo "<script>alert('The Email already exist!.')</script>";
+  } elseif ($filterByUsername) {
+    echo "<script>alert('The Username already exist!')</script>";
+  } else {
+    $query = "INSERT INTO `table_driver` (
+      driver_name,
+      driver_email,
+      driver_phone_no,
+      driver_id_card_no,
+      driver_username,
+      driver_password,
+      availability_status,
+      location_latitude,
+      location_longitude,
+      start_time,
+      end_time,
+      driver_address_line,
+      driver_city,
+      driver_country)
+  
+      VALUES
+  
+      (
+        '$driverNameEl',
+        '$driverEmailEl',
+        $driverPhoneNoEl,
+        '$driverIdCardNoEl',
+        '$driverUsernameEl',
+        '$encryptedPassword',
+        '$availabilityStatus',
+        '$locationLatitudeEl',
+        '$locationLongitudeEl',
+        '$driverWorkStartTimeEl',
+        '$driverWorkEndingTimeEl',
+        '$driverAddressLineEl',
+        '$driverCityNameEl',
+        '$driverCountryNameEl'
+      )
+      ";
+
+    $insertDriverData = mysqli_query($con, $query);
+    if ($insertDriverData) {
+      echo "<script>alert('Account Created Successfully.')</script>";
+    }
+  }
 }
 ?>
 

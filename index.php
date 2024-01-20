@@ -59,7 +59,7 @@
               Login
             </button>
             <ul class="dropdown-menu bg-black py-2">
-              <li><a class="dropdown-item text-light hover-effect" href="#">Admin</a></li>
+              <li><a class="dropdown-item text-light hover-effect" href="./admin-panel/index.php">Admin</a></li>
               <li><a class="dropdown-item text-light hover-effect" href="#">Driver</a></li>
               <li><a class="dropdown-item text-light hover-effect" href="#">Passenger</a></li>
             </ul>
