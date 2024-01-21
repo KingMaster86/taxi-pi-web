@@ -33,65 +33,124 @@ include('../includes/connect.php');
     <link rel="stylesheet" href="../assets/css/style2.css">
 </head>
 
-<body class="overflow-x-hidden bg-warning container-fluid">
-    <div class="container">
-        <h4 class="text-center container fw-bold font-black">
-            Passengers' Detail
-        </h4>
-        <!-- <div class="container"> -->
-        <table class="table">
+<body class="bg-warning container-fluid">
+    <h4 class="text-center container fw-bold font-black mt-5 pb-2">
+        Drivers' Overview
+    </h4>
+    <div class="table-responsive mt-3">
+        <table class="table align-middle table-bordered">
             <thead class="text-center fw-semibold">
                 <tr>
-                    <td class="background-black-color font-white p-3">S.No</td>
-                    <td class="background-black-color font-white p-3">
-                        Passenger Name
-                    </td>
-                    <td class="background-black-color font-white p-3">Email</td>
-                    <td class="background-black-color font-white p-3">Username</td>
-                    <td class="background-black-color font-white p-3">Phone Number</td>
-                    <td class="background-black-color font-white p-3">ID Card No</td>
-                    <td class="background-black-color font-white p-3">Address Line</td>
-                    <td class="background-black-color font-white p-3">City</td>
-                    <td class="background-black-color font-white p-3">Country</td>
+                    <th class="background-black-color font-white">S.No</th>
+                    <th class="background-black-color font-white">
+                        Driver's Name
+                    </th>
+                    <th class="background-black-color font-white">Email</th>
+                    <th class="background-black-color font-white">Username</th>
+                    <th class="background-black-color font-white">Phone Number</th>
+                    <th class="background-black-color font-white">Status</th>
+                    <th class="background-black-color font-white">Driver's Location</th>
+                    <th class="background-black-color font-white">Starting Time</th>
+                    <th class="background-black-color font-white">Ending Time</th>
+                    <th class="background-black-color font-white">ID Card No</th>
+                    <th class="background-black-color font-white">Address Line</th>
+                    <th class="background-black-color font-white">City</th>
+                    <th class="background-black-color font-white">Country</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
-                    <td class="background-black-color-secondary font-white-secondary">
-                        #01
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Mushkir
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        mushkirmohamed@gmail.com
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        mushkir
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        <a href="tel:0777195282" class="text-decoration-none font-white-secondary">0777195282</a>
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        199631401505
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        65 North Clarendon Avenue
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Nintavur
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Sri Lanka
-                    </td>
-                </tr>
+                <?php
+                $serialNumber = 1;
+                $statusReadableFormat;
+                $fetchDriverDetails = mysqli_query($con, "SELECT * FROM `table_driver`");
+
+                while ($arrayOfDriverDetails = mysqli_fetch_assoc($fetchDriverDetails)) {
+                    $driverName = $arrayOfDriverDetails['driver_name'];
+                    $driverEmail = $arrayOfDriverDetails['driver_email'];
+                    $driverPhoneNo = $arrayOfDriverDetails['driver_phone_no'];
+                    $driverIdCardNo = $arrayOfDriverDetails['driver_id_card_no'];
+                    $driverUsername = $arrayOfDriverDetails['driver_username'];
+                    $availabilityStatus = $arrayOfDriverDetails['availability_status'];
+                    $locationLatitude = $arrayOfDriverDetails['location_latitude'];
+                    $locationLongitude = $arrayOfDriverDetails['location_longitude'];
+                    $startTime = $arrayOfDriverDetails['start_time'];
+                    $endTime = $arrayOfDriverDetails['end_time'];
+                    $driverAddressLine = $arrayOfDriverDetails['driver_address_line'];
+                    $driverCity = $arrayOfDriverDetails['driver_city'];
+                    $driverCountry = $arrayOfDriverDetails['driver_country'];
+
+
+                    $driverLocation = $locationLatitude . "," . $locationLongitude; // *Merging Latitude & Longitude values into $driverLocation Variable.
+
+                    if ($availabilityStatus == "available") {
+                        $statusReadableFormat = "Available";
+                    } else {
+                        $statusReadableFormat = "Busy";
+                    }
+                    // echo var_dump($driverLocation);
+
+
+                ?>
+                    <tr class="text-center">
+                        <td class="background-black-color-secondary font-white-secondary">
+                            #<?php echo $serialNumber; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverName; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverEmail; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverUsername; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <a href="tel:<?php echo $driverPhoneNo; ?>" class="text-decoration-none font-white-secondary"><?php echo $driverPhoneNo; ?></a>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $statusReadableFormat; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <button class="btn font-grey-color" onclick="showLocationOnMap('<?php echo $driverLocation; ?>')"><i class="fa-solid fa-location-crosshairs"></i> Locate</button>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $startTime; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $endTime; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverIdCardNo; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            No. <?php echo $driverAddressLine; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverCity; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <?php echo $driverCountry; ?>
+                        </td>
+                    </tr>
+                <?php
+                    $serialNumber++;
+                }
+
+                ?>
             </tbody>
         </table>
-        <!-- </div> -->
     </div>
     <!-- Boostrap JS Files -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <!-- JavaScript function to open Google Maps -->
+    <script>
+        function showLocationOnMap(location) {
+            // Open Google Maps with the specified location
+            window.open('https://www.google.com/maps?q=' + location, '_blank');
+        }
+    </script>
 </body>
 
 </html>

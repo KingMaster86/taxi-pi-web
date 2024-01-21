@@ -58,14 +58,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $availabilityStatus = "available";
 
   $filterByPhoneNumber = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_phone_no = $driverPhoneNoEl");
-  $filterByEmail = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_email = '$driverEmailEl'");
-  $filterByUsername = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_username = '$driverUsernameEl'");
+  $isPhoneNumberExist = mysqli_num_rows($filterByPhoneNumber);
 
-  if ($filterByPhoneNumber) {
+  $filterByEmail = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_email = '$driverEmailEl'");
+  $isEmailExist = mysqli_num_rows($filterByEmail);
+
+  $filterByUsername = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_username = '$driverUsernameEl'");
+  $isUsernameExist = mysqli_num_rows($filterByUsername);
+
+  if ($isPhoneNumberExist > 0) {
     echo "<script>alert('The phone number already exist! Try with another phone number.')</script>";
-  } elseif ($filterByEmail) {
+  } elseif ($isEmailExist > 0) {
     echo "<script>alert('The Email already exist!.')</script>";
-  } elseif ($filterByUsername) {
+  } elseif ($isUsernameExist > 0) {
     echo "<script>alert('The Username already exist!')</script>";
   } else {
     $query = "INSERT INTO `table_driver` (

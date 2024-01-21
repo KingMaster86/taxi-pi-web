@@ -37,7 +37,7 @@ include('../includes/connect.php');
     <div>
         <div class="row">
             <!-- Side Bar -->
-            <div class="col-md-2 background-black-color vh-100 px-3 py-4">
+            <div class="col-md-12 container background-black-color px-3 py-4">
                 <!-- Admin Profile Pic -->
                 <div class="d-md-flex justify-content-center align-items-center gap-2">
                     <div>
@@ -48,77 +48,82 @@ include('../includes/connect.php');
                     </div>
                 </div>
 
-                <!-- Overview -->
-                <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
-                    <!-- Icon -->
-                    <div>
-                        <i class="fa-solid fa-gauge fs-5"></i>
-                    </div>
+                <!-- Admin Dashboard Menu -->
+                <div class="d-flex justify-content-center align-items-center gap-5 ">
+                    <!-- Overview -->
+                    <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-gauge fs-5"></i>
+                        </div>
 
-                    <!-- Menu Name -->
-                    <p class="fs-5 mb-1">Overview</p>
-                </a>
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Overview</p>
+                    </a>
 
-                <!-- Passengers -->
-                <a href="admin-panel.php?passengers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
-                    <!-- Icon -->
-                    <div>
-                        <i class="fa-solid fa-users"></i>
-                    </div>
+                    <!-- Passengers -->
+                    <a href="admin-panel.php?passengers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-users"></i>
+                        </div>
 
-                    <!-- Menu Name -->
-                    <p class="fs-5 mb-1">Passengers</p>
-                </a>
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Passengers</p>
+                    </a>
 
-                <!-- Drivers -->
-                <a href="admin-panel.php?drivers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
-                    <!-- Icon -->
-                    <div>
-                        <i class="fa-solid fa-id-card"></i>
-                    </div>
+                    <!-- Drivers -->
+                    <a href="admin-panel.php?drivers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
 
-                    <!-- Menu Name -->
-                    <p class="fs-5 mb-1">Drivers</p>
-                </a>
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Drivers</p>
+                    </a>
 
-                <!-- Logout -->
-                <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
-                    <!-- Icon -->
-                    <div>
-                        <i class="fa-solid fa-home"></i>
-                    </div>
+                    <!-- Logout -->
+                    <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-home"></i>
+                        </div>
 
-                    <!-- Menu Name -->
-                    <p class="fs-5 mb-1">Home</p>
-                </a>
-                <!-- Home -->
-                <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
-                    <!-- Icon -->
-                    <div>
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </div>
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Home</p>
+                    </a>
+                    <!-- Home -->
+                    <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
 
-                    <!-- Menu Name -->
-                    <p class="fs-5 mb-1">Logout</p>
-                </a>
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Logout</p>
+                    </a>
+                </div>
             </div>
 
-            <!-- Dashboard Contents -->
-            <div class="col-md-10 bg-warning ">
-                <!-- PHP Code Dynamcially Changing Layouts -->
-                <?php
-                if (isset($_GET['dashboard'])) {
-                    include('dashboard.php');
-                }
-                if (isset($_GET['passengers'])) {
-                    include('total-passenger.php');
-                }
 
-                if (isset($_GET['drivers'])) {
-                    include('drivers.php');
-                }
-                ?>
-            </div>
+        </div>
+
+        <!-- Dashboard Contents -->
+        <div class="col-md-12 bg-warning ">
+            <!-- PHP Code Dynamcially Changing Layouts -->
+            <?php
+            if (isset($_GET['dashboard'])) {
+                include('dashboard.php');
+            }
+            if (isset($_GET['passengers'])) {
+                include('total-passenger.php');
+            }
+
+            if (isset($_GET['drivers'])) {
+                include('drivers.php');
+            }
+            ?>
         </div>
     </div>
 
