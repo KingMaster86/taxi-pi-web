@@ -50,3 +50,10 @@
     max-width: 700px !important;
   }
 }
+
+/* Responsive for Driver Profile Card */
+@media (min-width: 560px) {
+  #driver-profile-card {
+    width: 25rem !important;
+  }
+}
