@@ -13,8 +13,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
     $fetchLoggedInUserDataFromDB = mysqli_fetch_assoc($getLoggedInUsernameDetails);
 
     $driverId = $fetchLoggedInUserDataFromDB['driver_id'];
-
-    // echo $driverId;
+    $availabilityStatus = $fetchLoggedInUserDataFromDB['availability_status'];
 }
 
 ?>
@@ -28,7 +27,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" href="../assets/img/taxi-img.png" type="image/x-icon" class="object-fit-cover" />
-    <title>Profile | CityTaxi</title>
+    <title>Profile | City - Taxi</title>
 
     <!-- Google Font (Sen) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,22 +68,33 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded hover-effect me-4 px-3 fw-semibold" href="homepage.php?profile">Profile</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded hover-effect me-4 px-3 fw-semibold" href="../about-us.html">Edit Profile</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded hover-effect me-4 px-3 fw-semibold" href="../contact-us.html">Logout</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
                     </ul>
 
                     <!-- Availability Status -->
                     <div class="d-flex align-items-center gap-2">
-                        <label for="" class="text-success fs-4 fw-semibold">Available</label>
-                        <a href="status-changer.php?driverId=<?php echo $driverId; ?>" class="text-decoration-none font-grey">(Change as Busy)</a>
+                        <?php
+                        if ($availabilityStatus == "busy") {
+                            echo "
+                            <label class='text-success fs-4 fw-semibold'>Busy</label>
+                            <a href='status-changer.php?driverId={$driverId}' class='text-decoration-none font-grey'>(Change as Available)</a>";
+                        } else {
+                            echo "
+                            <label class='text-success fs-4 fw-semibold'>Available</label>
+                            <a href='status-changer.php?driverId={$driverId}' class='text-decoration-none font-grey'>(Change as Busy)</a>";
+                        }
+                        ?>
+
+
                     </div>
                 </div>
             </div>
@@ -98,6 +108,14 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
                 <?php
                 if (isset($_GET['profile'])) {
                     include('profile.php');
+                }
+
+                if (isset($_GET['edit-profile'])) {
+                    include('edit-profile.php');
+                }
+
+                if (isset($_GET['logout'])) {
+                    include('logout.php');
                 }
                 ?>
             </div>

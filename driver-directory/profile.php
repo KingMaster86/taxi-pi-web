@@ -23,6 +23,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
     $driverIdCardNo = $fetchLoggedInUserDataFromDB['driver_id_card_no'];
     $startTime = $fetchLoggedInUserDataFromDB['start_time'];
     $endTime = $fetchLoggedInUserDataFromDB['end_time'];
+    $availabilityStatus = $fetchLoggedInUserDataFromDB['availability_status'];
 }
 
 ?>
@@ -38,41 +39,57 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
                     <?php echo "No. " . $driverAddressLine . ", " . $driverCity . ", " . $driverCountry . "."; ?>
                 </p>
             </div>
-            <div class="bg-success px-3 py-1 rounded-5 text-light mt-2 mt-md-0 text-center">
+
+            <?php
+            if ($availabilityStatus == "available") {
+                echo "
+                <div class='bg-success px-3 py-1 rounded-5 text-light mt-2 mt-md-0 text-center'>
+                    Available
+                </div>
+                ";
+            } else {
+                echo "
+                <div class='bg-danger px-3 py-1 rounded-5 text-light mt-2 mt-md-0 text-center'>
+                    Busy
+                </div>
+                ";
+            }
+            ?>
+            <!-- <div class="bg-success px-3 py-1 rounded-5 text-light mt-2 mt-md-0 text-center">
                 Available
-            </div>
+            </div> -->
         </div>
         <ul class="list-group list-group-flush card-height overflow-y-scroll">
             <li class="list-group-item fw-bold">
                 Username:
-                <span class="text-decoration-none fw-normal font-black">mushkir_96</span>
+                <span class="text-decoration-none fw-normal font-black"><?php echo $driverUsername; ?></span>
             </li>
             <li class="list-group-item d-md-flex align-items-center gap-2 pl-2 pt-0 pb-0 pe-0">
                 <p class="card-text mt-3 fw-bold">Email:</p>
-                <p class="card-text">bycylacoh@example.com</p>
+                <p class="card-text"><?php echo $driverEmail; ?></p>
             </li>
             <li class="list-group-item fw-bold">
                 Contact No:
-                <a href="tel:0000" class="text-decoration-none fw-normal font-black">0777195282</a>
+                <span class="text-decoration-none fw-normal font-black"><?php echo $driverPhoneNo; ?></span>
             </li>
 
             <li class="list-group-item fw-bold">
                 ID Card No:
-                <span class="text-decoration-none fw-normal font-black">199631404505</span>
+                <span class="text-decoration-none fw-normal font-black"><?php echo $driverIdCardNo; ?></span>
             </li>
 
             <li class="list-group-item fw-bold">
                 Start Time:
-                <span class="text-decoration-none fw-normal font-black">16:00</span>
+                <span class="text-decoration-none fw-normal font-black"><?php echo $startTime; ?></span>
             </li>
 
             <li class="list-group-item fw-bold">
                 End Time:
-                <span class="text-decoration-none fw-normal font-black">23:00</span>
+                <span class="text-decoration-none fw-normal font-black"><?php echo $endTime; ?></span>
             </li>
         </ul>
         <div class="card-body">
-            <a href="./edit-profile.html" class="card-link text-decoration-none">Edit
+            <a href="edit-profile.php" class="card-link text-decoration-none">Edit
             </a>
         </div>
     </div>

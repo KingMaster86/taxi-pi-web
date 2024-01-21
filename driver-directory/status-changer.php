@@ -29,7 +29,7 @@ if (isset($_GET['driverId'])) {
             if ($isRowsAffected == 1) {
                 $driverName = $arrayOfParsedDriverIdData['driver_name'];
 
-                echo "<script>alert('Hello" . $driverName . "! Your Status Changed as Busy State.')</script>";
+                echo "<script>alert('Hello " . $driverName . "! Your Status Changed as Busy State.')</script>";
                 echo "<script>window.open('homepage.php','_self')</script>";
             }
         } else {
@@ -40,7 +40,7 @@ if (isset($_GET['driverId'])) {
             if ($isRowsAffected == 1) {
                 $driverName = $arrayOfParsedDriverIdData['driver_name'];
 
-                echo "<script>alert('Hello" . $driverName . "! Your Status Changed as Available State.')</script>";
+                echo "<script>alert('Hello " . $driverName . "! Your Status Changed as Available State.')</script>";
                 echo "<script>window.open('homepage.php','_self')</script>";
             }
         }

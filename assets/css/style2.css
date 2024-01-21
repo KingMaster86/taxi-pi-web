@@ -39,6 +39,11 @@
   background: #6e6f6f !important;
 }
 
+.effect-black-hover:hover {
+  background: #313232 !important;
+  color: #f8f4ec !important;
+}
+
 /* Responsive for Admin Login Card */
 @media (min-width: 990px) {
   #driver-login-card {

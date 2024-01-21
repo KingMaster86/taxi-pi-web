@@ -14,10 +14,11 @@ body {
 }
 
 .hover-effect:hover {
-  background-color: #f0ad4e !important;
+  background-color: #ffc107;
   color: black !important;
-  border-radius: 10px !important;
-  transition: 500ms !important;
+  border-radius: 10px;
+  transition: 500ms;
+  font-weight: bold;
 }
 
 .height {

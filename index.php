@@ -191,7 +191,7 @@ session_start();
       <div class="col-12 col-md-6 p-5">
         <p class="fw-bold m-1">For Drivers</p>
         <h1 class="fw-bolder">Do you want to Earn with Us?</h3>
-          <a href="./SignUp/driver.php" target="_blank" class="btn btn-warning fw-bold mt-2">Become a Driver</a>
+          <a href="./sign-up/driver.php" target="_blank" class="btn btn-warning fw-bold mt-2">Become a Driver</a>
       </div>
 
       <div class="col-md-6 p-5">
