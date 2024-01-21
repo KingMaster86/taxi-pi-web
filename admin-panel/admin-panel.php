@@ -1,5 +1,6 @@
 <?php
 include('../includes/connect.php');
+session_start();
 
 ?>
 
@@ -94,7 +95,7 @@ include('../includes/connect.php');
                         <p class="fs-5 mb-1">Home</p>
                     </a>
                     <!-- Home -->
-                    <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="logout.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-right-from-bracket"></i>

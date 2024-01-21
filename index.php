@@ -1,3 +1,10 @@
+<?php
+include('./includes/connect.php');
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +67,7 @@
             </button>
             <ul class="dropdown-menu bg-black py-2">
               <li><a class="dropdown-item text-light hover-effect" href="./admin-panel/index.php">Admin</a></li>
-              <li><a class="dropdown-item text-light hover-effect" href="#">Driver</a></li>
+              <li><a class="dropdown-item text-light hover-effect" href="./driver-directory/login.php">Driver</a></li>
               <li><a class="dropdown-item text-light hover-effect" href="#">Passenger</a></li>
             </ul>
           </div>

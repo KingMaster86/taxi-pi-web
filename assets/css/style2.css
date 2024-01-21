@@ -26,3 +26,22 @@
 .background-black-color-secondary {
   background: #6e6f6f !important;
 }
+
+.font-grey {
+  color: #565657 !important;
+}
+
+.card-height {
+  height: 120px !important;
+}
+
+.grey-second-variant {
+  background: #6e6f6f !important;
+}
+
+/* Responsive for Admin Login Card */
+@media (min-width: 990px) {
+  #driver-login-card {
+    max-width: 700px !important;
+  }
+}

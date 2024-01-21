@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $insertDriverData = mysqli_query($con, $query);
     if ($insertDriverData) {
       echo "<script>alert('Account Created Successfully.')</script>";
+      echo "<script>window.open('../driver-directory/login.php','_self')</script>";
     }
   }
 }
@@ -148,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <!-- External CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
+<!-- <a href=""></a> -->
 
 <body class="overflow-x-hidden bg-external-white">
   <!-- Header Area -->
