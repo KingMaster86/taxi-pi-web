@@ -68,15 +68,15 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black-hover me-4 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
                     </ul>
 

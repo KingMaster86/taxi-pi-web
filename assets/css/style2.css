@@ -1,5 +1,5 @@
 .font-grey {
-  color: #d8d9da;
+  color: #414344 !important;
 }
 
 .card-height {
@@ -36,6 +36,11 @@
   background: #5a5a5a !important;
 }
 
+.effect-black:hover {
+  background: #313232;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
 /* Responsive for Admin Login Card */
 @media (min-width: 990px) {
   #driver-login-card {
