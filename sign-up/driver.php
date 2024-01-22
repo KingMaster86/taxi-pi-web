@@ -55,6 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $locationLongitudeEl = $longitudeValue;
   $driverWorkStartTimeEl = $_POST['work-start-time'];
   $driverWorkEndingTimeEl = $_POST['work-ending-time'];
+
+  // Driver Image related things.
+  $driverImageEl = $_FILES['driver-image']['name'];
+
+  // Accessing image using tmp_name.
+  $tempDriverImage = $_FILES['driver-image']['tmp_name'];
+
+
+
   $availabilityStatus = "available";
 
   $filterByPhoneNumber = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_phone_no = $driverPhoneNoEl");
@@ -73,6 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   } elseif ($isUsernameExist > 0) {
     echo "<script>alert('The Username already exist!')</script>";
   } else {
+
+    move_uploaded_file($tempDriverImage, "./driver-profile-picture/$driverImageEl");
+
+
     $query = "INSERT INTO `table_driver` (
       driver_name,
       driver_email,
@@ -87,7 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       end_time,
       driver_address_line,
       driver_city,
-      driver_country)
+      driver_country,
+      driver_image)
   
       VALUES
   
@@ -105,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '$driverWorkEndingTimeEl',
         '$driverAddressLineEl',
         '$driverCityNameEl',
-        '$driverCountryNameEl'
+        '$driverCountryNameEl',
+        '$driverImageEl'
       )
       ";
 
@@ -178,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <a class="nav-link text-white fs-5 rounded hover-effect me-4 px-3 fw-semibold" href="../contact-us.php">Contact Us</a>
             </li>
           </ul>
+          <!-- <a href=""></a> -->
 
           <!-- Login Button -->
           <div class="btn-group me-4">
@@ -223,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Sign Up Form -->
     <div class="mt-md-5">
-      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="background-grey p-2 p-sm-3 p-md-5 rounded-2" id="driver-signup-form">
+      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="background-grey p-2 p-sm-3 p-md-5 rounded-2" id="driver-signup-form" enctype="multipart/form-data">
         <div class="d-md-flex align-items-center gap-5">
           <!-- Name -->
           <div class="mb-3 w-100">
@@ -302,8 +318,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
         </div>
 
-        <!-- ID Card, Current Location -->
+        <!-- ID Card, Profile Image, Available Time Period -->
         <div class="d-md-flex align-items-cente mt-3 gap-5">
+          <!-- Driver Image -->
+          <div class="mb-3 w-100 ">
+            <label for="driver-image" class="form-label">Profile Image<span class="text-danger">*</span></label>
+            <div>
+              <input class="form-control" type="file" id="driver-image" name="driver-image">
+            </div>
+          </div>
+
           <!-- ID Card -->
           <div class="mb-3 w-100">
             <label for="driver-id-card-no" class="form-label font-bold-weight">ID Card No.<span class="text-danger">*</span></label>
@@ -513,6 +537,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
     );
 
+    validator.addField("#driver-image", [{
+        rule: 'minFilesCount',
+        value: 1,
+      },
+      {
+        rule: 'maxFilesCount',
+        value: 1,
+      },
+      {
+        rule: 'files',
+        value: {
+          files: {
+            types: ['image/png'],
+            extensions: ['png'],
+          },
+        },
+      },
+    ], {
+      errorLabelCssClass: ["error-msg-margin"],
+    });
+
+
     validator.addField("#work-start-time", [{
       rule: 'required',
     }], {
@@ -523,7 +569,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       rule: 'required'
     }], {
       errorLabelCssClass: ["error-msg-margin"],
-    })
+    });
 
     validator.onSuccess(() => {
       const signUpFormEl = document.getElementById("driver-signup-form");

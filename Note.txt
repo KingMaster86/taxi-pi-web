@@ -1,6 +1,7 @@
 Upcoming Features:
 1. Password Hide and Show in UI.
 2. Need to write instruction on Passenger & Driver Signup Page.
+3. Need to Implement Forgot Password feature.
 
 
 3. PHP Code to Show the location in Google Maps according to the $userLocation Variable.
@@ -43,3 +44,12 @@ function showLocationOnMap(location) {
 
 </body>
 </html>
+
+
+
+Need to do 
+1. Need to add Image upload option in Driver signup page. - COMPLETED.
+2. Do the changes in DB Code to add Image. - COMPLETED.
+2. Create Driver Option in Homepage / index.php - COMPLETED.
+3. Show all the drivers list based on their availability state
+4. Need to create Reserve form.

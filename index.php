@@ -1,7 +1,7 @@
 <?php
 include('./includes/connect.php');
 session_start();
-
+// echo $_SESSION['username'];
 ?>
 
 
@@ -48,15 +48,24 @@ session_start();
         <!-- Menu -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <!-- Home -->
             <li class="nav-item">
-              <a class="nav-link active text-white fs-5 rounded hover-effect me-4 px-3" aria-current="page" href="./index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white fs-5 rounded hover-effect me-4 px-3" href="./about-us.php">About</a>
+              <a class="nav-link active text-white fs-5 rounded hover-effect me-2 px-3" aria-current="page" href="./index.php">Home</a>
             </li>
 
+            <!-- Pick a Driver -->
             <li class="nav-item">
-              <a class="nav-link text-white fs-5 rounded hover-effect me-4 px-3" href="./contact-us.php">Contact Us</a>
+              <a class="nav-link active text-white fs-5 rounded hover-effect me-2 px-3" aria-current="page" href="./select-driver.php">Pick a Driver</a>
+            </li>
+
+            <!-- About -->
+            <li class="nav-item">
+              <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./about-us.php">About</a>
+            </li>
+
+            <!-- Contact Us -->
+            <li class="nav-item">
+              <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./contact-us.php">Contact Us</a>
             </li>
           </ul>
 
@@ -79,8 +88,10 @@ session_start();
             </button>
             <ul class="dropdown-menu bg-black py-2">
               <li><a class="dropdown-item text-light hover-effect" href="./sign-up/driver.php">Driver</a></li>
+
               <li><a class="dropdown-item text-light hover-effect" href="./sign-up/customer.php">Passenger</a></li>
             </ul>
+            <!-- <a href=""></a> -->
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <!-- 
     Storyline
-    1. Get the driver_id from table_driver
+    1. Get the driver_id from table_driver using $_GET[]
     2. Send that id as GET variable to 'status-changer.php'
     3. Using that variable need to access `table_driver`
     4. Fetch the 'availability_status' from `table_driver` based on recieved driver_id.
