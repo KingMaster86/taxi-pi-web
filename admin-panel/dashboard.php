@@ -21,7 +21,7 @@ include('../includes/connect.php');
                     <h5 class="card-title fw-bold font-black">
                         Total Passengers
                     </h5>
-                    <i class="fa-solid fa-users white-variant-secondary p-2 rounded-5"></i>
+                    <i class="fa-solid fa-users bg-secondary text-light p-2 rounded-5"></i>
                 </div>
                 <h1 class="font-black">05</h1>
                 <a href="#" class="card-link text-decoration-none">View All Passengers</a>
@@ -33,7 +33,7 @@ include('../includes/connect.php');
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title fw-bold font-black">Total Drivers</h5>
-                    <i class="fa-solid fa-id-card white-variant-secondary p-2 rounded-5"></i>
+                    <i class="fa-solid fa-id-card bg-secondary text-light p-2 rounded-5"></i>
                 </div>
                 <h1 class="font-black">05</h1>
                 <a href="#" class="card-link text-decoration-none">View All Drivers</a>

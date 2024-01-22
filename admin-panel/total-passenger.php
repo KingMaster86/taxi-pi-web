@@ -30,7 +30,8 @@ include('../includes/connect.php');
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
-    <link rel="stylesheet" href="../assets/css/style2.css">
+    <link rel="stylesheet" href="../assets/css/style2.css" />
+    <!-- <link rel="stylesheet" href="../assets/css/style3.css" /> -->
 </head>
 
 <body class="overflow-x-hidden bg-warning container-fluid">

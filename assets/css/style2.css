@@ -18,7 +18,7 @@
 }
 
 .hover-yellow-effect:hover {
-  background: #ffc107;
+  background: #ffc107 !important;
   transition: 500ms;
 }
 
@@ -30,6 +30,10 @@
 .hover-black-effect:hover {
   background: #454646 !important;
   font-weight: 700;
+}
+
+.background-black-color-secondary {
+  background: #5a5a5a !important;
 }
 
 /* Responsive for Admin Login Card */

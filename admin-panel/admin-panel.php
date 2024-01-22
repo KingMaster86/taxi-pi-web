@@ -32,6 +32,7 @@ session_start();
     <!-- External CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/style2.css">
+    <link rel="stylesheet" href="../assets/css/style3.css">
 </head>
 
 <body class="overflow-x-hidden container-fluid bg-warning">
@@ -42,7 +43,7 @@ session_start();
                 <!-- Admin Profile Pic -->
                 <div class="d-md-flex justify-content-center align-items-center gap-2">
                     <div>
-                        <img src="../assets/img/406880331_369106048863056_7316214919984039805_n.jpg" class="img-fluid admin-img-width-and-height" alt="Admin Profile Picture" />
+                        <img src="../assets/img/406880331_369106048863056_7316214919984039805_n.jpg" class="img-fluid width-of-admin-prof" alt="Admin Profile Picture" />
                     </div>
                     <div>
                         <h3 class="text-warning fw-semibold">Mushkir</h3>
@@ -52,7 +53,7 @@ session_start();
                 <!-- Admin Dashboard Menu -->
                 <div class="d-flex justify-content-center align-items-center gap-5 ">
                     <!-- Overview -->
-                    <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-gauge fs-5"></i>
@@ -63,7 +64,7 @@ session_start();
                     </a>
 
                     <!-- Passengers -->
-                    <a href="admin-panel.php?passengers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="admin-panel.php?passengers" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-users"></i>
@@ -74,7 +75,7 @@ session_start();
                     </a>
 
                     <!-- Drivers -->
-                    <a href="admin-panel.php?drivers" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="admin-panel.php?drivers" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-id-card"></i>
@@ -85,7 +86,7 @@ session_start();
                     </a>
 
                     <!-- Logout -->
-                    <a href="../index.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="../index.php" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-home"></i>
@@ -95,7 +96,7 @@ session_start();
                         <p class="fs-5 mb-1">Home</p>
                     </a>
                     <!-- Home -->
-                    <a href="logout.php" class="d-md-flex align-items-center font-grey-color gap-3 btn mt-4">
+                    <a href="logout.php" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-right-from-bracket"></i>
