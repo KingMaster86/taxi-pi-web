@@ -51,5 +51,5 @@ Need to do
 1. Need to add Image upload option in Driver signup page. - COMPLETED.
 2. Do the changes in DB Code to add Image. - COMPLETED.
 2. Create Driver Option in Homepage / index.php - COMPLETED.
-3. Show all the drivers list based on their availability state
+3. Show all the drivers list based on their availability state - COMPLETED.
 4. Need to create Reserve form.

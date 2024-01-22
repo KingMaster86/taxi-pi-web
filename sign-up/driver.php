@@ -545,15 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         rule: 'maxFilesCount',
         value: 1,
       },
-      {
-        rule: 'files',
-        value: {
-          files: {
-            types: ['image/png'],
-            extensions: ['png'],
-          },
-        },
-      },
+
     ], {
       errorLabelCssClass: ["error-msg-margin"],
     });
@@ -579,3 +571,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
+
+<!-- {
+        rule: 'files',
+        value: {
+          files: {
+            types: ['image/png'],
+            extensions: ['png'],
+          },
+        },
+      }, -->
