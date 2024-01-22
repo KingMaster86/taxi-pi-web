@@ -1,34 +1,5 @@
-.admin-img-width-and-height {
-  width: 50px !important;
-  height: 50px !important;
-  object-fit: cover !important;
-  border-radius: 50% !important;
-}
-
-.font-grey-color {
-  color: #d8d9da;
-}
-
-.font-grey-color:hover {
-  background-color: #ffc107;
-  color: #313232 !important;
-  font-weight: 700;
-}
-
-.dashboard-card:hover {
-  background: #ffc107;
-}
-
-.white-variant-secondary {
-  background: #dcdcdc !important;
-}
-
-.background-black-color-secondary {
-  background: #6e6f6f !important;
-}
-
 .font-grey {
-  color: #565657 !important;
+  color: #d8d9da;
 }
 
 .card-height {
@@ -39,9 +10,26 @@
   background: #6e6f6f !important;
 }
 
-.effect-black-hover:hover {
-  background: #313232 !important;
-  color: #f8f4ec !important;
+.profile-width {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hover-yellow-effect:hover {
+  background: #ffc107;
+  transition: 500ms;
+}
+
+.hover-white-effect:hover {
+  background: #f8f4ec !important;
+  font-weight: 700;
+}
+
+.hover-black-effect:hover {
+  background: #454646 !important;
+  font-weight: 700;
 }
 
 /* Responsive for Admin Login Card */
@@ -51,7 +39,6 @@
   }
 }
 
-/* Responsive for Driver Profile Card */
 @media (min-width: 560px) {
   #driver-profile-card {
     width: 25rem !important;
