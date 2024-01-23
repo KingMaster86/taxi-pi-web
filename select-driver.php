@@ -1,5 +1,8 @@
 <?php
 include('./includes/connect.php');
+session_start();
+
+// echo $_SESSION['passengerUsername'];
 
 ?>
 
@@ -33,6 +36,7 @@ include('./includes/connect.php');
   <!-- External CSS -->
   <link rel="stylesheet" href="./assets/css/style.css" />
   <link rel="stylesheet" href="./assets/css/style2.css" />
+  <link rel="stylesheet" href="./assets/css/style3.css" />
 </head>
 
 <body class="overflow-x-hidden bg-external-white">
@@ -90,7 +94,7 @@ include('./includes/connect.php');
 
   <!-- Body -->
   <main class="container-fluid px-2 px-sm-3 px-md-5 pb-5">
-    <h3 class="text-center mt-5">Here you can explore all our currently available Drivers</h3>
+    <h3 class="text-center mt-5">Here you can explore our all currently available Drivers. 👇</h3>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
       <?php
 
@@ -113,6 +117,8 @@ include('./includes/connect.php');
           $driverPhoneNo = $arrayOfAvailableDrivers['driver_phone_no'];
           $locationLatitude = $arrayOfAvailableDrivers['location_latitude'];
           $locationLongitude = $arrayOfAvailableDrivers['location_longitude'];
+          $startTime = $arrayOfAvailableDrivers['start_time'];
+          $endTime = $arrayOfAvailableDrivers['end_time'];
 
           $driverCurrentLocation = $locationLatitude . "," . $locationLongitude;
 
@@ -127,14 +133,14 @@ include('./includes/connect.php');
               <div class="card-body d-md-flex gap-1 align-items-start">
                 <!-- Name & Address Div -->
                 <div>
-                  <h5 class="card-title fw-semibold text-center text-md-start">
+                  <h5 class="card-title fw-semibold text-capitalize text-center text-md-start">
                     <?php echo $driverName; ?>
                   </h5>
-                  <p class="card-text text-center text-md-start">
+                  <p class="card-text text-center text-capitalize text-md-start">
                     📍 No. <?php echo $driverAddressLine . ", " . $driverCity . ", " . $driverCountry ?>
                   </p>
                 </div>
-
+                <!-- <a href="" class=""></a> -->
                 <!-- Available Status Div -->
                 <div class="bg-success px-3 py-1 rounded-5 text-light mt-2 mt-md-0 text-center">
                   Available
@@ -145,14 +151,52 @@ include('./includes/connect.php');
               <div class="card-body pb-0 pt-0">
                 <p class="fw-semibold text-center text-md-left d-md-flex align-items-center gap-3">
                   Contact Number:
-                  <a href="tel:<?php $driverPhoneNo; ?>" class="text-decoration-none text-secondary"><?php echo $driverPhoneNo; ?></a>
+                  <a href="tel:<?php $driverPhoneNo; ?>" class="text-decoration-none hover-color-black text-secondary">0<?php echo $driverPhoneNo; ?></a>
                 </p>
               </div>
+
+              <!-- Start Time -->
+              <div class="card-body d-md-flex justify-content-between pb-0 pt-0">
+                <p class="fw-semibold text-center text-md-left d-md-flex align-items-center gap-2">
+                  Start Time:
+                  <span class=fw-normal><?php echo $startTime; ?></span>
+                </p>
+
+                <p class="fw-semibold text-center text-md-left d-md-flex align-items-center gap-2">
+                  End Time:
+                  <span class=fw-normal><?php echo $endTime; ?></span>
+                </p>
+              </div>
+
+
 
               <!-- Locate & Reserve Button Div -->
               <div class="d-md-flex justify-content-between gap-2 align-items-center pb-3 p-2">
                 <div class="w-100 mb-3">
-                  <a href="#" class="btn bg-warning hover-white-effect w-100"><i class="fa-solid fa-taxi"></i> Reserve for Ride</a>
+                  <?php
+                  if (!isset($_SESSION['passengerUsername'])) {
+                    echo "<a href='./passenger-directory/passenger-login.php' class='btn bg-warning hover-white-effect w-100'><i class='fa-solid fa-taxi'></i> Reserve for Ride</a>";
+                  } else {
+                    $sessionPassengerUsername = $_SESSION['passengerUsername'];
+
+                    // Storyline
+                    // 1. Get all the passenger details from DB.
+                    $fetchPassengersAllDetailFromDB = mysqli_query($con, "SELECT * FROM `table_passenger` WHERE passenger_username = '$sessionPassengerUsername'");
+                    $arrayOfSessionPassenger = mysqli_fetch_assoc($fetchPassengersAllDetailFromDB);
+                    $isSessionPassengerExist = mysqli_num_rows($fetchPassengersAllDetailFromDB);
+
+                    // 2. Check that if any record exists with $_SESSION['passengerName'] in DB.
+                    if ($isSessionPassengerExist > 0) {
+
+                      // 3. If that exists, Need to get that passenger's id from DB.
+                      $passengerId = $arrayOfSessionPassenger['id'];
+
+                      // 4. Send that passengerId with driverId to reservation.php file.
+                      echo "<a href='./reservation.php?driverId=$driverId&passengerId=$passengerId' class='btn bg-warning hover-white-effect w-100'><i class='fa-solid fa-taxi'></i> Reserve for Ride</a>";
+                    }
+                  }
+                  ?>
+                  <!-- <a href="" class="btn bg-warning hover-white-effect w-100"><i class="fa-solid fa-taxi"></i> Reserve for Ride</a> -->
                 </div>
                 <div class="w-100 mb-3">
                   <a href="<?php echo "https://www.google.com/maps?q= " . $driverCurrentLocation; ?>" target="_blank" class="text-decoration-none btn hover-black-effect background-black-color text-light w-100"><i class="fa-solid fa-location-arrow"></i> Show Location </a>

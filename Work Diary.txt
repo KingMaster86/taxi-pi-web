@@ -47,9 +47,13 @@ function showLocationOnMap(location) {
 
 
 
-Need to do 
-1. Need to add Image upload option in Driver signup page. - COMPLETED.
-2. Do the changes in DB Code to add Image. - COMPLETED.
-2. Create Driver Option in Homepage / index.php - COMPLETED.
-3. Show all the drivers list based on their availability state - COMPLETED.
-4. Need to create Reserve form.
+To do:
+1. Need to Create Passenger Login Page. - COMPLETED.
+2. Need to create Passenger Dashboard. - PENDING.
+3. Need to check the follwing condition in Pick a Driver Page:
+    3.1 Ensure that the passenger loggedin or not using session. - COMPLETED.
+    3.2 Need to redirect Reserve form, if the passenger loggedin, else it need to ask with passenger to Login. - COMPLETED.
+    3.3 If completed step 3.2, Need to do Reservation Page. - COMPLETED.
+4. Need to create Reserve form. - PENDING.
+5. Implement the Reservation Process. - PENDING.
+

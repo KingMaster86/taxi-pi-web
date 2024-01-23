@@ -1,0 +1,5 @@
+Completed Tasks:
+1. Need to add Image upload option in Driver signup page. - COMPLETED.
+2. Do the changes in DB Code to add Image. - COMPLETED.
+3. Create Driver Option in Homepage / index.php - COMPLETED.
+4. Show all the drivers list based on their availability state - COMPLETED.
