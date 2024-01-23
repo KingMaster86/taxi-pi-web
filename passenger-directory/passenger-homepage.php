@@ -2,8 +2,21 @@
 include('../includes/connect.php');
 session_start();
 
-
 // echo $_SESSION['passengerUsername'];
+// Todo: Need to Update Passenger Ride status based on Beginning & Ending of Taxi Ride.
+// * Storyline
+// * 1. Need to get passenger_id from `table_passenger`. Using SESSION, we can fetch all the detail.
+$sessionPassengerUsername = $_SESSION['passengerUsername'];
+
+$fetchAllDetailsOfPassengerUsername = mysqli_query($con, "SELECT id FROM `table_passenger` WHERE passenger_username = '$sessionPassengerUsername'");
+$arrayOfPassengerDetail = mysqli_fetch_assoc($fetchAllDetailsOfPassengerUsername);
+
+$isPassengerUsernameExist = mysqli_num_rows($fetchAllDetailsOfPassengerUsername);
+if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
+  $passengerId = $arrayOfPassengerDetail['id'];
+  // echo $passengerId;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +83,7 @@ session_start();
             </li>
 
             <li class="nav-item">
-              <a class="nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold" href="">On Process</a>
+              <a class="nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold" href="status-changer.php?passenger_id=<?php echo $passengerId; ?>">On Process</a>
             </li>
           </ul>
         </div>

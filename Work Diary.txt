@@ -1,8 +1,8 @@
 Upcoming Features:
 1. Password Hide and Show in UI.
 2. Need to write instruction on Passenger & Driver Signup Page.
-3. Need to Implement Forgot Password feature.
-4. 
+3. Need to Implement Forgot Password feature with OTP.
+4. Need to implement Edit profile feature.
 
 
 3. PHP Code to Show the location in Google Maps according to the $userLocation Variable.
@@ -49,13 +49,6 @@ function showLocationOnMap(location) {
 
 
 To do:
-1. Need to Create Passenger Login Page. - COMPLETED. 
-2. Need to check the following condition in Pick a Driver Page:
-    3.1 Ensure that the passenger loggedin or not using session. - COMPLETED.
-    3.2 Need to redirect Reserve form, if the passenger loggedin, else it need to ask with passenger to Login. - COMPLETED.
-    3.3 If completed step 3.2, Need to do Reservation Page. - COMPLETED.
-3. Need to create Reserve form. - COMPLETED.
-4. Implement the Reservation Process. - COMPLETED.
-5. Need to create Passenger Dashboard. - COMPLETED.
-6. Need to Add Passesnger Reservation Status Showing in Dashboard. - PENDING.
-7. Need to implement Passenger Profile detail in dynamically. - PENDING.
+1. Need to fix alert message when passeger state changed.
+2. Need to implement History Option in Passenger Dashboard.
+3. Need to implement On process hide when status chnaged into complete.

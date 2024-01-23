@@ -27,10 +27,10 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
         <img src="../assets/img/admin-clipart.jpg" class="card-img-top" alt="..." />
         <div class="card-body d-md-flex gap-1 align-items-start">
             <div>
-                <h5 class="card-title"><?php echo $passengerName; ?></h5>
-                <p class="card-text">
+                <h5 class="card-title text-center text-md-start fw-semibold "><?php echo $passengerName; ?></h5>
+                <p class="card-text text-center text-md-start">
                     <!-- No. 751 East Milton Drive, Kandy, Sri Lanka -->
-                    No. <?php echo $passengerAddressLine; ?>, <?php echo $passengerCity; ?>, <?php echo $passengerCountry; ?>.
+                    📍 No. <?php echo $passengerAddressLine; ?>, <?php echo $passengerCity; ?>, <?php echo $passengerCountry; ?>.
                 </p>
             </div>
         </div>
