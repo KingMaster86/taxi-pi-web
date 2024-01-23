@@ -1,3 +1,20 @@
+<?php
+include('./includes/connect.php');
+session_start();
+
+// Getting Passenger Name from Passenger Table
+// echo $_SESSION['passengerUsername'];
+$sessionPassengerUsername = $_SESSION['passengerUsername'];
+
+$getUsernameFromDB = mysqli_query($con, "SELECT passenger_name FROM `table_passenger` WHERE passenger_username = '$sessionPassengerUsername'");
+$arrayOfPassengerUsername = mysqli_fetch_assoc($getUsernameFromDB);
+
+$isUsernameExist = mysqli_num_rows($getUsernameFromDB);
+if ($isUsernameExist == 1) {
+  $passengerName = $arrayOfPassengerUsername['passenger_name'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,6 +119,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
   <!-- End -->
+
   <!-- JavaScript Validation for Inputs -->
   <script>
     const passengerReservationFormEl = document.querySelector(
@@ -164,3 +182,52 @@
 </body>
 
 </html>
+
+<!-- PHP Code to Process Reservation -->
+<?php
+// Storyline
+// 1. Get the driverId & passengerId from using $_GET;
+if (isset($_GET['driverId'])) {
+  if (isset($_GET['passengerId'])) {
+
+    $parsedDriverId = $_GET['driverId'];
+    $parsedPassengerId = $_GET['passengerId'];
+  }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // 2. Get the details of Reservation process from Form.
+  $passengerPickupLocationEl = $_POST['passenger-pickup-location'];
+  $passengerDropLocationEl = $_POST['passenger-drop-location'];
+  $dateAndTimeOfReservationEl = $_POST['date-and-time-of-reservation'];
+  $reservationStatus = "on process";
+
+  // 3. Store in those datas in DB.
+  $makeReserveTaxi = mysqli_query(
+    $con,
+    "INSERT INTO `table_reservation` 
+    (
+      pickup_location, 
+      drop_location, 
+      reservation_status,
+      driver_id,
+      passenger_id
+    ) 
+    VALUES 
+    (
+      '$passengerPickupLocationEl',
+      '$passengerDropLocationEl',
+      '$reservationStatus',
+      $parsedDriverId,
+      $parsedPassengerId
+    )"
+  );
+
+  // $isReserved = mysqli_affected_rows($con);
+  if ($makeReserveTaxi) {
+    // echo "<script>alert('Hi ' . $passengerName . '! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
+    echo "<script>alert('Hi $passengerName! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
+    echo "<script>window.open('./passenger-directory/passenger-homepage.php','_self')</script>";
+  }
+}
+?>

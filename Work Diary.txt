@@ -49,12 +49,12 @@ function showLocationOnMap(location) {
 
 
 To do:
-1. Need to Create Passenger Login Page. - COMPLETED.
-2. Need to create Passenger Dashboard. - PENDING.
-3. Need to check the following condition in Pick a Driver Page:
+1. Need to Create Passenger Login Page. - COMPLETED. 
+2. Need to check the following condition in Pick a Driver Page:
     3.1 Ensure that the passenger loggedin or not using session. - COMPLETED.
     3.2 Need to redirect Reserve form, if the passenger loggedin, else it need to ask with passenger to Login. - COMPLETED.
     3.3 If completed step 3.2, Need to do Reservation Page. - COMPLETED.
-4. Need to create Reserve form. - COMPLETED.
-5. Implement the Reservation Process. - PENDING.
-
+3. Need to create Reserve form. - COMPLETED.
+4. Implement the Reservation Process. - COMPLETED.
+5. Need to create Passenger Dashboard. - PENDING.
+6. Need to Add Passesnger Reservation Status Showing in Dashboard. - PENDING.

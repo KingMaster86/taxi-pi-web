@@ -571,13 +571,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<!-- {
-        rule: 'files',
-        value: {
-          files: {
-            types: ['image/png'],
-            extensions: ['png'],
-          },
-        },
-      }, -->

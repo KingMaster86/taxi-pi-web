@@ -53,7 +53,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
 
 <body class="overflow-x-hidden background-black-color">
     <!-- Header Area -->
-    <header class="container-fluid bg-warning ">
+    <header class="container-fluid bg-warning">
         <nav class="navbar navbar-expand-lg container py-3">
             <div class="container-fluid">
                 <!-- Logo -->
