@@ -53,7 +53,7 @@ session_start();
                 <!-- Admin Dashboard Menu -->
                 <div class="d-flex justify-content-center align-items-center gap-5 ">
                     <!-- Overview -->
-                    <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
+                    <a href="admin-panel.php?dashboard" class="d-md-flex align-items-center hover-effect text-light  gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-gauge fs-5"></i>
@@ -64,7 +64,7 @@ session_start();
                     </a>
 
                     <!-- Passengers -->
-                    <a href="admin-panel.php?passengers" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
+                    <a href="admin-panel.php?passengers" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-users"></i>
@@ -75,7 +75,7 @@ session_start();
                     </a>
 
                     <!-- Drivers -->
-                    <a href="admin-panel.php?drivers" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
+                    <a href="admin-panel.php?drivers" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-id-card"></i>
@@ -86,7 +86,7 @@ session_start();
                     </a>
 
                     <!-- Logout -->
-                    <a href="../index.php" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
+                    <a href="../index.php" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-home"></i>
@@ -96,7 +96,7 @@ session_start();
                         <p class="fs-5 mb-1">Home</p>
                     </a>
                     <!-- Home -->
-                    <a href="logout.php" class="d-md-flex align-items-center hover-effect font-grey gap-3 btn mt-4">
+                    <a href="logout.php" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
                         <!-- Icon -->
                         <div>
                             <i class="fa-solid fa-right-from-bracket"></i>

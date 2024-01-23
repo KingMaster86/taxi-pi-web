@@ -1,6 +1,6 @@
 <?php
-// include('../includes/connect.php');
-// session_start();
+include('../includes/connect.php');
+session_start();
 
 
 // echo $_SESSION['passengerUsername'];
@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold" href="#">On Process</a>
+              <a class="nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold" href="">On Process</a>
             </li>
           </ul>
         </div>

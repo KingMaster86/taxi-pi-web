@@ -56,5 +56,6 @@ To do:
     3.3 If completed step 3.2, Need to do Reservation Page. - COMPLETED.
 3. Need to create Reserve form. - COMPLETED.
 4. Implement the Reservation Process. - COMPLETED.
-5. Need to create Passenger Dashboard. - PENDING.
+5. Need to create Passenger Dashboard. - COMPLETED.
 6. Need to Add Passesnger Reservation Status Showing in Dashboard. - PENDING.
+7. Need to implement Passenger Profile detail in dynamically. - PENDING.

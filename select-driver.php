@@ -2,11 +2,7 @@
 include('./includes/connect.php');
 session_start();
 
-if ($con) {
-  echo "ih";
-}
-
-echo $_SESSION['passengerUsername'];
+// echo $_SESSION['passengerUsername'];
 
 ?>
 

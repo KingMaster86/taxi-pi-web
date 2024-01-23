@@ -80,7 +80,7 @@ include('../includes/connect.php');
                     $driverCountry = $arrayOfDriverDetails['driver_country'];
 
 
-                    $driverLocation = $locationLatitude . "," . $locationLongitude; // *Merging Latitude & Longitude values into $driverLocation Variable.
+                    $driverLocation = $locationLatitude . "," . $locationLongitude; // * Merging Latitude & Longitude values into $driverLocation Variable.
 
                     if ($availabilityStatus == "available") {
                         $statusReadableFormat = "Available";
@@ -111,7 +111,7 @@ include('../includes/connect.php');
                             <?php echo $statusReadableFormat; ?>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
-                            <button class="btn font-grey-color" onclick="showLocationOnMap('<?php echo $driverLocation; ?>')"><i class="fa-solid fa-location-crosshairs"></i> Locate</button>
+                            <button class="btn hover-effect font-white-secondary" onclick="showLocationOnMap('<?php echo $driverLocation; ?>')"><i class="fa-solid fa-location-arrow"></i> </button>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
                             <?php echo $startTime; ?>

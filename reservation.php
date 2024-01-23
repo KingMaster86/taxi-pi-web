@@ -200,6 +200,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $passengerPickupLocationEl = $_POST['passenger-pickup-location'];
   $passengerDropLocationEl = $_POST['passenger-drop-location'];
   $dateAndTimeOfReservationEl = $_POST['date-and-time-of-reservation'];
+
+
   $reservationStatus = "on process";
 
   // 3. Store in those datas in DB.
@@ -211,7 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       drop_location, 
       reservation_status,
       driver_id,
-      passenger_id
+      passenger_id,
+      ride_start_time,
+      ride_end_time
     ) 
     VALUES 
     (
@@ -219,7 +223,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       '$passengerDropLocationEl',
       '$reservationStatus',
       $parsedDriverId,
-      $parsedPassengerId
+      $parsedPassengerId,
+      '$dateAndTimeOfReservationEl',
+      NOW()
     )"
   );
 

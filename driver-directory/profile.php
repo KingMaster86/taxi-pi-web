@@ -31,7 +31,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
 
 <div class="mx-auto p-2 p-md-5">
     <div class="card mx-auto bg-external-white" id="driver-profile-card">
-        <img src="../assets/img/admin-clipart.jpg" class="card-img-top" alt="..." />
+        <img src="../assets/img/admin-clipart.jpg" class="card-img-top" alt="" />
         <div class="card-body d-md-flex gap-1 align-items-start">
             <div>
                 <h5 class="card-title"><?php echo $driverName; ?></h5>
