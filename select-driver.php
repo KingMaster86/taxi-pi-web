@@ -2,7 +2,11 @@
 include('./includes/connect.php');
 session_start();
 
-// echo $_SESSION['passengerUsername'];
+if ($con) {
+  echo "ih";
+}
+
+echo $_SESSION['passengerUsername'];
 
 ?>
 
@@ -137,7 +141,7 @@ session_start();
                     <?php echo $driverName; ?>
                   </h5>
                   <p class="card-text text-center text-capitalize text-md-start">
-                    📍 No. <?php echo $driverAddressLine . ", " . $driverCity . ", " . $driverCountry ?>
+                    📍 No. <?php echo $driverAddressLine . ", " . $driverCity . ", " . $driverCountry . "."; ?>
                   </p>
                 </div>
                 <!-- <a href="" class=""></a> -->
@@ -151,7 +155,7 @@ session_start();
               <div class="card-body pb-0 pt-0">
                 <p class="fw-semibold text-center text-md-left d-md-flex align-items-center gap-3">
                   Contact Number:
-                  <a href="tel:<?php $driverPhoneNo; ?>" class="text-decoration-none hover-color-black text-secondary">0<?php echo $driverPhoneNo; ?></a>
+                  <a href="tel:<?php echo $driverPhoneNo; ?>" class="text-decoration-none hover-color-black text-secondary">0<?php echo $driverPhoneNo; ?></a>
                 </p>
               </div>
 

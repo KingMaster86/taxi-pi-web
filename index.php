@@ -102,7 +102,7 @@ session_start();
       <h3 class="text-warning fw-semibold text-uppercase">
         Book your Taxi Now
       </h3>
-      <a href="tel:+12345678900" class="text-white text-decoration-none fs-1 fw-bold"><i class="fa-solid fa-mobile-screen"></i> +123 4567 8900</a>
+      <a href="tel:+12345678900" class="text-white text-decoration-none fs-1 fw-bold"><i class="fa-solid fa-mobile-screen"></i> +94 754946927</a>
     </div>
   </div>
 

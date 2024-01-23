@@ -41,6 +41,16 @@
   color: #fff !important;
   font-weight: 700 !important;
 }
+
+.font-black-secondary {
+  color: #373838;
+}
+
+.form-width {
+  width: 600px;
+  margin: auto;
+}
+
 /* Responsive for Admin Login Card */
 @media (min-width: 990px) {
   #driver-login-card {
@@ -54,16 +64,6 @@
   }
 }
 
-.font-black-secondary {
-  color: #373838;
-}
-
-.form-width {
-  width: 600px;
-  margin: auto;
-}
-
-/* New Entry */
 /* Reservation Form Responsiveness */
 @media (max-width: 768px) {
   .form-width {
