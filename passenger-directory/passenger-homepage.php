@@ -16,7 +16,6 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
   $passengerId = $arrayOfPassengerDetail['id'];
   // echo $passengerId;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +82,19 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold" href="status-changer.php?passenger_id=<?php echo $passengerId; ?>">On Process</a>
+              <?php
+              $getStatusOfTrip = mysqli_query($con, "SELECT * FROM `table_reservation` WHERE passenger_id = $passengerId AND reservation_status = 'on process'");
+
+              $isStatusExist = mysqli_num_rows($getStatusOfTrip);
+              if ($isStatusExist == 1) {
+                $arrayOfStatus = mysqli_fetch_assoc($getStatusOfTrip);
+                $onProcessState = $arrayOfStatus['reservation_status'];
+
+                if ($onProcessState == "on process") {
+                  echo "<a class='nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold' href='status-changer.php?passenger_id={$passengerId}'>On Process</a>";
+                }
+              }
+              ?>
             </li>
           </ul>
         </div>

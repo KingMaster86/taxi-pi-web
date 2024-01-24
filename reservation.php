@@ -194,6 +194,8 @@ if (isset($_GET['driverId'])) {
     $parsedPassengerId = $_GET['passengerId'];
   }
 }
+date_default_timezone_set('Asia/Kolkata');
+$currentDateTime = date('Y-m-d - h:i:sa');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // 2. Get the details of Reservation process from Form.
@@ -225,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $parsedDriverId,
       $parsedPassengerId,
       '$dateAndTimeOfReservationEl',
-      NOW()
+      '$currentDateTime'
     )"
   );
 

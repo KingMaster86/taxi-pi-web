@@ -49,6 +49,9 @@ function showLocationOnMap(location) {
 
 
 To do:
-1. Need to fix alert message when passeger state changed.
-2. Need to implement History Option in Passenger Dashboard.
-3. Need to implement On process hide when status chnaged into complete.
+1. Need to fix alert message when passeger state changed. - COMPLETED.
+2. Need to implement History Option in Passenger Dashboard. - PENDING.
+3. Need to implement On process hide when status chnaged into complete. - COMPLETED.
+4. Need to add Make your payment option in dashboard & design Payment UI. - PENDING.
+5. Need to implement payment feature. - PENDING.
+6. Need to implement Dashboard as empty. - PENDING.

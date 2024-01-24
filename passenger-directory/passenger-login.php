@@ -102,6 +102,7 @@ session_start();
 
         validator.onSuccess(() => {
             passengerLoginFormEl.submit();
+            console.log("Success");
             passengerLoginFormEl.reset();
         })
     </script>
@@ -127,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['passengerUsername'] = $passengerUsernameEl;
 
             $passengerName = $arrayOfPassengerData['passenger_name'];
-            echo "<script>alert('Welcome ' . $passengerName . '! Your Login process successfully processed.')</script>";
+            echo "<script>alert('Welcome, $passengerName! Your login process was successful.')</script>";
             echo "<script>window.open('passenger-homepage.php','_self')</script>";
         } else {
             echo "<script>alert('Please reverify your password!.')</script>";
