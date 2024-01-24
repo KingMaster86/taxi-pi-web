@@ -47,6 +47,8 @@ function showLocationOnMap(location) {
 </html>
 
 
+Need to work location related works again.
+https://console.cloud.google.com/home/dashboard?project=calm-producer-412212
 
 To do:
 1. Need to fix alert message when passeger state changed. - COMPLETED.

@@ -51,7 +51,7 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
 
 <body class="overflow-x-hidden background-black-color">
   <!-- Header Area -->
-  <header class="container-fluid bg-warning">
+  <header class="container-fluid bg-light">
     <nav class="navbar navbar-expand-lg container py-3">
       <div class="container-fluid">
         <!-- Logo -->
@@ -74,26 +74,36 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link font-black fs-5 rounded effect-black me-2 px-3 fw-semibold" href="../select-driver.php"><i class="fa-solid fa-taxi"></i> Reserve a Taxi</a>
+              <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="../select-driver.php"><i class="fa-solid fa-taxi"></i> Reserve a Taxi</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link font-black fs-5 rounded effect-black me-2 px-3 fw-semibold" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+              <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </li>
 
             <li class="nav-item">
+              <!-- 
+                Logic of Status
+                1. 
+
+               -->
               <?php
               $getStatusOfTrip = mysqli_query($con, "SELECT * FROM `table_reservation` WHERE passenger_id = $passengerId AND reservation_status = 'on process'");
 
               $isStatusExist = mysqli_num_rows($getStatusOfTrip);
               if ($isStatusExist == 1) {
                 $arrayOfStatus = mysqli_fetch_assoc($getStatusOfTrip);
+
+                $reservationId = $arrayOfStatus['reservation_id'];
                 $onProcessState = $arrayOfStatus['reservation_status'];
 
                 if ($onProcessState == "on process") {
-                  echo "<a class='nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold' href='status-changer.php?passenger_id={$passengerId}'>On Process</a>";
+                  echo "<a class='nav-link bg-danger text-light btn fs-5 me-2 px-3 fw-semibold' href='./payment/payment.php?reservation_id={$reservationId}'><i class='fa-solid fa-hand-point-up'></i> Tap & Pay.</a>";
                 }
               }
+              // else {
+              //   echo "<a class='nav-link bg-success text-light btn fs-5 me-2 px-3 fw-semibold' href='./payment/payment.php?passenger_id={$passengerId}'> Tap to Pay</a>";
+              // }
               ?>
             </li>
           </ul>
@@ -102,6 +112,7 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
     </nav>
   </header>
   <!-- End -->
+  <a href=""></a>
 
   <main>
     <div class="row">

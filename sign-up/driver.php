@@ -1,22 +1,21 @@
 <?php
 include('../includes/connect.php');
 include('../includes/function.php');
-// if ($con) {
-//   echo var_dump("Perfect");
-// }
+
 
 // PHP Code for Database.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // echo var_dump("Form Submitted");
-  //! Function for getting client IP address.
-  //! get_IP_address() written in function.php
+  // // echo var_dump("Form Submitted");
+  // //! Function for getting client IP address.
+  // //! get_IP_address() written in function.php
 
-  //* Storyline of Workflow
-  //* 1. Need to get the user IP address.
+  // //* Storyline of Workflow
+  // //* 1. Need to get the user IP address.
   $ip = get_IP_address();
 
   //* 2. Connect the IP address with "http://ip-api.com/json/[IP_ADDRESS]".
   $locationAPI = file_get_contents("http://ip-api.com/json/$ip");
+
 
   //* 3. Convert JSON Object into a PHP Object using json_decode();
   $locationObj = json_decode($locationAPI);
@@ -27,14 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $latitudeValue = $locationObj->lat;
   $longitudeValue =  $locationObj->lon;
   $countryName = $locationObj->country;
-
-  // echo $latitudeValue;
-  // echo "<br>";
-  // echo $longitudeValue;
-  // echo "<br>";
-  // echo $countryName;
-
-  // $userLocation = $latitudeValue . "," . $longitudeValue;
 
 
   //* 5. Store the Driver's details with recieved values in Step: 4 on Database.
@@ -102,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       driver_city,
       driver_country,
       driver_image)
-  
+
       VALUES
-  
+
       (
         '$driverNameEl',
         '$driverEmailEl',
@@ -571,3 +562,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
+
+
+<?php
+
+echo var_dump($userDestinationLatitude);
+?>

@@ -28,7 +28,7 @@ while ($arrayOfReservationDetail = mysqli_fetch_assoc($fetchDataFromDB)) {
     $reservationStatus = $arrayOfReservationDetail['reservation_status'];
 
     // * 5. Update the status as 'Completed' and end_time as NOW().
-    // * Because, It could be considered as the time of the ride end.
+    // * Because, It could be considered as the time of the ride end. - [NEED TO FIX THIS ISSUE IN DB]
     if ($reservationStatus == "on process") {
         $currentDateTime = date('Y-m-d - h:i:sa');
         $updateStatusAndTime = mysqli_query(

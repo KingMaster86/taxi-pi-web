@@ -80,7 +80,7 @@ if ($isUsernameExist == 1) {
       Reservation Form
     </h3>
     <p class="text-center">
-      Please fill out the form below to reserve your Taxi. 👇
+      Please fill out the form below to reserve your Trip. 👇
     </p>
 
     <!-- Sign Up Form -->
@@ -90,7 +90,7 @@ if ($isUsernameExist == 1) {
         <div class="mb-3 w-100">
           <label for="passenger-pickup-location" class="form-label">Pickup Location<span class="text-danger">*</span></label>
           <div>
-            <input type="text" class="form-control shadow-none" id="passenger-pickup-location" name="passenger-pickup-location" placeholder="Enter your Pickup Location" required="required" />
+            <input type="text" class="form-control shadow-none text-capitalize" id="passenger-pickup-location" name="passenger-pickup-location" placeholder="Enter your Pickup Location" required="required" />
           </div>
         </div>
 
@@ -98,7 +98,7 @@ if ($isUsernameExist == 1) {
         <div class="mb-3 w-100">
           <label for="passenger-drop-location" class="form-label">Drop Location<span class="text-danger">*</span></label>
           <div>
-            <input type="text" class="form-control shadow-none" id="passenger-drop-location" name="passenger-drop-location" placeholder="Enter your Drop Location" required="required" />
+            <input type="text" class="form-control shadow-none text-capitalize" id="passenger-drop-location" name="passenger-drop-location" placeholder="Enter your Drop Location" required="required" />
           </div>
         </div>
 
@@ -185,6 +185,7 @@ if ($isUsernameExist == 1) {
 
 <!-- PHP Code to Process Reservation -->
 <?php
+
 // Storyline
 // 1. Get the driverId & passengerId from using $_GET;
 if (isset($_GET['driverId'])) {
@@ -198,21 +199,46 @@ date_default_timezone_set('Asia/Kolkata');
 $currentDateTime = date('Y-m-d - h:i:sa');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
   // 2. Get the details of Reservation process from Form.
   $passengerPickupLocationEl = $_POST['passenger-pickup-location'];
   $passengerDropLocationEl = $_POST['passenger-drop-location'];
   $dateAndTimeOfReservationEl = $_POST['date-and-time-of-reservation'];
 
+  // 3. Connect to the Geocoding API
+  $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+  $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
+
+  // 4. Get the Passenger Pickup Location Latitude and Longitude values.
+  $APIRequest = $API_URL . $passengerPickupLocationEl . "&key=" . $apiKey;
+  $responseOfAPI = file_get_contents($APIRequest);
+  $pickupLocationObj = json_decode($responseOfAPI);
+
+  $pickupLocationLatitude = $pickupLocationObj->results[0]->geometry->location->lat;
+  $pickupLocationLongitude = $pickupLocationObj->results[0]->geometry->location->lng;
+
+  // 5. Get the Passenger Drop Location Latitude and Longitude values.
+  $APIRequestForDropLocation = $API_URL . $passengerDropLocationEl . "&key=" . $apiKey;
+  $resp = file_get_contents($APIRequestForDropLocation);
+  $dropLocationObj = json_decode($resp);
+
+  $dropLocationLatitude = $dropLocationObj->results[0]->geometry->location->lat;
+  $dropLocationLongitude = $dropLocationObj->results[0]->geometry->location->lng;
+
 
   $reservationStatus = "on process";
 
-  // 3. Store in those datas in DB.
+  // 6. Store in those datas in DB.
   $makeReserveTaxi = mysqli_query(
     $con,
     "INSERT INTO `table_reservation` 
     (
       pickup_location, 
-      drop_location, 
+      pickup_location_latitude_value,
+      pickup_location_longitude_value,
+      drop_location,
+      drop_location_latitude_value,
+      drop_location_longitude_value,
       reservation_status,
       driver_id,
       passenger_id,
@@ -222,7 +248,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     VALUES 
     (
       '$passengerPickupLocationEl',
+      '$pickupLocationLatitude',
+      '$pickupLocationLongitude',
       '$passengerDropLocationEl',
+      '$dropLocationLatitude',
+      '$dropLocationLongitude',
       '$reservationStatus',
       $parsedDriverId,
       $parsedPassengerId,

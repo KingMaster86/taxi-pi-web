@@ -61,13 +61,10 @@ session_start();
             </button>
             <ul class="dropdown-menu bg-black py-2">
               <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Admin</a>
+                <a class="dropdown-item text-light hover-effect" href="./driver-directory/login.php">Driver</a>
               </li>
               <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Customer</a>
-              </li>
-              <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Passenger</a>
+                <a class="dropdown-item text-light hover-effect" href="./passenger-directory/passenger-login.php">Passenger</a>
               </li>
             </ul>
           </div>

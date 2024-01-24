@@ -1,0 +1,46 @@
+Using Google GeoLocation API:
+  // ...
+
+
+  // Get user destination location name
+  $userDestinationName = $_POST['driver-name'];
+
+  // Geocoding API endpoint
+  // Geocoding API endpoint
+  $geocodingEndpoint = "https://maps.googleapis.com/maps/api/geocode/json";
+
+  // Google Maps API key (replace with your own API key)
+  $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
+
+  // Prepare the request URL
+  $geocodingUrl = "{$geocodingEndpoint}?address=" . urlencode($userDestinationName) . "&key={$apiKey}";
+
+  // Make a request to the Google Maps Geocoding API
+  $geocodingData = file_get_contents($geocodingUrl);
+
+  // Check if the request was successful
+  if ($geocodingData !== false) {
+    // Decode the JSON response
+    $geocodingObj = json_decode($geocodingData);
+
+    // Check if the response contains results
+    if ($geocodingObj->status === "OK" && !empty($geocodingObj->results)) {
+      // Get latitude and longitude values of the user's destination
+      $userDestinationLatitude = $geocodingObj->results[0]->geometry->location->lat;
+      $userDestinationLongitude = $geocodingObj->results[0]->geometry->location->lng;
+
+      // Get formatted address
+      $formattedAddress = $geocodingObj->results[0]->formatted_address;
+
+      // Now you can use $formattedAddress for further processing or storage.
+      echo "Formatted Address: " . $formattedAddress;
+    } else {
+      // Handle the case when no results are found
+      echo "<script>alert('Location not found. Please enter a valid location name.')</script>";
+    }
+  } else {
+    // Handle the case when the API request fails
+    echo "<script>alert('Error fetching location data. Please try again later.')</script>";
+  }
+
+  // ...
