@@ -66,11 +66,11 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link font-black fs-5 rounded effect-black me-2 px-3 fw-semibold" href="passenger-homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="passenger-homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link font-black fs-5 rounded effect-black me-2 px-3 fw-semibold" href="#"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+              <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="#"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
             </li>
 
             <li class="nav-item">

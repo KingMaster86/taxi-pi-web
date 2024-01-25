@@ -1,3 +1,114 @@
+<?php
+include('../../includes/connect.php');
+session_start();
+
+// echo $_SESSION['passengerUsername'];
+// !Here Assume that Rs. 100 will charge per KM in taxi trip.
+// Todo: When the page loads, It need to show all the details in this form to Payment Process.
+// * Storyline:
+// * 1. Need to get Reservation id from 'table_reservation' and get Driver & Passenger Name.
+if (isset($_GET['reservation_id'])) {
+    $parsedReservationId = $_GET['reservation_id'];
+
+    // Construct a SQL query using JOIN with aliases for table names
+    $query = "SELECT tr.*, tp.passenger_name, td.driver_name FROM `table_reservation` AS tr 
+    LEFT JOIN `table_passenger` AS tp ON tr.passenger_id = tp.id
+    LEFT JOIN `table_driver` AS td ON tr.driver_id = td.driver_id
+    WHERE tr.reservation_id = $parsedReservationId
+    ";
+
+    $getReservationData = mysqli_query($con, $query);
+    $arrayOfReservationData = mysqli_fetch_assoc($getReservationData);
+
+
+    $isDataExist = mysqli_num_rows($getReservationData);
+    if ($isDataExist == 1) {
+        $pickupLocation = $arrayOfReservationData['pickup_location'];
+        $dropLocation = $arrayOfReservationData['drop_location'];
+        $tripStartTime = $arrayOfReservationData['ride_start_time'];
+        $passengerName = $arrayOfReservationData['passenger_name'];
+        $driverName = $arrayOfReservationData['driver_name'];
+        $driverId = $arrayOfReservationData['driver_id'];
+    }
+}
+
+// * 2. Get the Pickup Location & Drop Location Details and KM.
+"https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=Lexington%2CMA%7CConcord%2CMA
+&origins=Boston%2CMA%7CCharlestown%2CMA
+&key=YOUR_API_KEY";
+
+$API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now";
+$apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
+
+$requestURL = $API_URL . "&destinations=" . urlencode($dropLocation) . "&origins=" . urlencode($pickupLocation) . "&key=" . $apiKey;
+$responseOfAPI = file_get_contents($requestURL);
+
+if ($responseOfAPI === false) {
+    echo "<script>alert('Unable to get the data.')</script>";
+} else {
+    $distanceObj = json_decode($responseOfAPI);
+    if ($distanceObj->status == "OK") {
+        $tripDistanceInMeter = $distanceObj->rows[0]->elements[0]->distance->value;
+        $tripDistanceInKM = $tripDistanceInMeter / 1000;
+        // echo $tripDistanceInKM;
+
+        // * 4. Calculate the Amount. 
+        $totalAmoutOfTrip = $tripDistanceInKM * 100;
+        $status = "paid";
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // * 5. Insert all the data into Payment Table
+    $savePaymentDetail = mysqli_query($con, "INSERT INTO `table_payment` (date_and_time, time, distance, status, reservation_id) VALUES (CURRENT_DATE, CURRENT_TIMESTAMP, $tripDistanceInKM, '$status', $parsedReservationId)");
+    http: //localhost/cityTaxi/index.php
+    if ($savePaymentDetail) {
+
+        // Todo: After the Payment process, need to change the status from ON PROCESS to COMPLETE.
+        $query = "SELECT tr.*,
+        tp.id,
+        tp.passenger_name,
+        td.driver_id
+        FROM `table_payment` AS tpay
+        LEFT JOIN `table_reservation` AS tr ON tpay.reservation_id = tr.reservation_id
+        LEFT JOIN `table_passenger` AS tp ON tr.passenger_id = tp.id
+        LEFT JOIN `table_driver` AS td ON tr.driver_id = td.driver_id
+        WHERE tpay.reservation_id = $parsedReservationId
+        ";
+
+        $getAllDataOfReservation = mysqli_query($con, $query);
+        $isDataExist = mysqli_num_rows($getAllDataOfReservation);
+
+        if ($isDataExist) {
+            $arrayOfReservationData = mysqli_fetch_assoc($getAllDataOfReservation);
+            $reservation_status = $arrayOfReservationData['reservation_status'];
+            $passengerId = $arrayOfReservationData['passenger_id'];
+
+            if ($reservation_status == "on process") {
+                $updateStatus = mysqli_query(
+                    $con,
+                    "UPDATE 
+                    `table_reservation` 
+                    SET 
+                    reservation_status = 'completed'
+                    WHERE 
+                    passenger_id = $passengerId"
+                );
+            } else {
+                $reservation_status = $reservation_status;
+            }
+
+            if ($updateStatus) {
+                echo "<script>alert('Dear $passengerName! Your payment has been recieved. Thank you for choosing us. 🤝')</script>";
+                echo "<script>window.open('../passenger-homepage.php','_self')</script>";
+            } else {
+                echo "Error!";
+            }
+        }
+    }
+}
+?>
+<!-- HTML Blocks -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,7 +198,7 @@
             <span class="text-warning background-black-color py-1 px-3 rounded-3">Enjoy your Trip</span>
             & Make your payments
         </h3>
-        <p class="text-center">Dear Mushkir! Here the summary of your trip.</p>
+        <p class="text-center">Dear <?php echo $passengerName; ?>! Here the summary of your trip.</p>
 
         <!-- Sign Up Form -->
         <div class="form-width mt-md-2">
@@ -97,7 +208,7 @@
                     <label for="driver-name" class="form-label fw-semibold">Driver Name:
                     </label>
                     <div>
-                        <label for="driver-name" class="form-control">Vijay </label>
+                        <label for="driver-name" class="form-control"><?php echo $driverName; ?> </label>
                     </div>
                 </div>
 
@@ -105,7 +216,7 @@
                     <label for="driver-id" class="form-label fw-semibold">Driver ID:
                     </label>
                     <div>
-                        <label for="driver-id" class="form-control">01 </label>
+                        <label for="driver-id" class="form-control"> <?php echo $driverId; ?></label>
                     </div>
                 </div>
 
@@ -113,7 +224,7 @@
                     <label for="passenger-pickup-location" class="form-label fw-semibold">Pickup Location:
                     </label>
                     <div>
-                        <label for="passenger-pickup-location" class="form-control">Kalmunai
+                        <label for="passenger-pickup-location" class="form-control text-capitalize"><?php echo $pickupLocation; ?>
                         </label>
                     </div>
                 </div>
@@ -123,7 +234,7 @@
                     <label for="passenger-pickup-location" class="form-label fw-semibold">Drop Location:
                     </label>
                     <div>
-                        <label for="passenger-pickup-location" class="form-control">Kalmunai
+                        <label for="passenger-pickup-location" class="form-control text-capitalize "><?php echo $dropLocation; ?>
                         </label>
                     </div>
                 </div>
@@ -133,7 +244,7 @@
                     <label for="passenger-pickup-location" class="form-label fw-semibold">Date:
                     </label>
                     <div>
-                        <label for="passenger-pickup-location" class="form-control">2024-01-25
+                        <label for="passenger-pickup-location" class="form-control"><?php echo $tripStartTime; ?>
                         </label>
                     </div>
                 </div>
@@ -143,7 +254,7 @@
                     <label for="passenger-pickup-location" class="form-label fw-semibold">Your total payment:
                     </label>
                     <div>
-                        <label for="passenger-pickup-location" class="form-control">Rs. 1000.00
+                        <label for="passenger-pickup-location" class="form-control">Rs. <?php echo $totalAmoutOfTrip; ?>.00
                         </label>
                     </div>
                 </div>

@@ -16,3 +16,9 @@ Jan 24:
 5. Need to create Passenger Dashboard. - COMPLETED.
 6. Need to Add Passesnger Reservation Status Showing in Dashboard. - COMPLETED.
 7. Need to implement Passenger Profile detail in dynamically. - COMPLETED.
+
+Jan 25:
+1. Need to fix alert message when passeger state changed. - COMPLETED.
+2. Need to implement On process hide when status chnaged into complete. - COMPLETED.
+3. Need to add Make your payment option in dashboard & design Payment UI. - COMPLETED.
+4. Need to implement payment feature. - COMPLETED.

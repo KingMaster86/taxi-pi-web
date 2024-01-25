@@ -195,8 +195,7 @@ if (isset($_GET['driverId'])) {
     $parsedPassengerId = $_GET['passengerId'];
   }
 }
-date_default_timezone_set('Asia/Kolkata');
-$currentDateTime = date('Y-m-d - h:i:sa');
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -227,6 +226,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
   $reservationStatus = "on process";
+  date_default_timezone_set('Asia/Kolkata');
+  $currentDateTime = date('Y-m-d - h:i:sa');
 
   // 6. Store in those datas in DB.
   $makeReserveTaxi = mysqli_query(
@@ -242,8 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       reservation_status,
       driver_id,
       passenger_id,
-      ride_start_time,
-      ride_end_time
+      ride_start_time
     ) 
     VALUES 
     (
@@ -256,7 +256,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       '$reservationStatus',
       $parsedDriverId,
       $parsedPassengerId,
-      '$dateAndTimeOfReservationEl',
       '$currentDateTime'
     )"
   );
