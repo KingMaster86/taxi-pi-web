@@ -61,7 +61,6 @@ if ($responseOfAPI === false) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // * 5. Insert all the data into Payment Table
     $savePaymentDetail = mysqli_query($con, "INSERT INTO `table_payment` (date_and_time, time, distance, status, reservation_id) VALUES (CURRENT_DATE, CURRENT_TIMESTAMP, $tripDistanceInKM, '$status', $parsedReservationId)");
-    http: //localhost/cityTaxi/index.php
     if ($savePaymentDetail) {
 
         // Todo: After the Payment process, need to change the status from ON PROCESS to COMPLETE.
