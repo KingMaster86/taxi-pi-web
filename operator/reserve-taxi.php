@@ -1,10 +1,9 @@
 <?php
 @include('../includes/connect.php');
 include('../includes/function.php');
-session_start();
+@session_start();
 
 $operatorName = $_SESSION['operatorUsername'];
-echo $operatorName;;
 $getOperatorName = mysqli_query($con, "SELECT * FROM `table_operator` WHERE operator_name = '$operatorName'");
 $isNameExist = mysqli_num_rows($getOperatorName);
 
@@ -37,7 +36,7 @@ if ($isNameExist > 0 && $isNameExist == 1) {
             <div class="mb-3 w-100">
                 <label for="passenger-contact-number" class="form-label">Passenger Contact Number<span class="text-danger">*</span></label>
                 <div>
-                    <input type="text" class="form-control shadow-none text-capitalize" id="passenger-contact-number" name="passenger-contact-number" placeholder="Enter the passenger contact number" required="required" />
+                    <input type="text" value="7418529632587" class="form-control shadow-none text-capitalize" id="passenger-contact-number" name="passenger-contact-number" placeholder="Enter the passenger contact number" required="required" />
                 </div>
             </div>
 
@@ -110,6 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dropLocationLongitude = getLocationLatitude($passengerDropLocationEl);
 
     $status = "on process";
+    $passenger_id = 0; // !It means, Unregistered Passengers.
+    $driver_id = 0; // !It will update when the reservation confirmed.
 
     // * 3. Insert all the values in `table_reservation` table
     $temporaryReserve = "INSERT INTO `table_reservation` 
@@ -123,6 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         drop_location_latitude_value,
         drop_location_longitude_value,
         reservation_status,
+        driver_id,
+        passenger_id,
         ride_start_time,
         operator_id
     ) VALUES 
@@ -136,6 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '$dropLocationLatitude',
         '$dropLocationLongitude',
         '$status',
+        $driver_id,
+        $passenger_id,
         '$dateAndTimeOfReservationEl',
         $operatorId
     )";

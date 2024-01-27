@@ -51,6 +51,11 @@
   margin: auto;
 }
 
+.width-of-footer {
+  width: 500px;
+  margin: auto;
+}
+
 /* Responsive for Admin Login Card */
 @media (min-width: 990px) {
   #driver-login-card {

@@ -1,3 +1,8 @@
+<?php
+include('../includes/connect.php');
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +57,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Check Queries</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="operator-homepage.php?check_queries"><i class="fa-solid fa-pen-to-square"></i> Check Queries</a>
                         </li>
 
                         <li class="nav-item">
@@ -75,6 +80,9 @@
                 }
                 if (isset($_GET['filter'])) {
                     include('./filter-drivers.php');
+                }
+                if (isset($_GET['check_queries'])) {
+                    include('./history.php');
                 }
                 ?>
             </div>
