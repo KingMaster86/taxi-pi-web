@@ -566,5 +566,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php
 
-echo var_dump($userDestinationLatitude);
+// echo var_dump($userDestinationLatitude);
 ?>

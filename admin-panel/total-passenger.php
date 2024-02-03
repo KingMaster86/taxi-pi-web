@@ -31,12 +31,12 @@ include('../includes/connect.php');
     <!-- External CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/style2.css" />
-    <!-- <link rel="stylesheet" href="../assets/css/style3.css" /> -->
+    <link rel="stylesheet" href="../assets/css/style3.css">
 </head>
 
 <body class="overflow-x-hidden bg-warning container-fluid">
-    <div class="container">
-        <h4 class="text-center container fw-bold mt-5  font-black">
+    <div class="container-fluid">
+        <h4 class="text-center container fw-bold mt-5 font-black">
             Passengers' Overview
         </h4>
         <!-- <div class="container"> -->
@@ -49,11 +49,13 @@ include('../includes/connect.php');
                     </td>
                     <td class="background-black-color font-white p-3">Email</td>
                     <td class="background-black-color font-white p-3">Username</td>
+                    <td class="background-black-color font-white p-3">Passenger Image</td>
                     <td class="background-black-color font-white p-3">Phone Number</td>
                     <td class="background-black-color font-white p-3">ID Card No</td>
                     <td class="background-black-color font-white p-3">Address Line</td>
                     <td class="background-black-color font-white p-3">City</td>
                     <td class="background-black-color font-white p-3">Country</td>
+                    <td class="background-black-color font-white p-3">Actions</td>
                 </tr>
             </thead>
             <tbody>
@@ -62,50 +64,74 @@ include('../includes/connect.php');
                 $serialNo = 1;
                 $fetchAllPassengersList = mysqli_query($con, "SELECT * FROM `table_passenger`");
 
-                while ($arrayOfTotalPassengers = mysqli_fetch_assoc($fetchAllPassengersList)) {
-                    // echo var_dump($arrayOfTotalPassengers);
-                    $passengerName = $arrayOfTotalPassengers['passenger_name'];
-                    $passengerEmail = $arrayOfTotalPassengers['passenger_email'];
-                    $passengerUsername = $arrayOfTotalPassengers['passenger_username'];
-                    $passengerPhoneNo = $arrayOfTotalPassengers['passenger_phone_no'];
-                    $passengerIdCardNumber = $arrayOfTotalPassengers['passenger_id_card_number'];
-                    $passengerAddressLine = $arrayOfTotalPassengers['passenger_address_line'];
-                    $passengerCity = $arrayOfTotalPassengers['passenger_city'];
-                    $passengerCountry = $arrayOfTotalPassengers['passenger_country'];
+                if (mysqli_num_rows($fetchAllPassengersList) > 0) {
+                    while ($arrayOfTotalPassengers = mysqli_fetch_assoc($fetchAllPassengersList)) {
+                        // echo var_dump($arrayOfTotalPassengers);
+                        $passengerId = $arrayOfTotalPassengers['id'];
+                        $passengerName = $arrayOfTotalPassengers['passenger_name'];
+                        $passengerEmail = $arrayOfTotalPassengers['passenger_email'];
+                        $passengerUsername = $arrayOfTotalPassengers['passenger_username'];
+                        $passengerPhoneNo = $arrayOfTotalPassengers['passenger_phone_no'];
+                        $passengerIdCardNumber = $arrayOfTotalPassengers['passenger_id_card_number'];
+                        $passengerAddressLine = $arrayOfTotalPassengers['passenger_address_line'];
+                        $passengerCity = $arrayOfTotalPassengers['passenger_city'];
+                        $passengerCountry = $arrayOfTotalPassengers['passenger_country'];
+                        $passengerImage = $arrayOfTotalPassengers['passenger_image'];
 
-                    echo "<tr class='text-center'>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        #$serialNo
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerName
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerEmail
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerUsername
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        <a href='tel:$passengerPhoneNo' class='text-decoration-none font-white-secondary'>$passengerPhoneNo</a>
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerIdCardNumber
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerAddressLine
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerCity
-                    </td>
-                    <td class='background-black-color-secondary font-white-secondary'>
-                        $passengerCountry
-                    </td>
-                </tr>";
+                        echo "<tr class='text-center'>
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            #$serialNo
+                        </td>
 
-                    $serialNo++;
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerName
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            <a href='mailto:$passengerEmail' class='text-decoration-none font-white-secondary'>$passengerEmail</a>    
+                        
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerUsername
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                        <img src='../sign-up/passenger-profile-picture/$passengerImage' class=' w-50' alt='$passengerName'>
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            <a href='tel:$passengerPhoneNo' class='text-decoration-none font-white-secondary'>0$passengerPhoneNo</a>
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerIdCardNumber
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerAddressLine
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerCity
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            $passengerCountry
+                        </td>
+
+                        <td class='background-black-color-secondary font-white-secondary'>
+                            <a href='edit-passenger-detail.php?passenger_id={$passengerId}' class='text-decoration-none text-white me-2'><i class='fa-solid fa-pen-to-square'></i></a>
+                            <a href='delete-passenger.php?passenger_id={$passengerId}' class='text-decoration-none font-white-secondary '><i class='fa-solid fa-trash-can'></i></a>
+                        </td>
+    
+                    </tr>";
+
+                        $serialNo++;
+                    }
+                } else {
+                    // echo "<h3>Sorry! Currently there is no passenger registerd...</h3>";
                 }
-
                 ?>
                 <!-- <tr class="text-center">
                     <td class="background-black-color-secondary font-white-secondary">

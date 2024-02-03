@@ -1,5 +1,6 @@
 <?php
 include('../includes/connect.php');
+include('../includes/function.php');
 @session_start();
 
 
@@ -102,12 +103,18 @@ include('../includes/connect.php');
         ?>
     </div>
     <div class="background-black-color w-50 mx-auto text-light d-md-flex justify-content-center align-items-center gap-5 p-4 mt-5 rounded-2">
+        <!-- Find the amount based on KM -->
+        <?php
+        $distance = getDistance($pickupLocation, $driverCountry);
+        $totalAmount = $distance * 100;
+
+        ?>
         <div class="text-center">
-            <p class="my-0">Total Amount:</p>
-            <p class="fs-1">Rs. 500.00</p>
+            <p class="my-0">Taxi Fare:</p>
+            <p class="fs-1 text-warning fw-semibold ">Rs. <?php echo $totalAmount; ?></p>
         </div>
         <div class="">
-            <a href="" class="btn bg-light">Cancel</a>
+            <a href="reservation-delete-process.php?operator_id=<?php echo $parsedOperatorId; ?>" class="btn bg-light">Cancel the Reservation</a>
         </div>
     </div>
 </div>

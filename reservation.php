@@ -186,6 +186,17 @@ if ($isUsernameExist == 1) {
 <!-- PHP Code to Process Reservation -->
 <?php
 
+use Infobip\Configuration;
+use Infobip\Api\SmsApi;
+use Infobip\Model\SmsDestination;
+use Infobip\Model\SmsTextualMessage;
+use Infobip\Model\SmsAdvancedTextualRequest;
+
+require __DIR__ . "/vendor/autoload.php";
+
+$message = [];
+$phoneNumber = "";
+
 // Storyline
 // 1. Get the driverId & passengerId from using $_GET;
 if (isset($_GET['driverId'])) {
@@ -264,6 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($makeReserveTaxi) {
     // echo "<script>alert('Hi ' . $passengerName . '! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
     echo "<script>alert('Hi $passengerName! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
+
     echo "<script>window.open('./passenger-directory/passenger-homepage.php','_self')</script>";
   }
 }

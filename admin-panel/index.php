@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['username'] = $adminNameEl;
 
                 echo "<script>alert('You have login successfully.')</script>";
-                echo "<script>window.open('admin-panel.php', '_self')</script>";
+                echo "<script>window.open('admin-panel.php?dashboard', '_self')</script>";
                 // echo "<script>document.getElementById('alert-message-container').innerHTML = '<div class=\"alert alert-success alert-dismissible\" role=\"alert\">Login Successfully. <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button></div>';</script>";
             }
         } else {

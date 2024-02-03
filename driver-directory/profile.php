@@ -13,6 +13,7 @@ $isLoggedInUsernameExist = mysqli_num_rows($getLoggedInUsernameDetails);
 if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
     $arrayOfLoggedInUserDataFromDB = mysqli_fetch_assoc($getLoggedInUsernameDetails);
 
+    $driverId = $fetchLoggedInUserDataFromDB['driver_id'];
     $driverName = $fetchLoggedInUserDataFromDB['driver_name'];
     $driverAddressLine = $fetchLoggedInUserDataFromDB['driver_address_line'];
     $driverCity = $fetchLoggedInUserDataFromDB['driver_city'];
@@ -89,7 +90,7 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
             </li>
         </ul>
         <div class="card-body">
-            <a href="edit-profile.php" class="card-link text-decoration-none">Edit
+            <a href="edit-profile.php?driver_id=<?php echo $driverId; ?>" class="card-link text-decoration-none">Edit
             </a>
         </div>
     </div>

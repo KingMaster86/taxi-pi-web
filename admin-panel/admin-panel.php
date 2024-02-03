@@ -46,7 +46,7 @@ session_start();
                         <img src="../assets/img/406880331_369106048863056_7316214919984039805_n.jpg" class="img-fluid width-of-admin-prof" alt="Admin Profile Picture" />
                     </div>
                     <div>
-                        <h3 class="text-warning fw-semibold">Mushkir</h3>
+                        <h3 class="text-warning fw-semibold">Admin</h3>
                     </div>
                 </div>
 

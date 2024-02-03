@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($isDriverDetailExist == 1) {
                 $_SESSION['username'] = $driverUsernameEl;
                 echo "<script>alert('Welcome " . $arrayOfDriverDetail['driver_name'] . "! You have loggedin successfully.')</script>";
-                echo "<script>window.open('homepage.php', '_self')</script>";
+                echo "<script>window.open('homepage.php?profile', '_self')</script>";
             }
         } else {
             echo "<script>alert('Please reverify your password!.')</script>";

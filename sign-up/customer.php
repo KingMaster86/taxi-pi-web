@@ -110,7 +110,7 @@ include('../includes/connect.php');
 
     <!-- Sign Up Form -->
     <div class="mt-md-5">
-      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="background-grey p-2 p-sm-3 p-md-5 rounded-2" id="passenger-signup-form">
+      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="background-grey p-2 p-sm-3 p-md-5 rounded-2" id="passenger-signup-form" enctype="multipart/form-data">
         <div class="d-md-flex align-items-center gap-5">
           <!-- Name -->
           <div class="mb-3 w-100">
@@ -195,6 +195,14 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-id-card-no" class="form-label">ID Card No.<span class="text-danger">*</span></label>
             <input type="text" class="form-control shadow-none" id="passenger-id-card-no" name="passenger-id-card-no" placeholder="Enter your ID Card Number" required="required" />
+          </div>
+
+          <!-- Passenger Image -->
+          <div class="mb-3 w-100 ">
+            <label for="passenger-profile-image" class="form-label">Profile Image<span class="text-danger">*</span></label>
+            <div>
+              <input class="form-control" type="file" id="passenger-profile-image" name="passenger-profile-image">
+            </div>
           </div>
         </div>
 
@@ -388,7 +396,7 @@ include('../includes/connect.php');
 </body>
 
 </html>
-<!-- </php php echo htmlspecialchars($_SERVER['PHP_SELF']); ?> -->
+
 
 <!-- PHP Code to Insert Customer data into Database -->
 <?php
@@ -407,6 +415,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $passengerNameEl = $_POST['passenger-name'];
   $passengerEmailEl = $_POST['passenger-email'];
   $passengerPhoneNoEl = $_POST['passenger-phone-no'];
+  $passengerProfileImgEl = $_FILES['passenger-profile-image']['name'];
+  $tempPassenferImage = $_FILES['passenger-profile-image']['tmp_name'];
+
+
   $passengerUsernameEl = $_POST['passenger-username'];
   $passengerPasswordEl = $_POST['password'];
 
@@ -427,16 +439,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($numberOfRowsPhoneNo > 0) {
     echo "<script>alert('The contact number you entered already exist!')</script>";
   } else {
+
+    move_uploaded_file($tempPassenferImage, "./passenger-profile-picture/$passengerProfileImgEl");
+
     $query = "INSERT INTO `table_passenger` 
     (passenger_name, 
     passenger_email, 
     passenger_phone_no, 
-    passenger_username, 
+    passenger_username,
     passenger_password, 
     passenger_id_card_number, 
     passenger_address_line, 
     passenger_city,
-    passenger_country) 
+    passenger_country,
+    passenger_image
+    ) 
 
     VALUES 
     ('$passengerNameEl', 
@@ -447,7 +464,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     '$passengerIdCardNoEl', 
     '$passengerAddressLine1El', 
     '$passengerCityNameEl', 
-    '$passengerCountryNameEl')";
+    '$passengerCountryNameEl',
+    '$passengerProfileImgEl'
+    )";
 
     $executeInsertQuery = mysqli_query($con, $query);
 
@@ -458,19 +477,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       $mail = new PHPMailer(true);
 
-      $userMail = "mushkirmohamed@gmail.com";
+      $userMail = "mushkirmohamed@gmail.com";           // * Admin mail id
       $passKey = "yyyfmgbllzgkbofz";
 
 
-      //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+      //$mail->SMTPDebug = 3;                               // * Enable verbose debug output
 
-      $mail->isSMTP();                                      // Set mailer to use SMTP
-      $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-      $mail->SMTPAuth = true;                               // Enable SMTP authentication
-      $mail->Username = $userMail;                          // SMTP username
-      $mail->Password = $passKey;                           // SMTP password
-      $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-      $mail->Port = 465;                                    // TCP port to connect to
+      $mail->isSMTP();                                      // * Set mailer to use SMTP
+      $mail->Host = 'smtp.gmail.com';                       // * Specify main and backup SMTP servers
+      $mail->SMTPAuth = true;                               // * Enable SMTP authentication
+      $mail->Username = $userMail;                          // * SMTP username
+      $mail->Password = $passKey;                           // * SMTP password
+      $mail->SMTPSecure = 'ssl';                            // * Enable TLS encryption, `ssl` also accepted
+      $mail->Port = 465;                                    // * TCP port to connect to
       $mail->SMTPOptions = array(
         'ssl' => array(
           'verify_peer' => false,
@@ -480,9 +499,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       );
 
       $mail->setFrom($userMail);
-      $mail->addAddress($passengerEmailEl, $passengerNameEl); // Add a recipient
+      $mail->addAddress($passengerEmailEl, $passengerNameEl); // * Add a recipient
 
-      $mail->isHTML(true);                                    // Set email format to HTML
+      $mail->isHTML(true);                                    // * Set email format to HTML
 
       $mail->Subject = "Credintials of {$passengerNameEl}";
       $mail->Body    = "Username: {$passengerUsernameEl} <br> Password: {$passengerPasswordEl}";

@@ -95,12 +95,12 @@ session_start();
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
       <?php
 
-      // Storyline:
-      // 1. Get the all data from DB
+      // * Storyline:
+      // * 1. Get the all data from DB based on driver's status equals to "available".
       $fetchAvailableDriversData = mysqli_query($con, "SELECT * FROM `table_driver` WHERE availability_status = 'available'");
-      $isAvailableDriversExist = mysqli_num_rows($fetchAvailableDriversData);
+      $isAvailableDriversExist = mysqli_num_rows($fetchAvailableDriversData);  // * It will return available records in numerical form.
 
-      // 2. Fetch the data with appropriate places
+      // * 2. Fetch the data with appropriate places
       if ($isAvailableDriversExist > 0) {
 
         while ($arrayOfAvailableDrivers = mysqli_fetch_assoc($fetchAvailableDriversData)) {
@@ -118,9 +118,6 @@ session_start();
           $endTime = $arrayOfAvailableDrivers['end_time'];
 
           $driverCurrentLocation = $locationLatitude . "," . $locationLongitude;
-
-          // 2. Fetch the appropiate data to the appropriate place
-
       ?>
           <div class="col">
             <div class="card pt-4 hover-yellow-effect h-100 ">
@@ -176,24 +173,25 @@ session_start();
                   } else {
                     $sessionPassengerUsername = $_SESSION['passengerUsername'];
 
-                    // Storyline
-                    // 1. Get all the passenger details from DB.
-                    $fetchPassengersAllDetailFromDB = mysqli_query($con, "SELECT * FROM `table_passenger` WHERE passenger_username = '$sessionPassengerUsername'");
+                    // * Storyline
+                    // * 1. Get all the passenger details from DB.
+                    $fetchPassengersAllDetailFromDB = mysqli_query($con, "SELECT * FROM `table_passenger` 
+                    WHERE passenger_username = '$sessionPassengerUsername'");
+
                     $arrayOfSessionPassenger = mysqli_fetch_assoc($fetchPassengersAllDetailFromDB);
                     $isSessionPassengerExist = mysqli_num_rows($fetchPassengersAllDetailFromDB);
 
-                    // 2. Check that if any record exists with $_SESSION['passengerName'] in DB.
+                    // * 2. Check that if any record exists with $_SESSION['passengerName'] in DB.
                     if ($isSessionPassengerExist > 0) {
 
-                      // 3. If that exists, Need to get that passenger's id from DB.
+                      // * 3. If that exists, Need to get that passenger's id from DB.
                       $passengerId = $arrayOfSessionPassenger['id'];
 
-                      // 4. Send that passengerId with driverId to reservation.php file.
+                      // * 4. Send that passengerId with driverId to reservation.php file.
                       echo "<a href='./reservation.php?driverId=$driverId&passengerId=$passengerId' class='btn bg-warning hover-white-effect w-100'><i class='fa-solid fa-taxi'></i> Reserve for Ride</a>";
                     }
                   }
                   ?>
-                  <!-- <a href="" class="btn bg-warning hover-white-effect w-100"><i class="fa-solid fa-taxi"></i> Reserve for Ride</a> -->
                 </div>
                 <div class="w-100 mb-3">
                   <a href="<?php echo "https://www.google.com/maps?q= " . $driverCurrentLocation; ?>" target="_blank" class="text-decoration-none btn hover-black-effect background-black-color text-light w-100"><i class="fa-solid fa-location-arrow"></i> Show Location </a>

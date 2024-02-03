@@ -41,7 +41,7 @@ if (isset($_GET['driverId'])) {
                 $driverName = $arrayOfParsedDriverIdData['driver_name'];
 
                 echo "<script>alert('Hello " . $driverName . "! Your Status Changed as Available State.')</script>";
-                echo "<script>window.open('homepage.php','_self')</script>";
+                echo "<script>window.open('homepage.php?profile','_self')</script>";
             }
         }
     }

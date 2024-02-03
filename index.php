@@ -111,7 +111,7 @@ session_start();
     <div class="bg-warning container-fluid mx-auto row p-sm-2 p-md-5">
       <div class="col-12 col-md-6 p-5">
         <p class="fw-bold m-1 mx-0">Best in City</p>
-        <h3 class="fw-bolder">Trusted Taxi Services in UK 🇬🇧</h3>
+        <h3 class="fw-bolder">Trusted Taxi Services in Sri Lanka 🇱🇰</h3>
         <p>
           "Step into a world of convenience and comfort! Greetings from your
           go-to City Taxi service. Ready to embark on a hassle-free journey
@@ -193,7 +193,7 @@ session_start();
     <p class="fw-semibold fs-4 m-0">
       We are ready to take your call 24 hours, 07 days!
     </p>
-    <a href="tel:+123 4567 8900" class="text-decoration-none text-black fs-1 fw-bolder"><i class="fa-solid fa-mobile-screen"></i> +123 4567 8900</a>
+    <a href="tel:+123 4567 8900" class="text-decoration-none text-black fs-1 fw-bolder"><i class="fa-solid fa-mobile-screen"></i> +94754946927</a>
   </div>
 
   <!-- For Drivers -->
@@ -216,7 +216,7 @@ session_start();
     <div class="row gap-2 p-5">
       <div class="col-12 col-md-4">
         <div class="text-light">
-          <h4 class="fw-bold">About the Hub</h4>
+          <h4 class="fw-bold">About City<span class="text-warning">Taxi</span></h4>
         </div>
         <p class="text-color">
           Meet City<span class="text-warning">Taxi</span> – your go-to for
