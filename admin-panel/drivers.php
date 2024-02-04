@@ -56,6 +56,8 @@ include('../includes/connect.php');
                     <th class="background-black-color font-white">Address Line</th>
                     <th class="background-black-color font-white">City</th>
                     <th class="background-black-color font-white">Country</th>
+                    <th class="background-black-color font-white">Action</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +67,7 @@ include('../includes/connect.php');
                 $fetchDriverDetails = mysqli_query($con, "SELECT * FROM `table_driver`");
 
                 while ($arrayOfDriverDetails = mysqli_fetch_assoc($fetchDriverDetails)) {
+                    $driverId = $arrayOfDriverDetails['driver_id'];
                     $driverName = $arrayOfDriverDetails['driver_name'];
                     $driverEmail = $arrayOfDriverDetails['driver_email'];
                     $driverPhoneNo = $arrayOfDriverDetails['driver_phone_no'];
@@ -130,6 +133,9 @@ include('../includes/connect.php');
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
                             <?php echo $driverCountry; ?>
+                        </td>
+                        <td class="background-black-color-secondary font-white-secondary">
+                            <a href='delete-driver.php?driver_id=<?php echo $driverId; ?>' class='text-decoration-none font-white-secondary '><i class='fa-solid fa-trash-can'></i></a>
                         </td>
                     </tr>
                 <?php
