@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $passengerName = $arrayOfPassengerData['passenger_name'];
             echo "<script>alert('Welcome, $passengerName! Your login process was successful.')</script>";
-            echo "<script>window.open('passenger-homepage.php','_self')</script>";
+            echo "<script>window.open('passenger-homepage.php?profile','_self')</script>";
         } else {
             echo "<script>alert('Please reverify your password!.')</script>";
         }

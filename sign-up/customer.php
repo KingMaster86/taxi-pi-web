@@ -72,13 +72,10 @@ include('../includes/connect.php');
             </button>
             <ul class="dropdown-menu background-black-color mt-2 p-2">
               <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Admin</a>
+                <a class="dropdown-item text-light hover-effect" href="../driver-directory/login.php">Driver</a>
               </li>
               <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Customer</a>
-              </li>
-              <li>
-                <a class="dropdown-item text-light hover-effect" href="#">Passenger</a>
+                <a class="dropdown-item text-light hover-effect" href="../passenger-directory/passenger-login.php">Passenger</a>
               </li>
             </ul>
           </div>
@@ -508,6 +505,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       $mail->send();
       echo "<script>alert('Please check your mail...')</script>";
+      echo "<script>window.open('../passenger-directory/passenger-login.php','_self')</script>";
     }
   }
 }

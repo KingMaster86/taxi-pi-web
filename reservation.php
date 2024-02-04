@@ -240,11 +240,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   date_default_timezone_set('Asia/Kolkata');
   $currentDateTime = date('Y-m-d - h:i:sa');
 
+  $passengerName = "none";      // ! Because, it is for registered passenger. So their name already stored in `table_passenger`.
+  $passengerContactNo = "none"; // ! Because, it is also for registered passenger. So their contact number detail already stored in `table_passenger`.
+  $operatorId = 0;      // ! Here, only registered passengers will do booking process. So, there is no any connection to operator in this process. 
+
   // 6. Store in those datas in DB.
   $makeReserveTaxi = mysqli_query(
     $con,
     "INSERT INTO `table_reservation` 
     (
+      passenger_name,
+      passenger_contact_no,
       pickup_location, 
       pickup_location_latitude_value,
       pickup_location_longitude_value,
@@ -254,10 +260,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       reservation_status,
       driver_id,
       passenger_id,
-      ride_start_time
+      ride_start_time,
+      operator_id
     ) 
     VALUES 
     (
+      '$passengerName',
+      '$passengerContactNo',
       '$passengerPickupLocationEl',
       '$pickupLocationLatitude',
       '$pickupLocationLongitude',
@@ -267,7 +276,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       '$reservationStatus',
       $parsedDriverId,
       $parsedPassengerId,
-      '$currentDateTime'
+      '$currentDateTime',
+      $operatorId
     )"
   );
 

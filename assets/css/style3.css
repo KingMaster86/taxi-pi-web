@@ -8,3 +8,8 @@
 .hover-color-black:hover {
   color: #191919 !important;
 }
+
+.size {
+  width: 240px;
+  height: 240px;
+}

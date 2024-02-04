@@ -1,8 +1,10 @@
 Upcoming Features:
 1. Password Hide and Show in UI.
 2. Need to write instruction on Passenger & Driver Signup Page.
-3. Need to Implement Forgot Password feature with OTP.
+3. Need to Implement Forgot Password feature with OTP to mail..
 4. Need to implement Edit profile feature.
+5. Need to implement reservation history in Admin panel.
+6.
 
 
 3. PHP Code to Show the location in Google Maps according to the $userLocation Variable.
@@ -51,70 +53,5 @@ Need to work location related works again.
 https://console.cloud.google.com/home/dashboard?project=calm-producer-412212
 
 To do:
-1. Need to implement History Option in Passenger Dashboard. - PENDING.
-2. Admin redirect through URL 
-3. 
-
-
-
-
-
-<?php
-
-// Assuming you have a mysqli connection
-$mysqli = new mysqli("localhost", "username", "password", "your_database");
-
-// Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-
-function makeReservation($data, $mysqli) {
-    $stmt = $mysqli->prepare("INSERT INTO reservation (date, time, passenger_id, driver_id, 
-    pickup_location, drop_location, status, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    // Bind parameters
-    $stmt->bind_param("ssiiisii", $data['date'], $data['time'], $data['passenger_id'], $data['driver_id'], $data['pickup_location'], $data['drop_location'], $data['status'], $data['operator_id']);
-
-    // Execute the statement
-    $stmt->execute();
-
-    // Close the statement
-    $stmt->close();
-}
-
-// Example usage for a web reservation
-$webReservationData = [
-    'date' => '2024-01-26',
-    'time' => '12:00:00',
-    'passenger_id' => 123,
-    'driver_id' => 456,
-    'pickup_location' => 'Some Place',
-    'drop_location' => 'Another Place',
-    'status' => 'Booked',
-    'operator_id' => 789,
-];
-
-makeReservation($webReservationData, $mysqli);
-
-// Example usage for a phone call reservation
-$phoneCallReservationData = [
-    'date' => '2024-01-27',
-    'time' => '14:30:00',
-    'passenger_id' => null,  // Setting passenger_id to NULL for phone call booking
-    'driver_id' => 789,
-    'pickup_location' => 'Yet Another Place',
-    'drop_location' => 'Final Destination',
-    'status' => 'Booked',
-    'operator_id' => 101,
-];
-
-makeReservation($phoneCallReservationData, $mysqli);
-
-// Close the database connection
-$mysqli->close();
-
-?>
-
-Todo: 
-1. Need to implement Feedback of Passenger & Driver feature.
+1. Need to implement History Option in Passenger Dashboard. - COMPLETE. (Need to implement Viewing payment history)
+2. Need to implement Feedback of Passenger & Driver feature. - PENDING.

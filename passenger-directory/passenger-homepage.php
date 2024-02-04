@@ -47,6 +47,8 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
   <!-- External CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/style2.css" />
+  <link rel="stylesheet" href="../assets/css/style3.css">
+
 </head>
 
 <body class="overflow-x-hidden background-black-color">
@@ -75,6 +77,10 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
 
             <li class="nav-item">
               <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="../select-driver.php"><i class="fa-solid fa-taxi"></i> Reserve a Taxi</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="passenger-homepage.php?history"><i class="fa-solid fa-clock-rotate-left"></i> Trip Log</a>
             </li>
 
             <li class="nav-item">
@@ -120,6 +126,10 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
         <?php
         if (isset($_GET['profile'])) {
           include('passenger-profile.php');
+        }
+
+        if (isset($_GET['history'])) {
+          include('trip-history.php');
         }
         ?>
       </div>

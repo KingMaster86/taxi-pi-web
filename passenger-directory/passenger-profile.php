@@ -19,12 +19,15 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
     $passengerAddressLine = $arrayOfPassengerDetail['passenger_address_line'];
     $passengerCity = $arrayOfPassengerDetail['passenger_city'];
     $passengerCountry = $arrayOfPassengerDetail['passenger_country'];
+    $passengerImage = $arrayOfPassengerDetail['passenger_image'];
 }
 ?>
 
 <div class="mx-auto p-2 p-md-5">
     <div class="card mx-auto" id="driver-profile-card">
-        <img src="../assets/img/admin-clipart.jpg" class="card-img-top" alt="..." />
+        <div style="width: 300px; height: 300px;" class="mx-auto d-flex justify-content-center align-items-center  ">
+            <img src=" ../sign-up/passenger-profile-picture/<?php echo $passengerImage; ?>" class="w-75 h-75 object-fit-cover rounded-circle" alt="<?php echo $passengerName; ?>'s Picture." />
+        </div>
         <div class="card-body d-md-flex gap-1 align-items-start">
             <div>
                 <h5 class="card-title text-center text-md-start fw-semibold "><?php echo $passengerName; ?></h5>
@@ -54,8 +57,8 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
             </li>
         </ul>
         <div class="card-body">
-            <a href="profile-edit.php?passengerId=<?php echo $passengerId; ?>" class="card-link text-decoration-none">Edit
-            </a>
+            <!-- <a href="profile-edit.php?passengerId=<?php echo $passengerId; ?>" class="card-link text-decoration-none">Edit -->
+            <!-- </a> -->
         </div>
     </div>
 </div>
