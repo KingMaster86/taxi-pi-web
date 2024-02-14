@@ -1,3 +1,3 @@
 <?php
 
-define('STRIPE_SECRET_KEY', 'YOUR_SECRET_KEY');
+define('STRIPE_SECRET_KEY', '');

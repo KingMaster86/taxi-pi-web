@@ -23,8 +23,8 @@ if (mysqli_num_rows($isUsernameExist) == 1) {
         <thead>
             <tr>
                 <th class="bg-warning">S.No</th>
-                <th class="bg-warning">Reservation Id</th>
-                <th class="bg-warning">Driver Id</th>
+                <th class="bg-warning">Reservation ID</th>
+                <th class="bg-warning">Driver ID</th>
                 <th class="bg-warning">Pickup Location</th>
                 <th class="bg-warning">Drop Location</th>
                 <th class="bg-warning">Status</th>

@@ -79,9 +79,10 @@ if (isset($_GET['reservation_id'])) {
     $checkoutSession = $stripe->checkout->sessions->create([
         'line_items' => $lineItems,
         'mode' => 'payment',
-        'success_url' => 'http://localhost/cityTaxi/passenger-directory/passenger-homepage.php?history',
-        'cancel_url' => "http://localhost/cityTaxi/passenger-directory/payment/payment.php?reservation_id=$parsedReservationId"
+        'success_url' => "http://localhost/cityTaxi/passenger-directory/passenger-feedback/feedback.php?reservation_id={$parsedReservationId}",
+        'cancel_url' => "http://localhost/cityTaxi/passenger-directory/payment/payment.php?reservation_id={$parsedReservationId}"
     ]);
+
 
 
 
