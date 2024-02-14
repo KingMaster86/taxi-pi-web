@@ -121,7 +121,7 @@ session_start();
       ?>
           <div class="col">
             <div class="card pt-4 hover-yellow-effect h-100 ">
-              <div class="mx-auto bg-success rounded-circle p-1 h-100 ">
+              <div class="mx-auto bg-success rounded-circle p-1 profile-width ">
                 <img src="./sign-up/driver-profile-picture/<?php echo $driver_image; ?>" class="mx-auto profile-width" alt="Driver Profile Picture" />
               </div>
               <div class="card-body d-md-flex gap-1 align-items-start">

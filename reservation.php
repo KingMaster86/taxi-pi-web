@@ -286,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo "<script>alert('Hi ' . $passengerName . '! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
     echo "<script>alert('Hi $passengerName! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
 
-    echo "<script>window.open('./passenger-directory/passenger-homepage.php','_self')</script>";
+    echo "<script>window.open('./passenger-directory/passenger-homepage.php?history','_self')</script>";
   }
 }
 ?>

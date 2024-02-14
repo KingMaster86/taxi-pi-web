@@ -34,8 +34,7 @@ if (isset($_GET['reservation_id'])) {
 
 // * 2. Get the Pickup Location & Drop Location Details and KM.
 "https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=Lexington%2CMA%7CConcord%2CMA
-&origins=Boston%2CMA%7CCharlestown%2CMA
-&key=YOUR_API_KEY";
+&origins=Boston%2CMA%7CCharlestown%2CMA&key=YOUR_API_KEY";
 
 $API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now";
 $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
@@ -54,57 +53,11 @@ if ($responseOfAPI === false) {
 
         // * 4. Calculate the Amount. 
         $totalAmoutOfTrip = $tripDistanceInKM * 100;
-        $status = "paid";
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // * 5. Insert all the data into Payment Table
-    $savePaymentDetail = mysqli_query($con, "INSERT INTO `table_payment` (date_and_time, time, distance, status, reservation_id) VALUES (CURRENT_DATE, CURRENT_TIMESTAMP, $tripDistanceInKM, '$status', $parsedReservationId)");
-    if ($savePaymentDetail) {
-
-        // Todo: After the Payment process, need to change the status from ON PROCESS to COMPLETE.
-        $query = "SELECT tr.*,
-        tp.id,
-        tp.passenger_name,
-        td.driver_id
-        FROM `table_payment` AS tpay
-        LEFT JOIN `table_reservation` AS tr ON tpay.reservation_id = tr.reservation_id
-        LEFT JOIN `table_passenger` AS tp ON tr.passenger_id = tp.id
-        LEFT JOIN `table_driver` AS td ON tr.driver_id = td.driver_id
-        WHERE tpay.reservation_id = $parsedReservationId
-        ";
-
-        $getAllDataOfReservation = mysqli_query($con, $query);
-        $isDataExist = mysqli_num_rows($getAllDataOfReservation);
-
-        if ($isDataExist) {
-            $arrayOfReservationData = mysqli_fetch_assoc($getAllDataOfReservation);
-            $reservation_status = $arrayOfReservationData['reservation_status'];
-            $passengerId = $arrayOfReservationData['passenger_id'];
-
-            if ($reservation_status == "on process") {
-                $updateStatus = mysqli_query(
-                    $con,
-                    "UPDATE 
-                    `table_reservation` 
-                    SET 
-                    reservation_status = 'completed'
-                    WHERE 
-                    passenger_id = $passengerId"
-                );
-            } else {
-                $reservation_status = $reservation_status;
-            }
-
-            if ($updateStatus) {
-                echo "<script>alert('Dear $passengerName! Your payment has been recieved. Thank you for choosing us. 🤝')</script>";
-                echo "<script>window.open('../passenger-homepage.php','_self')</script>";
-            } else {
-                echo "Error!";
-            }
-        }
-    }
+    echo "<script>window.open('checkout.php?reservation_id={$parsedReservationId}&distance={$tripDistanceInKM}&amount={$totalAmoutOfTrip}','_self')</script>";
 }
 ?>
 <!-- HTML Blocks -->

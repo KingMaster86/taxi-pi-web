@@ -53,5 +53,6 @@ Need to work location related works again.
 https://console.cloud.google.com/home/dashboard?project=calm-producer-412212
 
 To do:
-1. Need to implement History Option in Passenger Dashboard. - COMPLETE. (Need to implement Viewing payment history)
-2. Need to implement Feedback of Passenger & Driver feature. - PENDING.
+1. Need to implement Stripe payment method. - PENDING
+2. Need to implement SMS sending feature.
+3. Need to implement Feedback of Passenger & Driver feature. - PENDING.
