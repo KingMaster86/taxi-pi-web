@@ -22,3 +22,9 @@ Jan 25:
 2. Need to implement On process hide when status chnaged into complete. - COMPLETED.
 3. Need to add Make your payment option in dashboard & design Payment UI. - COMPLETED.
 4. Need to implement payment feature. - COMPLETED.
+
+Feb 14:
+1. Need to implement Stripe payment method. - COMPLETED
+2. Need to implement Feedback of Passenger feature. - COMPLETED.
+
+Feb 15:

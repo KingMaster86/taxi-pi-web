@@ -2,9 +2,9 @@
 include('../../includes/connect.php');
 
 if (isset($_GET['reservation_id'])) {
-    $recievedID = $_GET['reservation_id'];
-}
 
+    $passedReservationId = $_GET['reservation_id'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +15,8 @@ if (isset($_GET['reservation_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Fav Icon -->
-    <link rel="shortcut icon" href="../assets/img/taxi-img.png" type="image/x-icon" class="object-fit-cover" />
-    <title>Passenger Feedback Page | CityTaxi</title>
+    <link rel="shortcut icon" href="../../assets/img/taxi-img.png" type="image/x-icon" class="object-fit-cover" />
+    <title>Driver Feedback Page | CityTaxi</title>
 
     <!-- Google Font (Sen) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,16 +42,15 @@ if (isset($_GET['reservation_id'])) {
     <!-- Body -->
     <main class="px-2 px-sm-3 px-md-5 pb-5">
         <h3 class="text-center fw-semibold mt-5 font-black p-3 rounded-3">
-            Almost done 🤗 &
-            <span class="text-warning background-black-color py-1 px-3 rounded-3">Feel free to share your experience</span>
+            <span class="text-warning background-black-color py-1 px-3 rounded-3">Feel free to share your feedback about the Passengers!</span>
         </h3>
         <small class="d-block text-center">It help us to enhance our service in the future to our valuable
-            passengers.
+            drivers.
         </small>
 
         <!-- Feedback Form -->
         <div class="mt-4 feedback-responsive mx-auto">
-            <form method="post" class="background-grey p-3 p-sm-3 p-md-5 rounded-2" id="passenger-feedback-form">
+            <form method="post" class="background-grey p-3 p-sm-3 p-md-5 rounded-2" id="driver-feedback-form">
                 <h3 class="pb-2 fw-bold text-center text-md-start">
                     Send us some feedback!
                 </h3>
@@ -104,10 +103,10 @@ if (isset($_GET['reservation_id'])) {
 
     <!-- JavaScript Validation for Inputs -->
     <script>
-        const passengerFeedbackFormEl = document.querySelector(
-            "#passenger-feedback-form"
+        const driverFeedbackFormEl = document.querySelector(
+            "#driver-feedback-form"
         );
-        const validator = new window.JustValidate(passengerFeedbackFormEl);
+        const validator = new window.JustValidate(driverFeedbackFormEl);
 
         // console.log("hi");
         // console.log(validator.addField);
@@ -169,8 +168,8 @@ if (isset($_GET['reservation_id'])) {
             );
 
         validator.onSuccess(() => {
-            passengerFeedbackFormEl.submit();
-            passengerFeedbackFormEl.reset();
+            driverFeedbackFormEl.submit();
+            driverFeedbackFormEl.reset();
         })
     </script>
 
@@ -178,29 +177,26 @@ if (isset($_GET['reservation_id'])) {
         function redirectToDashboard() {
             const btnSkipEl = document.querySelector("#btn-skip");
             btnSkipEl.addEventListener("click", () => {
-                window.open('../passenger-homepage.php?history', '_self');
+                window.open('../homepage.php?history', '_self');
             })
         }
     </script>
 </body>
 
-
 </html>
 
+
 <?php
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo $recievedID;
+    $subjectContentEl = $_POST['subject'];
+    $feedbackContentEl = $_POST['feedback'];
+    $ratingEl = $_POST['rating'];
 
-    $subjectOfFeedback = $_POST['subject'];
-    $feedbackBody = $_POST['feedback'];
-    $feedbackRating = $_POST['rating'];
-
-    $storeFeedback = mysqli_query($con, "INSERT INTO `table_passenger_feedback` (short_subject, content_body, rating, date, time, reservation_id) VALUES ('$subjectOfFeedback', '$feedbackBody', $feedbackRating, NOW(), NOW(), $recievedID)");
-    if ($storeFeedback) {
-        echo "<script>alert('Dear Passenger! Thank you for your valuable feedback...')</script>";
-        echo "<script>window.open('../passenger-homepage.php?history','_self')</script>";
+    $saveDriverFeedback = mysqli_query($con, "INSERT INTO `table_driver_feedback` (short_subject, content_body, rating, date, time, reservation_id) VALUES ('$subjectContentEl', '$feedbackContentEl', $ratingEl, NOW(), NOW(), $passedReservationId)");
+    if ($saveDriverFeedback) {
+        echo "<script>alert('Thank you for your valuable feedback about the client...')</script>";
+        echo "<script>window.open('../homepage.php?history&driver_id={$passedReservationId}','_self')</script>";
     }
 }
-
-
 ?>

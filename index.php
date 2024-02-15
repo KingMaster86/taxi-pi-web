@@ -1,7 +1,13 @@
 <?php
+
+use GuzzleHttp\Promise\Is;
+
 include('./includes/connect.php');
 session_start();
 // echo $_SESSION['username'];
+// echo $_SESSION['passengerUsername'];
+// $sessionDriverName = $_SESSION['username'];
+
 ?>
 
 
@@ -69,17 +75,43 @@ session_start();
             </li>
           </ul>
 
-          <!-- Login Button -->
+          <!-- Login Button: 
+          ## Based on the below code; If the Passenger / Driver loggedin It will show Logout instead of Login.
+          ## Otherwise, It will show as Login through the SESSION.
+          -->
           <div class="btn-group me-4">
-            <button type="button" class="btn btn-warning dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
-              Login
-            </button>
-            <ul class="dropdown-menu bg-black py-2">
-              <li><a class="dropdown-item text-light hover-effect" href="./admin-panel/index.php">Admin</a></li>
-              <li><a class="dropdown-item text-light hover-effect" href="./driver-directory/login.php">Driver</a></li>
-              <li><a class="dropdown-item text-light hover-effect" href="./passenger-directory/passenger-login.php">Passenger</a></li>
-            </ul>
+            <?php
+            if (isset($_SESSION['username'])) {
+              echo "
+                  <a href='logout.php' class='btn btn-warning fw-bold'>
+                    Logout
+                  </a>
+                  ";
+            }
+
+            if (isset($_SESSION['passengerUsername'])) {
+              echo "
+                  <a href='logout.php' class='btn btn-warning fw-bold'>
+                    Logout
+                  </a>
+                  ";
+            }
+
+            if (!(isset($_SESSION['username'])) && !((isset($_SESSION['passengerUsername'])))) {
+              echo "
+              <button type='button' class='btn btn-warning dropdown-toggle fw-bold' data-bs-toggle='dropdown' aria-expanded='false'>
+                  Login
+              </button>
+              <ul class='dropdown-menu bg-black py-2'>
+                  <li><a class='dropdown-item text-light hover-effect' href='./admin-panel/index.php'>Admin</a></li>
+                  <li><a class='dropdown-item text-light hover-effect' href='./driver-directory/login.php'>Driver</a></li>
+                  <li><a class='dropdown-item text-light hover-effect' href='./passenger-directory/passenger-login.php'>Passenger</a></li>
+              </ul>
+              ";
+            }
+            ?>
           </div>
+
 
           <!-- Sign-Up Button -->
           <div class="btn-group">

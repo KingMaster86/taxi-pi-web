@@ -65,7 +65,7 @@ if (mysqli_num_rows($isUsernameExist) == 1) {
                             if ($reservationStatus == "completed") {
                                 $paymentProcess = "Paid";
                             } else {
-                                $paymentProcess = "Unpaid";
+                                $paymentProcess = "Unpaid ";
                             }
                             echo $paymentProcess;
                             ?>

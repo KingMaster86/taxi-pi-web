@@ -68,15 +68,19 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a class="nav-link font-black fs-6 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?profile"><i class="fa-solid fa-user"></i> Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+                            <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="homepage.php?edit-profile"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="homepage.php?history&driver_id=<?php echo $driverId; ?>"><i class="fa-solid fa-clock-rotate-left"></i> Service Log</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link font-black fs-6 rounded effect-black me-2 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
                     </ul>
 
@@ -112,6 +116,10 @@ if ($isLoggedInUsernameExist > 0 && $isLoggedInUsernameExist == 1) {
 
                 if (isset($_GET['edit-profile'])) {
                     include('edit-profile.php');
+                }
+
+                if (isset($_GET['history'])) {
+                    include('service-log.php');
                 }
 
                 if (isset($_GET['logout'])) {
