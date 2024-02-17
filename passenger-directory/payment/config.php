@@ -1,3 +1,3 @@
 <?php
 
-define('STRIPE_SECRET_KEY', '');
+define('STRIPE_SECRET_KEY', 'sk_test_51OjdC7Jpgm0ErFnZJSbqRNpKXHk5KUveUxqXzlBFQbaUj0pjDaheh1YGuUsovryFPj38XFHdXZOeGuIfTd1p9KNZ00bRckCF05');

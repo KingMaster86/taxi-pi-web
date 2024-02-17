@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $encryptedPassword = password_hash($passwordEl, PASSWORD_DEFAULT);
 
   $confirmPasswordEl = $_POST['confirm-password'];
+  $driverTaxiNumberEl = $_POST['taxi-number'];
   $driverAddressLineEl = $_POST['driver-address-line-1'];
   $driverCityNameEl = $_POST['driver-city-name'];
   $driverCountryNameEl = $_POST['driver-country-name'];
@@ -84,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       driver_id_card_no,
       driver_username,
       driver_password,
+      taxi_number,
       availability_status,
       location_latitude,
       location_longitude,
@@ -99,10 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       (
         '$driverNameEl',
         '$driverEmailEl',
-        $driverPhoneNoEl,
+        '$driverPhoneNoEl',
         '$driverIdCardNoEl',
         '$driverUsernameEl',
         '$encryptedPassword',
+        '$driverTaxiNumberEl',
         '$availabilityStatus',
         '$locationLatitudeEl',
         '$locationLongitudeEl',
@@ -257,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
         </div>
 
-        <!-- Username, Password, Confirm Password -->
+        <!-- Username, Password, Confirm Password and Taxi-Number -->
         <div class="d-md-flex align-items-center mt-3 gap-5">
           <!-- Username -->
           <div class="mb-3 w-100">
@@ -268,16 +271,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <!-- Password -->
           <div class="mb-3 w-100">
             <label for="password" class="form-label font-bold-weight">Password<span class="text-danger">*</span></label>
-            <div>
+            <div class="d-flex bg-light align-items-center justify-content-center rounded">
               <input type="password" name="password" class="form-control shadow-none" id="password" placeholder="Enter your Password" required="required" />
+              <button type="button" class="bg-external-white border-0" id="eye-closed-icon"><i class="fa-regular fa-eye-slash"></i> </button>
             </div>
           </div>
 
           <!-- Confirm Password -->
           <div class="mb-3 w-100">
             <label for="confirm-password" class="form-label font-bold-weight">Confirm Password<span class="text-danger">*</span></label>
-            <div>
+            <div class="d-flex bg-light align-items-center justify-content-center rounded">
               <input type="password" name="confirm-password" class="form-control shadow-none" id="confirm-password" placeholder="Confirm Password" required="required" />
+              <button type="button" class="bg-external-white border-0" id="eye-closed-icon-conf"><i class="fa-regular fa-eye-slash"></i> </button>
+            </div>
+          </div>
+
+          <!-- Taxi Number -->
+          <div class="mb-3 w-100">
+            <label for="taxi-number" class="form-label font-bold-weight">Taxi Number<span class="text-danger">*</span></label>
+            <div>
+              <input type="text" name="taxi-number" class="form-control shadow-none" id="taxi-number" placeholder="Ex: EP CAD - 9699" required="required" />
             </div>
           </div>
         </div>
@@ -362,7 +375,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <!-- Boostrap JS Files -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-
   <!-- End -->
 
   <!-- JavaScript Validation for Inputs -->
@@ -392,6 +404,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
 
     validator.addField(
+      "#taxi-number",
+      [{
+          rule: "required",
+        },
+        {
+          rule: "minLength",
+          value: 10,
+        },
+        {
+          rule: "maxLength",
+          value: 15,
+        },
+      ], {
+        errorLabelCssClass: ["error-msg-margin"],
+      }
+    );
+
+    validator.addField(
       "#driver-email",
       [{
           rule: "required",
@@ -410,15 +440,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           rule: "required",
         },
         {
-          rule: "number",
-        },
-        {
           rule: "minLength",
-          value: 10,
+          value: 12,
         },
         {
           rule: "maxLength",
-          value: 10,
+          value: 15,
         },
       ], {
         errorLabelCssClass: ["error-msg-margin"],
@@ -558,6 +585,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       const signUpFormEl = document.getElementById("driver-signup-form");
       signUpFormEl.submit();
     });
+  </script>
+
+  <!-- JavaScript Code to Show / Hide Password -->
+  <script>
+    const eyeClosedIconEl = document.getElementById("eye-closed-icon");
+    const eyeClosedIconForConfirmPasswordEl = document.getElementById("eye-closed-icon-conf");
+    const adminPasswordEl = document.querySelector("#password");
+    const confirmPasswordEl = document.querySelector("#confirm-password");
+
+    eyeClosedIconEl.onclick = function() {
+      if (adminPasswordEl.type === "password") {
+        adminPasswordEl.type = "text";
+        eyeClosedIconEl.innerHTML = `<i class="fa-regular fa-eye"></i>`;
+      } else {
+        adminPasswordEl.type = "password";
+
+        eyeClosedIconEl.innerHTML = `<i class="fa-regular fa-eye-slash"></i>`;
+      }
+    };
+
+    eyeClosedIconForConfirmPasswordEl.onclick = function() {
+      if (confirmPasswordEl.type === "password") {
+        confirmPasswordEl.type = "text";
+        eyeClosedIconForConfirmPasswordEl.innerHTML = `<i class="fa-regular fa-eye"></i>`;
+      } else {
+        confirmPasswordEl.type = "password";
+
+        eyeClosedIconForConfirmPasswordEl.innerHTML = `<i class="fa-regular fa-eye-slash"></i>`;
+      }
+    }
   </script>
 </body>
 

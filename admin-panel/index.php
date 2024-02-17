@@ -54,11 +54,19 @@ session_start();
 
                 <!-- Admin Password -->
                 <div class="mb-3 w-100">
-                    <label for="admin-password" class="form-label font-white">Password<span class="text-danger">*</span></label>
-                    <div class="d-flex align-items-center bg-external-white w-100 rounded">
-                        <input type="password" class="form-control shadow-none bg-external-white" id="admin-password" name="admin-password" placeholder="Enter your Password" required="required" />
-                        <button type="button" class="bg-external-white border-0" id="eye-closed-icon"><i class="fa-regular fa-eye-slash"></i> </button>
+                    <label for="password" class="form-label font-white">Password<span class="text-danger">*</span></label>
+                    <div>
+                        <input type="password" class="form-control shadow-none bg-external-white" id="password" name="password" placeholder="Enter your Password" required="required" />
                     </div>
+                </div>
+                <!-- <button type="button" class="bg-external-white border-0" id="eye-closed-icon"><i class="fa-regular fa-eye-slash"></i> </button> -->
+
+                <!-- Show Password Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show-password" id="show-password" value="true" />
+                    <label class="form-check-label text-light" for="show-password">
+                        Show Password
+                    </label>
                 </div>
 
                 <div class="mb-3 mt-4 w-100">
@@ -93,7 +101,7 @@ session_start();
         );
 
         validator.addField(
-            "#admin-password",
+            "#password",
             [{
                 rule: "required",
             }, ], {
@@ -108,22 +116,8 @@ session_start();
         adminLoginFormEl.reset();
     </script>
 
-    <!-- JavaScript Code to Show / Hide Password -->
-    <script>
-        const eyeClosedIconEl = document.getElementById("eye-closed-icon");
-        const adminPasswordEl = document.querySelector("#admin-password");
-
-        eyeClosedIconEl.onclick = function() {
-            if (adminPasswordEl.type === "password") {
-                adminPasswordEl.type = "text";
-                eyeClosedIconEl.innerHTML = `<i class="fa-regular fa-eye"></i>`;
-            } else {
-                adminPasswordEl.type = "password";
-
-                eyeClosedIconEl.innerHTML = `<i class="fa-regular fa-eye-slash"></i>`;
-            }
-        };
-    </script>
+    <
+    <script src="../assets/js/showPassword.js"></script>
 </body>
 
 </html>
@@ -135,7 +129,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $adminNameEl = $_POST['admin-name'];
-    $adminPasswordEl = $_POST['admin-password'];
+    $adminPasswordEl = $_POST['password'];
 
     $fetchAdminDetail = mysqli_query($con, "SELECT * FROM `table_admin_panel` WHERE username = '$adminNameEl'");
     $isAdminNameAvailable = mysqli_num_rows($fetchAdminDetail);     // * If any records exists based on the Query, this method will return those records.

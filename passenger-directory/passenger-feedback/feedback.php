@@ -84,7 +84,7 @@ if (isset($_GET['reservation_id'])) {
                 <!-- Create Account Button -->
                 <div class="pt-3 w-100 d-md-flex align-items-center gap-2">
                     <button type="submit" class="btn bg-warning border-black w-100 mb-3" onclick="redirectToDashboard()">
-                        Create Account
+                        Submit
                     </button>
 
                     <!-- Skip Button -->
@@ -188,6 +188,8 @@ if (isset($_GET['reservation_id'])) {
 </html>
 
 <?php
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo $recievedID;
 

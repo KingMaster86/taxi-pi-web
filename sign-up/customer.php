@@ -113,7 +113,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-name" class="form-label">Name<span class="text-danger">*</span></label>
             <div>
-              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-name" name="passenger-name" placeholder="Enter your name" required="required" />
+              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-name" name="passenger-name" placeholder="Enter your name" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -121,7 +121,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-email" class="form-label">Email<span class="text-danger">*</span></label>
             <div>
-              <input type="email" class="form-control shadow-none" id="passenger-email" name="passenger-email" placeholder="Enter your Email" required="required" />
+              <input type="email" class="form-control shadow-none" id="passenger-email" name="passenger-email" placeholder="Enter your Email" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -129,7 +129,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-phone-no" class="form-label">Phone Number<span class="text-danger">*</span></label>
             <div>
-              <input type="text" class="form-control shadow-none" id="passenger-phone-no" name="passenger-phone-no" placeholder="Enter your Phone Number" required="required" />
+              <input type="text" class="form-control shadow-none" id="passenger-phone-no" name="passenger-phone-no" placeholder="Enter your Phone Number" required="required" autocomplete="off" />
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ include('../includes/connect.php');
           <!-- Username -->
           <div class="mb-3 w-100">
             <label for="passenger-username" class="form-label">Username<span class="text-danger">*</span></label>
-            <input type="text" class="form-control shadow-none" id="passenger-username" name="passenger-username" placeholder="Enter your Username" required="required" />
+            <input type="text" class="form-control shadow-none" id="passenger-username" name="passenger-username" placeholder="Enter your Username" required="required" autocomplete="off" />
           </div>
 
           <!-- Password -->
@@ -165,7 +165,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-address-line-1" class="form-label">Address Line 1<span class="text-danger">*</span></label>
             <div>
-              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-address-line-1" name="passenger-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required="required" />
+              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-address-line-1" name="passenger-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -173,7 +173,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-city-name" class="form-label">City<span class="text-danger">*</span></label>
             <div>
-              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-city-name" name="passenger-city-name" placeholder="Ex: Nintavur" required="required" />
+              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-city-name" name="passenger-city-name" placeholder="Ex: Nintavur" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -181,7 +181,7 @@ include('../includes/connect.php');
           <div class="mb-3 w-100">
             <label for="passenger-country-name" class="form-label">Country<span class="text-danger">*</span></label>
             <div>
-              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-country-name" name="passenger-country-name" placeholder="Ex: Sri Lanka" required="required" />
+              <input type="text" class="form-control shadow-none text-capitalize" id="passenger-country-name" name="passenger-country-name" placeholder="Ex: Sri Lanka" required="required" autocomplete="off" />
             </div>
           </div>
         </div>
@@ -191,7 +191,7 @@ include('../includes/connect.php');
           <!-- ID Card -->
           <div class="mb-3 w-100">
             <label for="passenger-id-card-no" class="form-label">ID Card No.<span class="text-danger">*</span></label>
-            <input type="text" class="form-control shadow-none" id="passenger-id-card-no" name="passenger-id-card-no" placeholder="Enter your ID Card Number" required="required" />
+            <input type="text" class="form-control shadow-none" id="passenger-id-card-no" name="passenger-id-card-no" placeholder="Enter your ID Card Number" required="required" autocapitalize="off" />
           </div>
 
           <!-- Passenger Image -->
@@ -264,15 +264,12 @@ include('../includes/connect.php');
           rule: "required",
         },
         {
-          rule: "number",
-        },
-        {
           rule: "minLength",
-          value: 10,
+          value: 12,
         },
         {
           rule: "maxLength",
-          value: 10,
+          value: 15,
         },
       ], {
         errorLabelCssClass: ["error-msg-margin"],

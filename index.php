@@ -79,7 +79,8 @@ session_start();
           ## Based on the below code; If the Passenger / Driver loggedin It will show Logout instead of Login.
           ## Otherwise, It will show as Login through the SESSION.
           -->
-          <div class="btn-group me-4">
+          
+          0.<div class="btn-group me-4">
             <?php
             if (isset($_SESSION['username'])) {
               echo "
@@ -135,6 +136,7 @@ session_start();
         Book your Taxi Now
       </h3>
       <a href="tel:+12345678900" class="text-white text-decoration-none fs-1 fw-bold"><i class="fa-solid fa-mobile-screen"></i> +94 754946927</a>
+      <small class="font-white-secondary">Tap to call 👆</small>
     </div>
   </div>
 

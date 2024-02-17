@@ -53,10 +53,18 @@ session_start();
 
                 <!-- Driver Password -->
                 <div class="mb-3 w-100">
-                    <label for="driver-password" class="form-label font-white">Password<span class="text-danger">*</span></label>
+                    <label for="password" class="form-label font-white">Password<span class="text-danger">*</span></label>
                     <div>
-                        <input type="password" class="form-control shadow-none bg-external-white" id="driver-password" name="driver-password" placeholder="Enter your Password" required="required" />
+                        <input type="password" class="form-control shadow-none bg-external-white" id="password" name="password" placeholder="Enter your Password" required="required" />
                     </div>
+                </div>
+
+                <!-- Show Password Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show-password" id="show-password" value="true" />
+                    <label class="form-check-label text-light" for="show-password">
+                        Show Password
+                    </label>
                 </div>
 
                 <div class="mb-3 mt-4 w-100">
@@ -91,7 +99,7 @@ session_start();
         );
 
         validator.addField(
-            "#driver-password",
+            "#password",
             [{
                 rule: "required",
             }, ], {
@@ -104,6 +112,9 @@ session_start();
             driverLoginFormEl.reset();
         })
     </script>
+
+    <!-- JavaScript code for show & hide password -->
+    <script src="../assets/js/showPassword.js"></script>
 </body>
 
 </html>
@@ -114,7 +125,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $driverUsernameEl = $_POST['driver-username'];
-    $driverPasswordEl = $_POST['driver-password'];
+    $driverPasswordEl = $_POST['password'];
 
     $fetchDriverDetails = mysqli_query($con, "SELECT * FROM `table_driver` WHERE driver_username = '$driverUsernameEl'");
     $arrayOfDriverDetail = mysqli_fetch_assoc($fetchDriverDetails);

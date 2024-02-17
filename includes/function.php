@@ -1,6 +1,12 @@
 <?php
 include('connect.php');
 
+// ! SMS Gateway dependencies.
+use Infobip\Configuration;
+use Infobip\Api\SmsApi;
+use Infobip\Model\SmsDestination;
+use Infobip\Model\SmsTextualMessage;
+use Infobip\Model\SmsAdvancedTextualRequest;
 
 // Delete Function
 function deleteRecord($con, $query)
@@ -13,7 +19,7 @@ function deleteRecord($con, $query)
 
 
 
-// Get the user IP
+// * Get the user IP
 function get_IP_address()
 {
     foreach (array(
@@ -45,6 +51,7 @@ function get_IP_address()
     }
 }
 
+
 // * Function for find the distance between Pickup Location and Drop Location.
 function getDistance($pickupLocation, $dropLocation)
 {
@@ -69,6 +76,7 @@ function getDistance($pickupLocation, $dropLocation)
     }
 }
 
+
 // * Functtion for find Latitude of a Location.
 function getLocationLatitude($locationName)
 {
@@ -88,7 +96,7 @@ function getLocationLatitude($locationName)
 
 
 
-// * Functtion for find Longitude of a Location
+// * Function for find Longitude of a Location
 function getLocationLongitude($locationName)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -101,4 +109,63 @@ function getLocationLongitude($locationName)
     $locationLongitude = $locationObj->results[0]->geometry->location->lng;
 
     return $locationLongitude;
+}
+
+
+// * Function to Sending SMS to Passenger when the reservation confirmed.
+function sendSMS($phoneNumber, $passengerName, $driverName, $taxiNumber, $driverPhoneNumber)
+{
+    require __DIR__ . "../../vendor/autoload.php";
+
+    $base_url = "qyvgjm.api.infobip.com";
+    $api_key = "0a078aa1485478404ed93336b89cde66-523b1dda-2615-49a2-97f8-3f64b9343ac9";
+
+    $msg = "Dear " . $passengerName . "! Your reservation has been confirmed successfully. The Driver's Name is " . $driverName . ", the taxi number is  " . $taxiNumber . ". You can get connect with driver using " . $driverPhoneNumber . ".";
+    // $msg = "Dear {$passengerName}! Your reservation has been confirmed successfully. The Driver's Name is {$driverName}, the taxi number is {$taxiNumber}. You can get connect with driver using {$driverPhoneNumber}.";
+
+    $configuration = new Configuration(host: $base_url, apiKey: $api_key);
+
+    $api = new SmsApi(config: $configuration);
+
+    $destination = new SmsDestination(to: $phoneNumber);
+
+    $message = new SmsTextualMessage(
+        destinations: [$destination],
+        text: $msg
+    );
+
+    $request = new SmsAdvancedTextualRequest(messages: [$message]);
+
+    $response = $api->sendSmsMessage($request);
+
+    echo var_dump($response);
+}
+
+
+// * Function to Sending SMS to Driver when Payment process completed.
+function sendSMSForPaymentSuccess($phoneNumber, $driverName, $reservationId)
+{
+    require __DIR__ . "../../vendor/autoload.php";
+
+    $base_url = "qyvgjm.api.infobip.com";
+    $api_key = "0a078aa1485478404ed93336b89cde66-523b1dda-2615-49a2-97f8-3f64b9343ac9";
+
+    $msg = "Dear " . $driverName . "! The payment received for the Reservation ID: " . $reservationId . " successfully!";
+
+    $configuration = new Configuration(host: $base_url, apiKey: $api_key);
+
+    $api = new SmsApi(config: $configuration);
+
+    $destination = new SmsDestination(to: $phoneNumber);
+
+    $message = new SmsTextualMessage(
+        destinations: [$destination],
+        text: $msg
+    );
+
+    $request = new SmsAdvancedTextualRequest(messages: [$message]);
+
+    $response = $api->sendSmsMessage($request);
+
+    echo var_dump($response);
 }

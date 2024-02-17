@@ -28,3 +28,7 @@ Feb 14:
 2. Need to implement Feedback of Passenger feature. - COMPLETED.
 
 Feb 15:
+1. Need to implement SMS sending feature. - COMPLETED.
+2. Need to implement Feedback of Driver feature. - COMPLETED.
+
+Feb 17:

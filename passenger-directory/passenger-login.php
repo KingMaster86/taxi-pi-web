@@ -54,10 +54,18 @@ session_start();
 
                 <!-- Passenger Password -->
                 <div class="mb-3 w-100">
-                    <label for="passenger-password" class="form-label font-white">Password<span class="text-danger">*</span></label>
+                    <label for="password" class="form-label font-white">Password<span class="text-danger">*</span></label>
                     <div>
-                        <input type="password" class="form-control shadow-none bg-external-white" id="passenger-password" name="passenger-password" placeholder="Enter your Password" required="required" />
+                        <input type="password" class="form-control shadow-none bg-external-white" id="password" name="password" placeholder="Enter your Password" required="required" />
                     </div>
+                </div>
+
+                <!-- Show Password Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show-password" id="show-password" value="true" />
+                    <label class="form-check-label text-light" for="show-password">
+                        Show Password
+                    </label>
                 </div>
 
                 <div class="mb-3 mt-4 w-100">
@@ -92,7 +100,7 @@ session_start();
         );
 
         validator.addField(
-            "#passenger-password",
+            "#password",
             [{
                 rule: "required",
             }, ], {
@@ -106,6 +114,10 @@ session_start();
             passengerLoginFormEl.reset();
         })
     </script>
+
+    <!-- JavaScript code for show & hide password -->
+    <script src="../assets/js/showPassword.js"></script>
+
 </body>
 
 </html>
@@ -116,7 +128,7 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $passengerUsernameEl = $_POST['passenger-username'];
-    $passengerPasswordEl = $_POST['passenger-password'];
+    $passengerPasswordEl = $_POST['password'];
 
     $fetchAllDataFromPassengerTbl = mysqli_query($con, "SELECT * FROM `table_passenger` WHERE passenger_username = '$passengerUsernameEl'");
     $arrayOfPassengerData = mysqli_fetch_assoc($fetchAllDataFromPassengerTbl);

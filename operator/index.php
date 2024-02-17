@@ -103,6 +103,7 @@ session_start();
             operatorLoginFormEl.reset();
         })
     </script>
+    <a href="../index.php"></a>
 </body>
 
 </html>
@@ -129,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($isOperatorDetailExist == 1) {
                 $_SESSION['operatorUsername'] = $operatorUsernameEl;
                 // echo "<script>alert('Welcome " . $arrayOfOperatorDetail['operator_name'] . "! You have loggedin successfully.')</script>";
-                echo "<script>window.open('operator-homepage.php', '_self')</script>";
+                echo "<script>window.open('operator-homepage.php?reserve', '_self')</script>";
             }
         } else {
             echo "<script>alert('Please reverify your password!.')</script>";

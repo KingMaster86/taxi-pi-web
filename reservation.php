@@ -1,5 +1,6 @@
 <?php
 include('./includes/connect.php');
+include('./includes/function.php');
 session_start();
 
 // Getting Passenger Name from Passenger Table
@@ -185,41 +186,53 @@ if ($isUsernameExist == 1) {
 
 <!-- PHP Code to Process Reservation -->
 <?php
-
-use Infobip\Configuration;
-use Infobip\Api\SmsApi;
-use Infobip\Model\SmsDestination;
-use Infobip\Model\SmsTextualMessage;
-use Infobip\Model\SmsAdvancedTextualRequest;
-
-require __DIR__ . "/vendor/autoload.php";
-
-$message = [];
-$phoneNumber = "";
-
-// Storyline
-// 1. Get the driverId & passengerId from using $_GET;
+// * Storyline
+// * 1. Get the driverId & passengerId from using $_GET;
 if (isset($_GET['driverId'])) {
   if (isset($_GET['passengerId'])) {
 
     $parsedDriverId = $_GET['driverId'];
     $parsedPassengerId = $_GET['passengerId'];
+
+
+    $getPassengerDet = mysqli_query($con, "SELECT passenger_name, passenger_phone_no FROM `table_passenger` WHERE id = $parsedPassengerId");
+    $isPassengerDetailExist = mysqli_num_rows($getPassengerDet);
+
+    if ($isPassengerDetailExist > 0 && $isPassengerDetailExist == 1) {
+      $arrayOfPassengerDetails = mysqli_fetch_assoc($getPassengerDet);
+      $passengerName = $arrayOfPassengerDetails['passenger_name'];
+      $passengerContactNo = $arrayOfPassengerDetails['passenger_phone_no'];
+      // echo $passengerContactNo;
+    }
+
+
+
+    $getDriverDet = mysqli_query($con, "SELECT driver_name, taxi_number, driver_phone_no FROM `table_driver` WHERE driver_id = $parsedDriverId");
+    if (mysqli_num_rows($getDriverDet) > 0 && mysqli_num_rows($getDriverDet) == 1) {
+
+      $arrayOfDriverDet = mysqli_fetch_assoc($getDriverDet);
+      $driverName = $arrayOfDriverDet['driver_name'];
+      $taxiNumber = $arrayOfDriverDet['taxi_number'];
+      $driverContactNum = $arrayOfDriverDet['driver_phone_no'];
+      // echo $driverName;
+      // echo $taxiNumber;
+    }
   }
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  // 2. Get the details of Reservation process from Form.
+  // * 2. Get the details of Reservation process from Form.
   $passengerPickupLocationEl = $_POST['passenger-pickup-location'];
   $passengerDropLocationEl = $_POST['passenger-drop-location'];
   $dateAndTimeOfReservationEl = $_POST['date-and-time-of-reservation'];
 
-  // 3. Connect to the Geocoding API
+  // * 3. Connect to the Geocoding API
   $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
   $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
 
-  // 4. Get the Passenger Pickup Location Latitude and Longitude values.
+  // * 4. Get the Passenger Pickup Location Latitude and Longitude values.
   $APIRequest = $API_URL . $passengerPickupLocationEl . "&key=" . $apiKey;
   $responseOfAPI = file_get_contents($APIRequest);
   $pickupLocationObj = json_decode($responseOfAPI);
@@ -227,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $pickupLocationLatitude = $pickupLocationObj->results[0]->geometry->location->lat;
   $pickupLocationLongitude = $pickupLocationObj->results[0]->geometry->location->lng;
 
-  // 5. Get the Passenger Drop Location Latitude and Longitude values.
+  // * 5. Get the Passenger Drop Location Latitude and Longitude values.
   $APIRequestForDropLocation = $API_URL . $passengerDropLocationEl . "&key=" . $apiKey;
   $resp = file_get_contents($APIRequestForDropLocation);
   $dropLocationObj = json_decode($resp);
@@ -240,8 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   date_default_timezone_set('Asia/Kolkata');
   $currentDateTime = date('Y-m-d - h:i:sa');
 
-  $passengerName = "none";      // ! Because, it is for registered passenger. So their name already stored in `table_passenger`.
-  $passengerContactNo = "none"; // ! Because, it is also for registered passenger. So their contact number detail already stored in `table_passenger`.
+
   $operatorId = 0;      // ! Here, only registered passengers will do booking process. So, there is no any connection to operator in this process. 
 
   // 6. Store in those datas in DB.
@@ -283,8 +295,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // $isReserved = mysqli_affected_rows($con);
   if ($makeReserveTaxi) {
-    // echo "<script>alert('Hi ' . $passengerName . '! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
-    echo "<script>alert('Hi $passengerName! Thank you for choosing us. Your Reservation is confirmed. Hope you will enjoy!🤝')</script>";
+    echo "<script>alert('Hi $passengerName! Thank you for choosing us. Your Reservation is confirmed. You will receive a confirmation message shortly...')</script>";
+
+    sendSMS($passengerContactNo, $passengerName, $driverName, $taxiNumber, $driverContactNum);
 
     echo "<script>window.open('./passenger-directory/passenger-homepage.php?history','_self')</script>";
   }

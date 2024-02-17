@@ -1,5 +1,8 @@
 <?php
 include('../../includes/connect.php');
+include('../../includes/function.php');
+
+// ! Stripe Dependencies
 require_once 'stripe-php-13.10.0/init.php';
 require_once 'config.php';
 
@@ -33,7 +36,9 @@ if (isset($_GET['reservation_id'])) {
         $query = "SELECT tr.*,
         tp.id,
         tp.passenger_name,
-        td.driver_id
+        td.driver_id,
+        td.driver_name,
+        td.driver_phone_no
         FROM `table_payment` AS tpay
         LEFT JOIN `table_reservation` AS tr ON tpay.reservation_id = tr.reservation_id
         LEFT JOIN `table_passenger` AS tp ON tr.passenger_id = tp.id
@@ -48,6 +53,9 @@ if (isset($_GET['reservation_id'])) {
             $arrayOfReservationData = mysqli_fetch_assoc($getAllDataOfReservation);
             $reservation_status = $arrayOfReservationData['reservation_status'];
             $passengerId = $arrayOfReservationData['passenger_id'];
+            $driverName =  $arrayOfReservationData['driver_name'];
+            $driverPhoneNum = $arrayOfReservationData['driver_phone_no'];
+            echo $driverName . " " . $driverPhoneNum;
 
             if ($reservation_status == "on process") {
                 $updateStatus = mysqli_query(
@@ -63,12 +71,13 @@ if (isset($_GET['reservation_id'])) {
                 $reservation_status = $reservation_status;
             }
 
-            // if ($updateStatus) {
+            if ($updateStatus) {
 
-            //     echo "<script>window.open('../passenger-homepage.php','_self')</script>";
-            // } else {
-            //     echo "Error!";
-            // }
+                sendSMSForPaymentSuccess($driverPhoneNum, $driverName, $parsedReservationId);
+            } else {
+
+                echo "Error!";
+            }
         }
     }
 

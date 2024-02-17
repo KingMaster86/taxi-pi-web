@@ -36,7 +36,7 @@ session_start();
 </head>
 <!-- bg-external-white -->
 
-<body class="overflow-x-hidden ">
+<body class="overflow-x-hidden background-black-color">
     <!-- Header Area -->
     <header class="container-fluid bg-warning">
         <nav class="navbar navbar-expand-lg container py-3">
@@ -61,7 +61,7 @@ session_start();
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            <a class="nav-link font-black fs-5 rounded effect-black me-4 px-3 fw-semibold" href="operator-homepage.php?logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -83,6 +83,10 @@ session_start();
                 }
                 if (isset($_GET['check_queries'])) {
                     include('./history.php');
+                }
+
+                if (isset($_GET['logout'])) {
+                    include('./logout.php');
                 }
                 ?>
             </div>
