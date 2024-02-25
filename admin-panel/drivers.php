@@ -37,7 +37,7 @@ include('../includes/connect.php');
     <h4 class="text-center container fw-bold font-black mt-5 pb-2">
         Drivers' Overview
     </h4>
-    <div class="table-responsive mt-3">
+    <div class="table-responsive overflow-x-scroll mt-3">
         <table class="table align-middle table-bordered">
             <thead class="text-center fw-semibold">
                 <tr>
@@ -102,7 +102,7 @@ include('../includes/connect.php');
                             <?php echo $driverName; ?>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
-                            <?php echo $driverEmail; ?>
+                            <a href="mailto:<?php echo $driverEmail; ?>" class="text-decoration-none font-white-secondary"><?php echo $driverEmail; ?></a>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
                             <?php echo $driverUsername; ?>
@@ -128,14 +128,16 @@ include('../includes/connect.php');
                         <td class="background-black-color-secondary font-white-secondary">
                             No. <?php echo $driverAddressLine; ?>
                         </td>
-                        <td class="background-black-color-secondary font-white-secondary">
+                        <td class="background-black-color-secondary text-capitalize font-white-secondary">
                             <?php echo $driverCity; ?>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
                             <?php echo $driverCountry; ?>
                         </td>
                         <td class="background-black-color-secondary font-white-secondary">
+                            <a href='admin-panel.php?edit_driver&driver_id=<?php echo $driverId; ?>' class='text-decoration-none font-white-secondary '><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href='delete-driver.php?driver_id=<?php echo $driverId; ?>' class='text-decoration-none font-white-secondary '><i class='fa-solid fa-trash-can'></i></a>
+
                         </td>
                     </tr>
                 <?php
@@ -153,7 +155,7 @@ include('../includes/connect.php');
     <!-- JavaScript function to open Google Maps -->
     <script>
         function showLocationOnMap(location) {
-            // Open Google Maps with the specified location
+            // Todo: Open Google Maps with the specified location
             window.open('https://www.google.com/maps?q=' + location, '_blank');
         }
     </script>

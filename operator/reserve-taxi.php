@@ -36,7 +36,7 @@ if ($isNameExist > 0 && $isNameExist == 1) {
             <div class="mb-3 w-100">
                 <label for="passenger-contact-number" class="form-label">Passenger Contact Number<span class="text-danger">*</span></label>
                 <div>
-                    <input type="text" value="7418529632587" class="form-control shadow-none text-capitalize" id="passenger-contact-number" name="passenger-contact-number" placeholder="Enter the passenger contact number" required="required" />
+                    <input type="text" class="form-control shadow-none text-capitalize" id="passenger-contact-number" name="passenger-contact-number" placeholder="Enter the passenger contact number" required="required" />
                 </div>
             </div>
 
@@ -55,26 +55,6 @@ if ($isNameExist > 0 && $isNameExist == 1) {
                     <input type="text" class="form-control shadow-none text-capitalize" id="passenger-drop-location" name="passenger-drop-location" placeholder="Enter your Drop Location" required="required" />
                 </div>
             </div>
-
-            <!-- Available Driver Detail
-                <div class="d-flex flex-column  mb-3 w-100">
-                    <div>
-                        <label for="available-drivers-list" class="form-label">Available Drivers<span class="text-danger">*</span></label>
-                        <input type="button" name="find-driver" class="font-size-small btn hover-effect" value="Click to find">
-                    </div>
-
-                    <div>
-                        <select name="available-drivers-list" class="form-select" id="available-drivers-list">
-                            <option value="">--Tap to select available driver--</option>
-                            <option value="">Mushkir</option>
-                            <option value="">Mushkir</option>
-                            <option value="">Mushkir</option>
-                        </select>
-                    </div> -->
-            <!-- <div>
-                        <input type="text" class="form-control shadow-none text-capitalize" id="passenger-drop-location" name="passenger-drop-location" placeholder="Enter your Drop Location" required="required" />
-                    </div> -->
-            <!-- </div> -->
 
             <!-- Date and Time of Reservation -->
             <div class="mb-3 w-100">

@@ -6,9 +6,7 @@ Upcoming Features:
 
 
 To do (Functional):
-1. Need to implement Viewing Payment History feature in Passenger Dashboard. - PENDING.
 2. Admin dashboard summary works.
-3. Operator dashboard works.
 4. Driver Edit Page (mail, phone number, address).
 5. Passenger Edit Page (mail, phone number, address).
 6. Testimonials in Homepage.

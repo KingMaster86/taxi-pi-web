@@ -85,6 +85,17 @@ session_start();
                         <p class="fs-5 mb-1">Drivers</p>
                     </a>
 
+                    <!-- Completed Reservations -->
+                    <a href="admin-panel.php?completed_reservations" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
+                        <!-- Icon -->
+                        <div>
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <!-- Menu Name -->
+                        <p class="fs-5 mb-1">Completed Reservations</p>
+                    </a>
+
                     <!-- Logout -->
                     <a href="../index.php" class="d-md-flex align-items-center hover-effect text-light gap-3 btn mt-4">
                         <!-- Icon -->
@@ -124,6 +135,18 @@ session_start();
 
             if (isset($_GET['drivers'])) {
                 include('drivers.php');
+            }
+
+            if (isset($_GET['edit_passenger'])) {
+                include('edit-passenger.php');
+            }
+
+            if (isset($_GET['edit_driver'])) {
+                include('edit-driver.php');
+            }
+
+            if (isset($_GET['completed_reservations'])) {
+                include('show-completed-reservations.php');
             }
             ?>
         </div>

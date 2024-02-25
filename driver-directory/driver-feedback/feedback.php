@@ -4,6 +4,13 @@ include('../../includes/connect.php');
 if (isset($_GET['reservation_id'])) {
 
     $passedReservationId = $_GET['reservation_id'];
+    $getDriverIdFromReservationTable = mysqli_query($con, "SELECT * FROM `table_reservation` WHERE driver_id = $passedReservationId");
+
+    if (mysqli_num_rows($getDriverIdFromReservationTable) > 0 && mysqli_num_rows($getDriverIdFromReservationTable) == 1) {
+        $arrayOfReservationDetail = mysqli_fetch_assoc($getDriverIdFromReservationTable);
+
+        $driverId = $arrayOfReservationDetail['driver_id'];
+    }
 }
 ?>
 
@@ -83,13 +90,13 @@ if (isset($_GET['reservation_id'])) {
                 <!-- Create Account Button -->
                 <div class="pt-3 w-100 d-md-flex align-items-center gap-2">
                     <button type="submit" class="btn bg-warning border-black w-100 mb-3" onclick="redirectToDashboard()">
-                        Create Account
+                        Submit
                     </button>
 
                     <!-- Skip Button -->
-                    <button type="button" id="btn-skip" class="btn bg-secondary text-light w-100 mb-3">
+                    <a href="../homepage.php?history" id="btn-skip" class="btn bg-secondary text-light w-100 mb-3">
                         Skip
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>
@@ -172,15 +179,6 @@ if (isset($_GET['reservation_id'])) {
             driverFeedbackFormEl.reset();
         })
     </script>
-
-    <script>
-        function redirectToDashboard() {
-            const btnSkipEl = document.querySelector("#btn-skip");
-            btnSkipEl.addEventListener("click", () => {
-                window.open('../homepage.php?history', '_self');
-            })
-        }
-    </script>
 </body>
 
 </html>
@@ -196,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $saveDriverFeedback = mysqli_query($con, "INSERT INTO `table_driver_feedback` (short_subject, content_body, rating, date, time, reservation_id) VALUES ('$subjectContentEl', '$feedbackContentEl', $ratingEl, NOW(), NOW(), $passedReservationId)");
     if ($saveDriverFeedback) {
         echo "<script>alert('Thank you for your valuable feedback about the client...')</script>";
-        echo "<script>window.open('../homepage.php?history&driver_id={$passedReservationId}','_self')</script>";
+        echo "<script>window.open('../homepage.php?history&driver_id={$driverId}','_self')</script>";
     }
 }
 ?>

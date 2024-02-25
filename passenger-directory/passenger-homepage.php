@@ -118,7 +118,6 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
     </nav>
   </header>
   <!-- End -->
-  <a href=""></a>
 
   <main>
     <div class="row">
@@ -131,6 +130,7 @@ if ($isPassengerUsernameExist > 0 && $isPassengerUsernameExist == 1) {
         if (isset($_GET['history'])) {
           include('trip-history.php');
         }
+
         ?>
       </div>
     </div>

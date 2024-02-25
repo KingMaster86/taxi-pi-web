@@ -77,7 +77,7 @@ function getDistance($pickupLocation, $dropLocation)
 }
 
 
-// * Functtion for find Latitude of a Location.
+// * Function for find Latitude of a Location.
 function getLocationLatitude($locationName)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -168,4 +168,19 @@ function sendSMSForPaymentSuccess($phoneNumber, $driverName, $reservationId)
     $response = $api->sendSmsMessage($request);
 
     echo var_dump($response);
+}
+
+// * Function for convert String value into Integer
+function convertStringIntoInt($stringValue)
+{
+    $intValue = intval($stringValue);
+    $readableValue = "";
+
+    if ($intValue <= 9) {
+        $readableValue = "0" . $intValue;
+    } else {
+        $readableValue = $intValue;
+    }
+
+    return $readableValue;
 }

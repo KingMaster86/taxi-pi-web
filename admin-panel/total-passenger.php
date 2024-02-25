@@ -40,45 +40,46 @@ include('../includes/connect.php');
             Passengers' Overview
         </h4>
         <!-- <div class="container"> -->
-        <table class="table mt-3">
-            <thead class="text-center fw-semibold">
-                <tr>
-                    <td class="background-black-color font-white p-3">S.No</td>
-                    <td class="background-black-color font-white p-3">
-                        Passenger Name
-                    </td>
-                    <td class="background-black-color font-white p-3">Email</td>
-                    <td class="background-black-color font-white p-3">Username</td>
-                    <td class="background-black-color font-white p-3">Passenger Image</td>
-                    <td class="background-black-color font-white p-3">Phone Number</td>
-                    <td class="background-black-color font-white p-3">ID Card No</td>
-                    <td class="background-black-color font-white p-3">Address Line</td>
-                    <td class="background-black-color font-white p-3">City</td>
-                    <td class="background-black-color font-white p-3">Country</td>
-                    <td class="background-black-color font-white p-3">Actions</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+        <div class="overflow-x-scroll">
+            <table class="table mt-3">
+                <thead class="text-center fw-semibold">
+                    <tr>
+                        <td class="background-black-color font-white p-3">S.No</td>
+                        <td class="background-black-color font-white p-3">
+                            Passenger Name
+                        </td>
+                        <td class="background-black-color font-white p-3">Email</td>
+                        <td class="background-black-color font-white p-3">Username</td>
+                        <td class="background-black-color font-white p-3">Passenger Image</td>
+                        <td class="background-black-color font-white p-3">Phone Number</td>
+                        <td class="background-black-color font-white p-3">ID Card No</td>
+                        <td class="background-black-color font-white p-3">Address Line</td>
+                        <td class="background-black-color font-white p-3">City</td>
+                        <td class="background-black-color font-white p-3">Country</td>
+                        <td class="background-black-color font-white p-3">Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
 
-                $serialNo = 1;
-                $fetchAllPassengersList = mysqli_query($con, "SELECT * FROM `table_passenger`");
+                    $serialNo = 1;
+                    $fetchAllPassengersList = mysqli_query($con, "SELECT * FROM `table_passenger`");
 
-                if (mysqli_num_rows($fetchAllPassengersList) > 0) {
-                    while ($arrayOfTotalPassengers = mysqli_fetch_assoc($fetchAllPassengersList)) {
-                        // echo var_dump($arrayOfTotalPassengers);
-                        $passengerId = $arrayOfTotalPassengers['id'];
-                        $passengerName = $arrayOfTotalPassengers['passenger_name'];
-                        $passengerEmail = $arrayOfTotalPassengers['passenger_email'];
-                        $passengerUsername = $arrayOfTotalPassengers['passenger_username'];
-                        $passengerPhoneNo = $arrayOfTotalPassengers['passenger_phone_no'];
-                        $passengerIdCardNumber = $arrayOfTotalPassengers['passenger_id_card_number'];
-                        $passengerAddressLine = $arrayOfTotalPassengers['passenger_address_line'];
-                        $passengerCity = $arrayOfTotalPassengers['passenger_city'];
-                        $passengerCountry = $arrayOfTotalPassengers['passenger_country'];
-                        $passengerImage = $arrayOfTotalPassengers['passenger_image'];
+                    if (mysqli_num_rows($fetchAllPassengersList) > 0) {
+                        while ($arrayOfTotalPassengers = mysqli_fetch_assoc($fetchAllPassengersList)) {
+                            // echo var_dump($arrayOfTotalPassengers);
+                            $passengerId = $arrayOfTotalPassengers['id'];
+                            $passengerName = $arrayOfTotalPassengers['passenger_name'];
+                            $passengerEmail = $arrayOfTotalPassengers['passenger_email'];
+                            $passengerUsername = $arrayOfTotalPassengers['passenger_username'];
+                            $passengerPhoneNo = $arrayOfTotalPassengers['passenger_phone_no'];
+                            $passengerIdCardNumber = $arrayOfTotalPassengers['passenger_id_card_number'];
+                            $passengerAddressLine = $arrayOfTotalPassengers['passenger_address_line'];
+                            $passengerCity = $arrayOfTotalPassengers['passenger_city'];
+                            $passengerCountry = $arrayOfTotalPassengers['passenger_country'];
+                            $passengerImage = $arrayOfTotalPassengers['passenger_image'];
 
-                        echo "<tr class='text-center'>
+                            echo "<tr class='text-center'>
                         <td class='background-black-color-secondary font-white-secondary'>
                             #$serialNo
                         </td>
@@ -101,7 +102,7 @@ include('../includes/connect.php');
                         </td>
 
                         <td class='background-black-color-secondary font-white-secondary'>
-                            <a href='tel:$passengerPhoneNo' class='text-decoration-none font-white-secondary'>0$passengerPhoneNo</a>
+                            <a href='tel:$passengerPhoneNo' class='text-decoration-none font-white-secondary'>$passengerPhoneNo</a>
                         </td>
 
                         <td class='background-black-color-secondary font-white-secondary'>
@@ -121,49 +122,20 @@ include('../includes/connect.php');
                         </td>
 
                         <td class='background-black-color-secondary font-white-secondary'>
-                            <a href='edit-passenger-detail.php?passenger_id={$passengerId}' class='text-decoration-none text-white me-2'><i class='fa-solid fa-pen-to-square'></i></a>
+                            <a href='admin-panel.php?edit_passenger&passenger_id={$passengerId}' class='text-decoration-none text-white me-2'><i class='fa-solid fa-pen-to-square'></i></a>
                             <a href='delete-passenger.php?passenger_id={$passengerId}' class='text-decoration-none font-white-secondary '><i class='fa-solid fa-trash-can'></i></a>
                         </td>
-    
                     </tr>";
 
-                        $serialNo++;
+                            $serialNo++;
+                        }
+                    } else {
+                        // echo "<h3>Sorry! Currently there is no passenger registerd...</h3>";
                     }
-                } else {
-                    // echo "<h3>Sorry! Currently there is no passenger registerd...</h3>";
-                }
-                ?>
-                <!-- <tr class="text-center">
-                    <td class="background-black-color-secondary font-white-secondary">
-                        #01
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Mushkir
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        mushkirmohamed@gmail.com
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        mushkir
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        <a href="tel:0777195282" class="text-decoration-none font-white-secondary">0777195282</a>
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        199631401505
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        65 North Clarendon Avenue
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Nintavur
-                    </td>
-                    <td class="background-black-color-secondary font-white-secondary">
-                        Sri Lanka
-                    </td>
-                </tr> -->
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
         <!-- </div> -->
     </div>
     <!-- Boostrap JS Files -->

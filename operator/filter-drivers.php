@@ -91,7 +91,7 @@ include('../includes/function.php');
                             <!-- Locate & Reserve Button Div -->
                             <div class="d-md-flex justify-content-between gap-2 align-items-center pb-3 p-2">
                                 <div class="w-100 mb-3">
-                                    <a href="confirmation-page.php?driver_id=<?php echo $driverId; ?>&reservation_id=<?php echo $reservationId; ?>" target="_blank" class="text-decoration-none btn hover-black-effect background-black-color text-light w-100">Click to Confirm the driver</a>
+                                    <a href="confirmation-page.php?driver_id=<?php echo $driverId; ?>&reservation_id=<?php echo $reservationId; ?>" class="text-decoration-none btn hover-black-effect background-black-color text-light w-100">Click to Confirm the driver</a>
                                 </div>
                             </div>
                         </div>

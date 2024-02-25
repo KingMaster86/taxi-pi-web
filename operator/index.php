@@ -2,6 +2,7 @@
 include('../includes/connect.php');
 
 session_start();
+// $_SESSION['operatorUsername']
 ?>
 
 <!DOCTYPE html>

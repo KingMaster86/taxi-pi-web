@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET['driver_id'])) {
     $passedDriverId = $_GET['driver_id'];
 
@@ -7,6 +8,7 @@ if (isset($_GET['driver_id'])) {
         $arrayOfDriverDetail = mysqli_fetch_assoc($getDriverDetail);
 
         $driverName = $arrayOfDriverDetail['driver_name'];
+        echo $driverName;
     }
 }
 ?>
@@ -77,6 +79,8 @@ if (isset($_GET['driver_id'])) {
             <?php
                     $serialNo++;
                 }
+            } else {
+                echo "<strong><box-icon type='solid' name='badge-check'></box-icon> </strong>";
             }
             ?>
         </tbody>

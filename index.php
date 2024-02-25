@@ -65,21 +65,21 @@ session_start();
             </li>
 
             <!-- About -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./about-us.php">About</a>
-            </li>
+            </li> -->
 
             <!-- Contact Us -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./contact-us.php">Contact Us</a>
-            </li>
+            </li> -->
           </ul>
 
           <!-- Login Button: 
           ## Based on the below code; If the Passenger / Driver loggedin It will show Logout instead of Login.
           ## Otherwise, It will show as Login through the SESSION.
           -->
-          
+
           0.<div class="btn-group me-4">
             <?php
             if (isset($_SESSION['username'])) {
