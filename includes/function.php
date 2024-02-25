@@ -117,8 +117,8 @@ function sendSMS($phoneNumber, $passengerName, $driverName, $taxiNumber, $driver
 {
     require __DIR__ . "../../vendor/autoload.php";
 
-    $base_url = "qyvgjm.api.infobip.com";
-    $api_key = "0a078aa1485478404ed93336b89cde66-523b1dda-2615-49a2-97f8-3f64b9343ac9";
+    $base_url = "j3ve2v.api.infobip.com";
+    $api_key = "254dff597abe47e6a0559acc94ac1c9a-73c0fb51-7efc-41fa-ad68-079100c19e66";
 
     $msg = "Dear " . $passengerName . "! Your reservation has been confirmed successfully. The Driver's Name is " . $driverName . ", the taxi number is  " . $taxiNumber . ". You can get connect with driver using " . $driverPhoneNumber . ".";
     // $msg = "Dear {$passengerName}! Your reservation has been confirmed successfully. The Driver's Name is {$driverName}, the taxi number is {$taxiNumber}. You can get connect with driver using {$driverPhoneNumber}.";
@@ -147,8 +147,8 @@ function sendSMSForPaymentSuccess($phoneNumber, $driverName, $reservationId)
 {
     require __DIR__ . "../../vendor/autoload.php";
 
-    $base_url = "qyvgjm.api.infobip.com";
-    $api_key = "0a078aa1485478404ed93336b89cde66-523b1dda-2615-49a2-97f8-3f64b9343ac9";
+    $base_url = "j3ve2v.api.infobip.com";
+    $api_key = "254dff597abe47e6a0559acc94ac1c9a-73c0fb51-7efc-41fa-ad68-079100c19e66";
 
     $msg = "Dear " . $driverName . "! The payment received for the Reservation ID: " . $reservationId . " successfully!";
 

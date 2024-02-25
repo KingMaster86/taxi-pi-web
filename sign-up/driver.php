@@ -5,7 +5,6 @@ include('../includes/function.php');
 
 // PHP Code for Database.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // // echo var_dump("Form Submitted");
   // //! Function for getting client IP address.
   // //! get_IP_address() written in function.php
 
@@ -265,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <!-- Username -->
           <div class="mb-3 w-100">
             <label for="driver-username" class="form-label font-bold-weight">Username<span class="text-danger">*</span></label>
-            <input type="text" name="driver-username" class="form-control shadow-none" id="driver-username" placeholder="Enter your Username" required="required" />
+            <input type="text" name="driver-username" class="form-control shadow-none" id="driver-username" placeholder="Enter your Username" required="required" autocomplete="off" />
           </div>
 
           <!-- Password -->
@@ -290,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="mb-3 w-100">
             <label for="taxi-number" class="form-label font-bold-weight">Taxi Number<span class="text-danger">*</span></label>
             <div>
-              <input type="text" name="taxi-number" class="form-control shadow-none" id="taxi-number" placeholder="Ex: EP CAD - 9699" required="required" />
+              <input type="text" name="taxi-number" class="form-control shadow-none" id="taxi-number" placeholder="Ex: EP CAD - 9699" required="required" autocomplete="off" />
             </div>
           </div>
         </div>
@@ -301,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="mb-3 w-100">
             <label for="driver-address-line-1" class="form-label font-bold-weight">Address Line 1<span class="text-danger">*</span></label>
             <div>
-              <input type="text" name="driver-address-line-1" class="form-control shadow-none text-capitalize" id="driver-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required="required" />
+              <input type="text" name="driver-address-line-1" class="form-control shadow-none text-capitalize" id="driver-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -309,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="mb-3 w-100">
             <label for="driver-city-name" class="form-label font-bold-weight">City<span class="text-danger">*</span></label>
             <div>
-              <input type="text" name="driver-city-name" class="form-control shadow-none text-capitalize" id="driver-city-name" placeholder="Ex: Nintavur" value="" required="required" />
+              <input type="text" name="driver-city-name" class="form-control shadow-none text-capitalize" id="driver-city-name" placeholder="Ex: Nintavur" value="" required="required" autocomplete="off" />
             </div>
           </div>
 
@@ -317,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="mb-3 w-100">
             <label for="driver-country-name" class="form-label font-bold-weight">Country<span class="text-danger">*</span></label>
             <div>
-              <input type="text" name="driver-country-name" class="form-control shadow-none text-capitalize" id="driver-country-name" placeholder="Ex: Sri Lanka" required="required" />
+              <input type="text" name="driver-country-name" class="form-control shadow-none text-capitalize" id="driver-country-name" placeholder="Ex: Sri Lanka" required="required" autocomplete="off" />
             </div>
           </div>
         </div>
@@ -336,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="mb-3 w-100">
             <label for="driver-id-card-no" class="form-label font-bold-weight">ID Card No.<span class="text-danger">*</span></label>
             <div>
-              <input type="text" name="driver-id-card-no" class="form-control shadow-none" id="driver-id-card-no" placeholder="Enter your ID Card Number" required="required" />
+              <input type="text" name="driver-id-card-no" class="form-control shadow-none" id="driver-id-card-no" placeholder="Enter your ID Card Number" required="required" autocomplete="off" />
             </div>
           </div>
 

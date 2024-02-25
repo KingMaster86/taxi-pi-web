@@ -48,7 +48,7 @@ session_start();
                 <div class="mb-3 w-100">
                     <label for="passenger-username" class="form-label font-white">Username<span class="text-danger">*</span></label>
                     <div>
-                        <input type="text" class="form-control shadow-none bg-external-white" id="passenger-username" name="passenger-username" placeholder="Enter your Username" required="required" />
+                        <input type="text" class="form-control shadow-none bg-external-white" id="passenger-username" name="passenger-username" placeholder="Enter your Username" required="required" autocomplete="off" />
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@ session_start();
                 </div>
 
                 <div class="d-md-flex justify-content-center align-items-center">
-                    <a href="#" class="text-decoration-none font-white-secondary font-size-small fw-normal d-flex justify-content-center align-items-center">Forgot Password?</a>
+                    <a href="../index.php" class="text-decoration-none font-white-secondary font-size-small fw-normal d-flex justify-content-center align-items-center">Back to Home</a>
                 </div>
             </div>
         </form>

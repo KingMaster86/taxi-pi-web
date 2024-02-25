@@ -74,7 +74,7 @@ session_start();
                 </div>
 
                 <div class="d-md-flex justify-content-center align-items-center">
-                    <a href="#" class="text-decoration-none font-white-secondary font-size-small fw-normal">Forgot Password?</a>
+                    <a href="../index.php" class="text-decoration-none font-white-secondary font-size-small fw-normal">Back to Home</a>
                 </div>
             </div>
         </form>
@@ -116,8 +116,8 @@ session_start();
         adminLoginFormEl.reset();
     </script>
 
-    <
-    <script src="../assets/js/showPassword.js"></script>
+    < <script src="../assets/js/showPassword.js">
+        </script>
 </body>
 
 </html>

@@ -47,7 +47,7 @@ session_start();
                 <div class="mb-3 w-100">
                     <label for="operator-username" class="form-label font-white">Username<span class="text-danger">*</span></label>
                     <div>
-                        <input type="text" class="form-control shadow-none bg-external-white" id="operator-username" name="operator-username" placeholder="Enter your Username" required="required" />
+                        <input type="text" class="form-control shadow-none bg-external-white" id="operator-username" name="operator-username" placeholder="Enter your Username" required="required" autocomplete="off" />
                     </div>
                 </div>
 
