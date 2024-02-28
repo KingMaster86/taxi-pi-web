@@ -12,7 +12,7 @@ The City Taxi Reservation System is a web-based platform developed for City Taxi
 - Local Message sending method.
 - Mobile Responsive design.
 - Payment method through Stripe API.
-- Status based driver filerization.
+- Status based driver filterization.
 - Feedback providing implementation. (Passenger to Driver and Driver to Passenger)
 
 ## Technologies and Libraries Used and Learned
