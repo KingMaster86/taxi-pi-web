@@ -1,18 +1,2 @@
-Upcoming Features:
-1. Password Hide and Show in UI. -
-3. Need to Implement Forgot Password feature with OTP to mail..
-4. Need to implement Edit profile feature.
-5. Need to implement reservation history in Admin panel.
-
-
-To do (Functional):
-2. Admin dashboard summary works.
-4. Driver Edit Page (mail, phone number, address).
-5. Passenger Edit Page (mail, phone number, address).
-6. Testimonials in Homepage.
-
-
 Need to work location related works again.
 https://console.cloud.google.com/home/dashboard?project=calm-producer-412212
-
-
