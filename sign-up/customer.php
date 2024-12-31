@@ -471,8 +471,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       $mail = new PHPMailer(true);
 
-      $userMail = "mushkirmohamed@gmail.com";           // * Admin mail id
-      $passKey = "yyyfmgbllzgkbofz";
+      $userMail = "YOUR_EMAIL_ID";           // * Admin mail id
+      $passKey = "YOUR_GMAIL_PASS_KEY";
 
 
       //$mail->SMTPDebug = 3;                               // * Enable verbose debug output

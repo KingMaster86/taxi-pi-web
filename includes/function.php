@@ -22,15 +22,17 @@ function deleteRecord($con, $query)
 // * Get the user IP
 function get_IP_address()
 {
-    foreach (array(
-        'HTTP_CLIENT_IP',
-        'HTTP_X_FORWARDED_FOR',
-        'HTTP_X_FORWARDED',
-        'HTTP_X_CLUSTER_CLIENT_IP',
-        'HTTP_FORWARDED_FOR',
-        'HTTP_FORWARDED',
-        'REMOTE_ADDR'
-    ) as $key) {
+    foreach (
+        array(
+            'HTTP_CLIENT_IP',
+            'HTTP_X_FORWARDED_FOR',
+            'HTTP_X_FORWARDED',
+            'HTTP_X_CLUSTER_CLIENT_IP',
+            'HTTP_FORWARDED_FOR',
+            'HTTP_FORWARDED',
+            'REMOTE_ADDR'
+        ) as $key
+    ) {
         if (array_key_exists($key, $_SERVER) === true) {
             foreach (explode(',', $_SERVER[$key]) as $IPaddress) {
                 $IPaddress = trim($IPaddress); // Just to be safe
@@ -56,7 +58,7 @@ function get_IP_address()
 function getDistance($pickupLocation, $dropLocation)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now"; // * Google Geo Matrix API URL
-    $API_KEY = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";   // * API Key
+    $API_KEY = "GOOGLE_GEO_LOCATION_API_KEY";   // * API Key
 
     $requestURL = $API_URL . "&destinations=" . urlencode($dropLocation) . "&origins=" . urlencode($pickupLocation) . "&key="
         . $API_KEY;
@@ -81,7 +83,7 @@ function getDistance($pickupLocation, $dropLocation)
 function getLocationLatitude($locationName)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
+    $apiKey = "GOOGLE_GEO_LOCATION_API_KEY";
 
 
     $APIRequest = $API_URL . $locationName . "&key=" . $apiKey;
@@ -100,7 +102,7 @@ function getLocationLatitude($locationName)
 function getLocationLongitude($locationName)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    $apiKey = "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8";
+    $apiKey = "GOOGLE_GEO_LOCATION_API_KEY";
 
     $APIRequest = $API_URL . $locationName . "&key=" . $apiKey;
     $responseOfAPI = file_get_contents($APIRequest);        // * Send the request to Google Geo Code API
@@ -118,7 +120,7 @@ function sendSMS($phoneNumber, $passengerName, $driverName, $taxiNumber, $driver
     require __DIR__ . "../../vendor/autoload.php";
 
     $base_url = "j3ve2v.api.infobip.com";
-    $api_key = "254dff597abe47e6a0559acc94ac1c9a-73c0fb51-7efc-41fa-ad68-079100c19e66";
+    $api_key = "INFOBIP_API_KEY";
 
     $msg = "Dear " . $passengerName . "! Your reservation has been confirmed successfully. The Driver's Name is " . $driverName . ", the taxi number is  " . $taxiNumber . ". You can get connect with driver using " . $driverPhoneNumber . ".";
     // $msg = "Dear {$passengerName}! Your reservation has been confirmed successfully. The Driver's Name is {$driverName}, the taxi number is {$taxiNumber}. You can get connect with driver using {$driverPhoneNumber}.";
@@ -148,7 +150,7 @@ function sendSMSForPaymentSuccess($phoneNumber, $driverName, $reservationId)
     require __DIR__ . "../../vendor/autoload.php";
 
     $base_url = "j3ve2v.api.infobip.com";
-    $api_key = "254dff597abe47e6a0559acc94ac1c9a-73c0fb51-7efc-41fa-ad68-079100c19e66";
+    $api_key = "INFOBIP_API_KEY";
 
     $msg = "Dear " . $driverName . "! The payment received for the Reservation ID: " . $reservationId . " successfully!";
 
