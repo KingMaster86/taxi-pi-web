@@ -17,17 +17,17 @@ The City Taxi Reservation System is a web-based platform developed for City Taxi
 
 ## Technologies and Libraries Used and Learned
 
-| S.No | Technologies and Libraries Used                                                                                                                                                                                                                                                                                                                                                                              |
-| :--- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 01   | [HTML]                                                                                                                                                                                                                                                                                                                                                                                                       |
-| 02   | [CSS3]                                                                                                                                                                                                                                                                                                                                                                                                       |
-| 03   | [Bootstrap]                                                                                                                                                                                                                                                                                                                                                                                                  |
-| 04   | [JavaScript]                                                                                                                                                                                                                                                                                                                                                                                                 |
-| 05   | [PHP]                                                                                                                                                                                                                                                                                                                                                                                                        |
-| 06   | [MySQL]                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 07   | [JustValidateDev] - (Data Validation)                                                                                                                                                                                                                                                                                                                                                                        |
-| 08   | [Google Console] - (https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fconsole.cloud.google.com%2F%3Fhl%3Den-au&followup=https%3A%2F%2Fconsole.cloud.google.com%2F%3Fhl%3Den-au&hl=en-au&osid=1&passive=1209600&service=cloudconsole&ifkv=AeZLP9_LFfjYNODg2j0JG3HVs4LxQwEh_ZJ1OdWMkUJlQG8qobNKxHTRLn5bve7XTFb8J9tMIHWSpQ&ddm=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin) |
-| :--- | -------------------------------------                                                                                                                                                                                                                                                                                                                                                                        |
+| S.No | Technologies and Libraries Used       |
+| :--- | ------------------------------------- |
+| 01   | [HTML]                                |
+| 02   | [CSS3]                                |
+| 03   | [Bootstrap]                           |
+| 04   | [JavaScript]                          |
+| 05   | [PHP]                                 |
+| 06   | [MySQL]                               |
+| 07   | [JustValidateDev] - (Data Validation) |
+| 08   | [Google-Console]                      |
+| :--- | ------------------------------------- |
 
 ## Screenshots
 
