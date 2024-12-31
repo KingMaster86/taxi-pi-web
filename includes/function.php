@@ -102,7 +102,7 @@ function getLocationLatitude($locationName)
 function getLocationLongitude($locationName)
 {
     $API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    $apiKey = "GOOGLE_GEO_LOCATION_API_KEY";
+    $apiKey = "GOOGLE_GEO_LOCATION_API_KEY"; // API_KEY
 
     $APIRequest = $API_URL . $locationName . "&key=" . $apiKey;
     $responseOfAPI = file_get_contents($APIRequest);        // * Send the request to Google Geo Code API
