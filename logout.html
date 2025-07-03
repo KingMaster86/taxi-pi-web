@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logout | TAXI PI</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <style>
+    body {
+      background-color: #5E2B97;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Logging out...</h1>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI0oIjGh3EC5TkgWpnhAUPiZfplWUcJ8Y",
+      authDomain: "taxi-pi-app.firebaseapp.com",
+      projectId: "taxi-pi-app",
+      storageBucket: "taxi-pi-app.appspot.com",
+      messagingSenderId: "929167279551",
+      appId: "1:929167279551:web:f5b8f0f4fdc18c6be63e43"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().signOut()
+      .then(() => {
+        alert("Logout berhasil!");
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        console.error("Logout gagal:", error);
+        alert("Logout gagal, silakan coba lagi.");
+      });
+  </script>
+</body>
+</html>
