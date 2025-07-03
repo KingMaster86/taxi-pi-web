@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Drivers | TAXI PI</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Sen', sans-serif;
+      background: #f2f2f2;
+      color: #333;
+    }
+    .navbar {
+      background-color: #5E2B97;
+    }
+    .navbar-brand {
+      color: white !important;
+    }
+    .card {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border: none;
+      border-radius: 1rem;
+    }
+    .card .btn {
+      border-radius: 1rem;
+    }
+    .bg-purple {
+      background-color: #5E2B97 !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand fw-bold" href="#">TAXI <span class="text-warning">PI</span></a>
+    <div class="ms-auto d-flex">
+      <button id="logoutBtn" class="btn btn-warning me-2">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container mt-4">
+    <h3 class="text-center mb-4">Available Drivers</h3>
+    <div id="driverList" class="row row-cols-1 row-cols-md-3 g-4"></div>
+    <p id="noDriver" class="text-center text-danger mt-5 d-none">No available drivers right now 😢</p>
+  </main>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLjFhBTzZFLYbXuFSiEjSc3s7fpOHggd8",
+      authDomain: "taxipi-auth.firebaseapp.com",
+      projectId: "taxipi-auth",
+      storageBucket: "taxipi-auth.appspot.com",
+      messagingSenderId: "1037485761311",
+      appId: "1:1037485761311:web:a22fa2400f3bbf239b11a3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const driverListEl = document.getElementById("driverList");
+    const noDriverEl = document.getElementById("noDriver");
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "passenger-login.html";
+      } else {
+        loadDrivers();
+      }
+    });
+
+    function loadDrivers() {
+      db.collection("drivers").where("availability_status", "==", "available")
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            noDriverEl.classList.remove("d-none");
+            return;
+          }
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            const html = `
+              <div class="col">
+                <div class="card p-3">
+                  <img src="${d.profile_image || 'https://via.placeholder.com/150'}" class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;object-fit:cover;" alt="driver" />
+                  <div class="card-body text-center">
+                    <h5 class="card-title text-capitalize">${d.driver_name}</h5>
+                    <p class="card-text text-muted">📍 ${d.driver_address_line}, ${d.driver_city}, ${d.driver_country}</p>
+                    <p><strong>Start:</strong> ${d.start_time || '-'} &nbsp; <strong>End:</strong> ${d.end_time || '-'}</p>
+                    <p>☎️ <a href="tel:${d.driver_phone_no}" class="text-decoration-none">${d.driver_phone_no}</a></p>
+                    <a href="https://www.google.com/maps?q=${d.location_latitude},${d.location_longitude}" target="_blank" class="btn btn-dark w-100 mb-2"><i class="fa-solid fa-location-dot"></i> Location</a>
+                    <button onclick="reserve('${doc.id}')" class="btn btn-warning w-100"><i class="fa-solid fa-taxi"></i> Reserve</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            driverListEl.innerHTML += html;
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching drivers:", error);
+        });
+    }
+
+    function reserve(driverId) {
+      // Simulasi redirect ke halaman reservasi dengan driverId
+      window.location.href = `reservation.html?driverId=${driverId}`;
+    }
+
+    document.getElementById("logoutBtn").onclick = () => {
+      auth.signOut().then(() => {
+        window.location.href = "passenger-login.html";
+      });
+    };
+  </script>
+</body>
+</html>
