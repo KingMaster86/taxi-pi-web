@@ -1,95 +1,110 @@
-<?php
-
-if (isset($_GET['passenger_id'])) {
-    $passedPassengerId = $_GET['passenger_id'];
-
-    $getPassengerDetails = mysqli_query($con, "SELECT * FROM `table_passenger` WHERE id = $passedPassengerId");
-
-    if (mysqli_num_rows($getPassengerDetails) > 0 && mysqli_num_rows($getPassengerDetails) == 1) {
-
-        $arrayOfPassengerDetails = mysqli_fetch_assoc($getPassengerDetails);
-
-        $passengerName = $arrayOfPassengerDetails['passenger_name'];
-        $passengerEmail = $arrayOfPassengerDetails['passenger_email'];
-        $passengerPhoneNo = $arrayOfPassengerDetails['passenger_phone_no'];
-        $passengerAddressLine = $arrayOfPassengerDetails['passenger_address_line'];
-        $passengerCity = $arrayOfPassengerDetails['passenger_city'];
-        $passengerCountry = $arrayOfPassengerDetails['passenger_country'];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Passenger | TAXI PI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background-color: #f5f0ff;
+      color: #5E2B97;
+      font-family: 'Segoe UI', sans-serif;
     }
-}
-?>
-
-
-<form method="post" class="p-5">
-    <!-- Email -->
-    <div class="mb-5 w-100">
-        <label for="passenger-email" class="form-label fw-semibold ">Email</label>
-        <div>
-            <input type="email" class="form-control shadow-none" id="passenger-email" name="passenger-email" placeholder="Enter your Email" required="required" autocomplete="off" value="<?php echo $passengerEmail; ?>" />
-        </div>
-    </div>
-
-
-    <!-- Phone Number -->
-    <div class="mb-5 w-100">
-        <label for="passenger-phone-no" class="form-label fw-semibold">Phone Number</label>
-        <div>
-            <input type="text" class="form-control shadow-none" id="passenger-phone-no" name="passenger-phone-no" placeholder="Enter your Phone Number" required="required" autocomplete="off" value="<?php echo $passengerPhoneNo; ?>" />
-        </div>
-    </div>
-
-    <!-- Address -->
-    <div class="d-md-flex align-items-center mt-3 gap-5">
-        <!-- Address Line 1 -->
-        <div class="mb-3 w-100">
-            <label for="passenger-address-line-1" class="form-label fw-semibold">Address Line 1</label>
-            <div>
-                <input type="text" class="form-control shadow-none text-capitalize" id="passenger-address-line-1" name="passenger-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required="required" autocomplete="off" value="<?php echo $passengerAddressLine; ?>" />
-            </div>
-        </div>
-
-        <!-- City -->
-        <div class="mb-3 w-100">
-            <label for="passenger-city-name" class="form-label">City<span class="text-danger">*</span></label>
-            <div>
-                <input type="text" class="form-control shadow-none text-capitalize" id="passenger-city-name" name="passenger-city-name" placeholder="Ex: Nintavur" required="required" autocomplete="off" value="<?php echo $passengerCity; ?>" />
-            </div>
-        </div>
-
-        <!-- Country -->
-        <div class="mb-3 w-100">
-            <label for="passenger-country-name" class="form-label">Country<span class="text-danger">*</span></label>
-            <div>
-                <input type="text" class="form-control shadow-none text-capitalize" id="passenger-country-name" name="passenger-country-name" placeholder="Ex: Sri Lanka" required="required" autocomplete="off" value="<?php echo $passengerCountry; ?>" />
-            </div>
-        </div>
-    </div>
-
-    <input type="submit" class="btn background-black-color text-light mt-4" value="Update" name="update-btn">
-</form>
-
-
-<!-- PHP code to update -->
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $passengerEmailEl = $_POST['passenger-email'];
-    $passengerPhoneNoEl = $_POST['passenger-phone-no'];
-    $passengerAddressLineEl = $_POST['passenger-address-line-1'];
-    $passengerCityNameEl = $_POST['passenger-city-name'];
-    $passengerCountryNameEl = $_POST['passenger-country-name'];
-
-
-    $updatePassengerDetails = mysqli_query($con, "UPDATE `table_passenger` SET passenger_email = '$passengerEmailEl', passenger_phone_no = '$passengerPhoneNoEl', passenger_address_line = '$passengerAddressLineEl', passenger_city = '$passengerCityNameEl', passenger_country = '$passengerCountryNameEl' WHERE id = $passedPassengerId");
-    if ($updatePassengerDetails) {
-        echo "<script>alert('Dear Admin! $passengerName\'s details has been successfully updated...')</script>";
-        echo "<script>window.open('admin-panel.php?passengers','_self')</script>";
-    } else {
-        echo "<script>alert('Dear Admin! $passengerName\'s details can\'t be updated at this moment. Please try again later...')</script>";
-        echo "<script>window.open('admin-panel.php?passengers','_self')</script>";
+    .btn-purple {
+      background-color: #5E2B97;
+      color: white;
     }
-}
+    label {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="container py-5">
+  <h3 class="text-center mb-4 fw-bold">Edit Passenger Profile</h3>
+  <form id="editPassengerForm" class="p-4 border rounded shadow bg-white">
+    <div class="mb-3">
+      <label for="passenger-email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="passenger-email" required />
+    </div>
+    <div class="mb-3">
+      <label for="passenger-phone" class="form-label">Phone Number</label>
+      <input type="text" class="form-control" id="passenger-phone" required />
+    </div>
+    <div class="mb-3">
+      <label for="passenger-address" class="form-label">Address Line</label>
+      <input type="text" class="form-control" id="passenger-address" required />
+    </div>
+    <div class="mb-3">
+      <label for="passenger-city" class="form-label">City</label>
+      <input type="text" class="form-control" id="passenger-city" required />
+    </div>
+    <div class="mb-3">
+      <label for="passenger-country" class="form-label">Country</label>
+      <input type="text" class="form-control" id="passenger-country" required />
+    </div>
+    <button type="submit" class="btn btn-purple mt-3 w-100">Update Passenger</button>
+  </form>
 
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-?>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.firebasestorage.app",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824",
+      measurementId: "G-62J9SRR509"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const passengerId = new URLSearchParams(window.location.search).get("passenger_id");
+
+    if (passengerId) {
+      const passengerRef = ref(db, "table_passenger/" + passengerId);
+      get(passengerRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          document.getElementById("passenger-email").value = data.passenger_email || "";
+          document.getElementById("passenger-phone").value = data.passenger_phone_no || "";
+          document.getElementById("passenger-address").value = data.passenger_address_line || "";
+          document.getElementById("passenger-city").value = data.passenger_city || "";
+          document.getElementById("passenger-country").value = data.passenger_country || "";
+        } else {
+          Swal.fire("Error", "Passenger not found", "error");
+        }
+      });
+    }
+
+    document.getElementById("editPassengerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const updatedData = {
+        passenger_email: document.getElementById("passenger-email").value,
+        passenger_phone_no: document.getElementById("passenger-phone").value,
+        passenger_address_line: document.getElementById("passenger-address").value,
+        passenger_city: document.getElementById("passenger-city").value,
+        passenger_country: document.getElementById("passenger-country").value
+      };
+
+      update(ref(db, "table_passenger/" + passengerId), updatedData)
+        .then(() => {
+          Swal.fire("Success", "Passenger updated successfully!", "success").then(() => {
+            window.location.href = "admin-passenger-list.html";
+          });
+        })
+        .catch(() => {
+          Swal.fire("Error", "Failed to update passenger", "error");
+        });
+    });
+  </script>
+</body>
+</html>
