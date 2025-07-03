@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Passengers | TAXI PI</title>
+  <link rel="shortcut icon" href="../assets/img/taxi-img.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+  <style>
+    body {
+      font-family: 'Sen', sans-serif;
+      background-color: #EEE6F7;
+    }
+    .table thead {
+      background-color: #5E2B97;
+    }
+    .table thead th {
+      color: white;
+      vertical-align: middle;
+    }
+    .table tbody td {
+      background-color: #fdfdfd;
+      vertical-align: middle;
+    }
+    .table td img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .font-purple {
+      color: #5E2B97;
+    }
+  </style>
+</head>
+
+<body class="container py-5">
+  <h4 class="text-center fw-bold font-purple mb-4">Passengers' Overview</h4>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-center shadow">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Passenger Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Passenger Image</th>
+          <th>Phone Number</th>
+          <th>ID Card No</th>
+          <th>Address Line</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#1</td>
+          <td>Rudi Hartono</td>
+          <td><a href="mailto:rudi@example.com">rudi@example.com</a></td>
+          <td>rudih</td>
+          <td><img src="../sign-up/passenger-profile-picture/sample1.jpg" alt="Rudi Hartono"></td>
+          <td><a href="tel:+628123456789">+62 812-3456-789</a></td>
+          <td>123456789000</td>
+          <td>Jl. Merdeka No. 15</td>
+          <td>Jakarta</td>
+          <td>Indonesia</td>
+          <td>
+            <a href="edit-passenger.html" class="me-2 text-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="#" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>#2</td>
+          <td>Sinta Dewi</td>
+          <td><a href="mailto:sinta@example.com">sinta@example.com</a></td>
+          <td>sintad</td>
+          <td><img src="../sign-up/passenger-profile-picture/sample2.jpg" alt="Sinta Dewi"></td>
+          <td><a href="tel:+628987654321">+62 898-7654-321</a></td>
+          <td>987654321111</td>
+          <td>Jl. Kenanga No. 21</td>
+          <td>Bandung</td>
+          <td>Indonesia</td>
+          <td>
+            <a href="edit-passenger.html" class="me-2 text-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="#" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
+          </td>
+        </tr>
+        <!-- Tambahkan baris lain sesuai kebutuhan -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
