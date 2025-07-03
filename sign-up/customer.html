@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Passenger Sign-Up | TAXI PI</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom Styles (Unggu theme) -->
+  <style>
+    body {
+      font-family: 'Sen', sans-serif;
+      background-color: #5E2B97;
+      color: white;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .form-control,
+    .form-label {
+      color: white;
+    }
+
+    .form-control::placeholder {
+      color: #d1c4e9;
+    }
+
+    .form-control,
+    .form-label {
+      background: transparent;
+      border-color: #bb86fc;
+    }
+
+    .form-control:focus {
+      background: transparent;
+      border-color: #3700b3;
+      box-shadow: 0 0 5px #bb86fc;
+      color: white;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background-color: #7e57c2;
+      border-color: #5e35b1;
+    }
+
+    .btn-primary:hover {
+      background-color: #5e35b1;
+      border-color: #4527a0;
+    }
+
+    .container {
+      max-width: 720px;
+      background-color: #311b92;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #7e57c2;
+    }
+
+    .text-danger {
+      font-weight: 700;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const storage = getStorage(app);
+    const auth = getAuth(app);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('passenger-signup-form');
+      const errorDiv = document.getElementById('error-message');
+      const successDiv = document.getElementById('success-message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorDiv.textContent = '';
+        successDiv.textContent = '';
+
+        const name = form['passenger-name'].value.trim();
+        const email = form['passenger-email'].value.trim();
+        const phone = form['passenger-phone-no'].value.trim();
+        const username = form['passenger-username'].value.trim();
+        const password = form['password'].value;
+        const confirmPassword = form['confirm-password'].value;
+        const addressLine1 = form['passenger-address-line-1'].value.trim();
+        const city = form['passenger-city-name'].value.trim();
+        const country = form['passenger-country-name'].value.trim();
+        const idCardNo = form['passenger-id-card-no'].value.trim();
+        const profileImageFile = form['passenger-profile-image'].files[0];
+
+        // Simple validation
+        if (password !== confirmPassword) {
+          errorDiv.textContent = 'Passwords do not match!';
+          return;
+        }
+
+        if (!profileImageFile) {
+          errorDiv.textContent = 'Profile image is required!';
+          return;
+        }
+
+        try {
+          // 1. Create user with Firebase Auth
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const uid = userCredential.user.uid;
+
+          // 2. Upload profile image to Firebase Storage
+          const imageRef = storageRef(storage, `passenger-profile-images/${uid}/${profileImageFile.name}`);
+          await uploadBytes(imageRef, profileImageFile);
+          const imageUrl = await getDownloadURL(imageRef);
+
+          // 3. Save other data to Firebase Realtime Database
+          await set(ref(db, 'passengers/' + uid), {
+            passenger_name: name,
+            passenger_email: email,
+            passenger_phone_no: phone,
+            passenger_username: username,
+            passenger_id_card_number: idCardNo,
+            passenger_address_line: addressLine1,
+            passenger_city: city,
+            passenger_country: country,
+            passenger_image_url: imageUrl,
+            created_at: new Date().toISOString()
+          });
+
+          successDiv.textContent = 'Account created successfully! You can now login.';
+          form.reset();
+        } catch (error) {
+          errorDiv.textContent = `Error: ${error.message}`;
+        }
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="mb-4 text-center">Passenger Sign-Up</h2>
+    <div id="error-message" class="text-danger mb-3"></div>
+    <div id="success-message" class="text-success mb-3"></div>
+
+    <form id="passenger-signup-form" enctype="multipart/form-data" novalidate>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="passenger-name" class="form-label">Name <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-name" name="passenger-name" class="form-control" placeholder="Enter your name" required />
+        </div>
+        <div class="col-md-4">
+          <label for="passenger-email" class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" id="passenger-email" name="passenger-email" class="form-control" placeholder="Enter your email" required />
+        </div>
+        <div class="col-md-4">
+          <label for="passenger-phone-no" class="form-label">Phone Number <span class="text-danger">*</span></label>
+          <input type="tel" id="passenger-phone-no" name="passenger-phone-no" class="form-control" placeholder="Enter your phone number" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="passenger-username" class="form-label">Username <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-username" name="passenger-username" class="form-control" placeholder="Choose a username" required />
+        </div>
+        <div class="col-md-4">
+          <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required />
+        </div>
+        <div class="col-md-4">
+          <label for="confirm-password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="Confirm password" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="passenger-address-line-1" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-address-line-1" name="passenger-address-line-1" class="form-control" placeholder="Ex: No.246/A, Meera Nagar Road" required />
+        </div>
+        <div class="col-md-4">
+          <label for="passenger-city-name" class="form-label">City <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-city-name" name="passenger-city-name" class="form-control" placeholder="Ex: Nintavur" required />
+        </div>
+        <div class="col-md-4">
+          <label for="passenger-country-name" class="form-label">Country <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-country-name" name="passenger-country-name" class="form-control" placeholder="Ex: Sri Lanka" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="passenger-id-card-no" class="form-label">ID Card No. <span class="text-danger">*</span></label>
+          <input type="text" id="passenger-id-card-no" name="passenger-id-card-no" class="form-control" placeholder="Enter your ID card number" required />
+        </div>
+        <div class="col-md-6">
+          <label for="passenger-profile-image" class="form-label">Profile Image <span class="text-danger">*</span></label>
+          <input type="file" id="passenger-profile-image" name="passenger-profile-image" class="form-control" accept="image/*" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-3">Create Account</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
