@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Drivers | TAXI PI</title>
+  <link rel="shortcut icon" href="../assets/img/taxi-img.png" type="image/x-icon" />
+
+  <!-- Bootstrap & Font -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      background-color: #fdfdfd;
+      color: #5E2B97;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .table thead th {
+      background-color: #5E2B97;
+      color: white;
+    }
+
+    .table tbody td {
+      background-color: #ede5f8;
+      color: #3a1b71;
+    }
+
+    a, a:hover {
+      color: #5E2B97;
+    }
+  </style>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.firebasestorage.app",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824",
+      measurementId: "G-62J9SRR509"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const tableBody = document.getElementById('driverTableBody');
+
+    onValue(ref(db, 'table_driver'), (snapshot) => {
+      tableBody.innerHTML = "";
+      let index = 1;
+      snapshot.forEach(childSnapshot => {
+        const driver = childSnapshot.val();
+        const status = driver.availability_status === "available" ? "Available" : "Busy";
+        const location = `${driver.location_latitude},${driver.location_longitude}`;
+
+        const row = `
+          <tr class="text-center">
+            <td>#${index}</td>
+            <td>${driver.driver_name}</td>
+            <td><a href="mailto:${driver.driver_email}">${driver.driver_email}</a></td>
+            <td>${driver.driver_username}</td>
+            <td><a href="tel:${driver.driver_phone_no}">${driver.driver_phone_no}</a></td>
+            <td>${status}</td>
+            <td><button class="btn btn-sm btn-outline-primary" onclick="showLocation('${location}')"><i class="fa-solid fa-location-dot"></i></button></td>
+            <td>${driver.start_time}</td>
+            <td>${driver.end_time}</td>
+            <td>${driver.driver_id_card_no}</td>
+            <td>${driver.driver_address_line}</td>
+            <td class="text-capitalize">${driver.driver_city}</td>
+            <td>${driver.driver_country}</td>
+            <td>
+              <a href="admin.html?edit_driver=${childSnapshot.key}" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="admin-delete-driver.html?driver_id=${childSnapshot.key}" title="Delete"><i class="fa-solid fa-trash-can"></i></a>
+            </td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+        index++;
+      });
+    });
+
+    window.showLocation = function (loc) {
+      window.open("https://www.google.com/maps?q=" + loc, '_blank');
+    }
+  </script>
+</head>
+
+<body class="container py-4">
+  <h2 class="text-center mb-4 fw-bold">Drivers' Overview</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="text-center">
+        <tr>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Location</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>ID Card</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="driverTableBody">
+        <tr><td colspan="14" class="text-center">Loading data...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
