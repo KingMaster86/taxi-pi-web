@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delete Driver | TAXI PI</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+
+  <style>
+    body {
+      background-color: #5E2B97; /* Ungu gelap */
+      color: white;
+      font-family: 'Sen', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .container {
+      background-color: #7E57C2; /* Ungu medium */
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 15px #4a148c;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #311b92;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #4a148c;
+    }
+
+    a {
+      color: #D1C4E9;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getDatabase, ref, remove } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Ambil driver_id dari URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const driverId = getQueryParam('driver_id');
+
+    async function deleteDriver() {
+      if (!driverId) {
+        alert("Driver ID tidak ditemukan.");
+        return;
+      }
+
+      if (!confirm("Apakah Anda yakin ingin menghapus driver ini?")) return;
+
+      try {
+        // Asumsikan data driver disimpan di path: /drivers/{driver_id}
+        await remove(ref(db, 'drivers/' + driverId));
+        alert("Driver berhasil dihapus.");
+        // Redirect ke halaman driver list
+        window.location.href = "drivers.html";
+      } catch (error) {
+        alert("Gagal menghapus driver: " + error.message);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Hapus Driver</h2>
+    <p>Apakah Anda yakin ingin menghapus driver dengan ID: <strong id="driverIdDisplay"></strong> ?</p>
+    <button onclick="deleteDriver()">Hapus Driver</button>
+    <br />
+    <a href="drivers.html">Batal & Kembali ke Daftar Driver</a>
+  </div>
+
+  <script>
+    // Tampilkan driver_id di halaman
+    const driverIdDisplay = document.getElementById('driverIdDisplay');
+    const urlParams = new URLSearchParams(window.location.search);
+    const driverIdParam = urlParams.get('driver_id');
+    driverIdDisplay.textContent = driverIdParam || '[tidak ada]';
+  </script>
+</body>
+</html>
