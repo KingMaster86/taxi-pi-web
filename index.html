@@ -1,16 +1,3 @@
-<?php
-
-use GuzzleHttp\Promise\Is;
-
-include('./includes/connect.php');
-session_start();
-// echo $_SESSION['username'];
-// echo $_SESSION['passengerUsername'];
-// $sessionDriverName = $_SESSION['username'];
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +5,7 @@ session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" href="./assets/img/taxi-img.png" type="image/x-icon" class="object-fit-cover" />
-  <title>Home | City - Taxi</title>
+  <title>Home | TAXI PI - Pi</title>
 
   <!-- Google Font (Sen) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,14 +15,122 @@ session_start();
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Bootsrap CSS -->
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
 
+  <style>
+    body {
+      font-family: 'Sen', sans-serif;
+    }
 
+    /* Background gradient with purple theme */
+    .background-gradient-image {
+      background: linear-gradient(135deg, #5E2B97 0%, #3A1C6D 100%);
+      color: white;
+    }
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css" />
+    /* Navbar adjustments */
+    .navbar-brand {
+      color: white !important;
+    }
 
+    .navbar-brand .text-warning {
+      color: #bb86fc !important; /* light purple */
+    }
+
+    .btn-warning {
+      background-color: #5E2B97 !important;
+      border-color: #5E2B97 !important;
+      color: white !important;
+    }
+
+    .btn-warning:hover,
+    .btn-warning:focus {
+      background-color: #7F4DBF !important;
+      border-color: #7F4DBF !important;
+      color: white !important;
+    }
+
+    .bg-warning {
+      background-color: #5E2B97 !important;
+      color: white !important;
+    }
+
+    .bg-warning a {
+      color: white !important;
+      text-decoration: none;
+    }
+
+    .bg-warning a:hover {
+      text-decoration: underline;
+    }
+
+    .text-warning {
+      color: #bb86fc !important;
+    }
+
+    /* Links in navbar */
+    .nav-link {
+      color: white !important;
+    }
+
+    .nav-link.hover-effect:hover {
+      color: #bb86fc !important;
+    }
+
+    .dropdown-menu.bg-black {
+      background-color: #2a1a59 !important; /* dark purple */
+    }
+
+    .dropdown-item.text-light:hover {
+      background-color: #7F4DBF !important;
+      color: white !important;
+    }
+
+    /* Container background */
+    .bg-light {
+      background-color: #f8f1ff !important; /* very light purple-ish */
+      color: #3a1c6d;
+    }
+
+    .text-color {
+      color: #3a1c6d;
+    }
+
+    /* Border color */
+    .border {
+      border-color: #7F4DBF !important;
+    }
+
+    /* Footer */
+    .bg-black {
+      background-color: #2a1a59 !important;
+      color: white;
+    }
+
+    /* Social media icons */
+    .text-warning i {
+      color: #bb86fc !important;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .text-warning i:hover {
+      color: #7F4DBF !important;
+    }
+
+    /* Buttons */
+    .btn {
+      transition: background-color 0.3s ease;
+    }
+
+    /* Responsive image centering */
+    .img-fluid.mx-auto {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
 
 <body class="overflow-x-hidden">
@@ -44,10 +139,10 @@ session_start();
     <nav class="navbar navbar-expand-lg container py-3">
       <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand text-white fs-1 fw-bold" href="./index.php">City<span class="text-warning">Taxi</span></a>
+        <a class="navbar-brand fs-1 fw-bold" href="./index.html">City<span class="text-warning">Taxi</span></a>
 
-        <!-- Toggle Button (Responsvie) -->
-        <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Toggle Button (Responsive) -->
+        <button class="navbar-toggler btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -56,75 +151,58 @@ session_start();
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <!-- Home -->
             <li class="nav-item">
-              <a class="nav-link active text-white fs-5 rounded hover-effect me-2 px-3" aria-current="page" href="./index.php">Home</a>
+              <a class="nav-link active hover-effect me-2 px-3 fs-5 rounded" aria-current="page" href="./index.html">Home</a>
             </li>
 
             <!-- Pick a Driver -->
             <li class="nav-item">
-              <a class="nav-link active text-white fs-5 rounded hover-effect me-2 px-3" aria-current="page" href="./select-driver.php">Pick a Driver</a>
+              <a class="nav-link active hover-effect me-2 px-3 fs-5 rounded" aria-current="page" href="./select-driver.html">Pick a Driver</a>
             </li>
 
-            <!-- About -->
-            <!-- <li class="nav-item">
-              <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./about-us.php">About</a>
-            </li> -->
-
-            <!-- Contact Us -->
-            <!-- <li class="nav-item">
-              <a class="nav-link text-white fs-5 rounded hover-effect me-2 px-3" href="./contact-us.php">Contact Us</a>
-            </li> -->
+            <!-- Uncomment if About/Contact needed -->
+            <!--
+            <li class="nav-item">
+              <a class="nav-link hover-effect me-2 px-3 fs-5 rounded" href="./about-us.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hover-effect me-2 px-3 fs-5 rounded" href="./contact-us.html">Contact Us</a>
+            </li>
+            -->
           </ul>
 
-          <!-- Login Button: 
-          ## Based on the below code; If the Passenger / Driver loggedin It will show Logout instead of Login.
-          ## Otherwise, It will show as Login through the SESSION.
-          -->
-
-          0.<div class="btn-group me-4">
-            <?php
-            if (isset($_SESSION['username'])) {
+          <!-- Login Button -->
+          <div class="btn-group me-4">
+            <?html
+            if (isset($_SESSION['username']) || isset($_SESSION['passengerUsername'])) {
               echo "
-                  <a href='logout.php' class='btn btn-warning fw-bold'>
+                  <a href='logout.html' class='btn btn-warning fw-bold'>
                     Logout
                   </a>
                   ";
-            }
-
-            if (isset($_SESSION['passengerUsername'])) {
-              echo "
-                  <a href='logout.php' class='btn btn-warning fw-bold'>
-                    Logout
-                  </a>
-                  ";
-            }
-
-            if (!(isset($_SESSION['username'])) && !((isset($_SESSION['passengerUsername'])))) {
+            } else {
               echo "
               <button type='button' class='btn btn-warning dropdown-toggle fw-bold' data-bs-toggle='dropdown' aria-expanded='false'>
                   Login
               </button>
               <ul class='dropdown-menu bg-black py-2'>
-                  <li><a class='dropdown-item text-light hover-effect' href='./admin-panel/index.php'>Admin</a></li>
-                  <li><a class='dropdown-item text-light hover-effect' href='./driver-directory/login.php'>Driver</a></li>
-                  <li><a class='dropdown-item text-light hover-effect' href='./passenger-directory/passenger-login.php'>Passenger</a></li>
+                  <li><a class='dropdown-item text-light hover-effect' href='./admin-panel/index.html'>Admin</a></li>
+                  <li><a class='dropdown-item text-light hover-effect' href='./driver-directory/login.html'>Driver</a></li>
+                  <li><a class='dropdown-item text-light hover-effect' href='./passenger-directory/passenger-login.html'>Passenger</a></li>
               </ul>
               ";
             }
             ?>
           </div>
 
-
           <!-- Sign-Up Button -->
           <div class="btn-group">
-            <button type="button" class="btn border-warning text-light hover-effect dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn border border-warning text-light hover-effect dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
               Sign Up
             </button>
             <ul class="dropdown-menu bg-black py-2">
-              <li><a class="dropdown-item text-light hover-effect" href="./sign-up/driver.php">Driver</a></li>
-
-              <li><a class="dropdown-item text-light hover-effect" href="./sign-up/customer.php">Passenger</a></li>
+              <li><a class="dropdown-item text-light hover-effect" href="./sign-up/driver.html">Driver</a></li>
+              <li><a class="dropdown-item text-light hover-effect" href="./sign-up/customer.html">Passenger</a></li>
             </ul>
-            <!-- <a href=""></a> -->
           </div>
         </div>
       </div>
@@ -135,8 +213,8 @@ session_start();
       <h3 class="text-warning fw-semibold text-uppercase">
         Book your Taxi Now
       </h3>
-      <a href="tel:+12345678900" class="text-white text-decoration-none fs-1 fw-bold"><i class="fa-solid fa-mobile-screen"></i> +94 754946927</a>
-      <small class="font-white-secondary">Tap to call 👆</small>
+      <a href="tel:+6281141286451" class="text-white text-decoration-none fs-1 fw-bold"><i class="fa-solid fa-mobile-screen"></i> +94 754946927</a>
+      <small class="text-white-50">Tap to call 👆</small>
     </div>
   </div>
 
@@ -145,10 +223,10 @@ session_start();
     <div class="bg-warning container-fluid mx-auto row p-sm-2 p-md-5">
       <div class="col-12 col-md-6 p-5">
         <p class="fw-bold m-1 mx-0">Best in City</p>
-        <h3 class="fw-bolder">Trusted Taxi Services in Sri Lanka 🇱🇰</h3>
+        <h3 class="fw-bolder">Trusted Taxi Services in Indonesia</h3>
         <p>
           "Step into a world of convenience and comfort! Greetings from your
-          go-to City Taxi service. Ready to embark on a hassle-free journey
+          go-to TAXI PI web. Ready to embark on a hassle-free journey
           through the heart of the city? Buckle up for a ride that blends
           style, efficiency, and local expertise. Your destination awaits –
           let's make every mile memorable together!"
@@ -171,7 +249,7 @@ session_start();
           <i class="fa-solid fa-taxi bg-warning p-3 rounded-5"></i>
           <div>
             <p class="mb-2 fw-bold">Quick Pickup</p>
-            <p class="">
+            <p>
               Fast, reliable, and just a tap away! Conveniently located
               around the city, we're ready to get you where you need to be,
               pronto. Tap, ride, and go with us!
@@ -183,7 +261,7 @@ session_start();
           <i class="fa-solid fa-trophy bg-warning p-3 rounded-5"></i>
           <div>
             <p class="mb-2 fw-bold">Fast Booking</p>
-            <p class="">
+            <p>
               "Swift bookings, seamless rides! With our taxi service,
               booking a ride is as quick as a tap. Experience instant
               reservations, hassle-free scheduling, and prompt pickups. Your
@@ -198,7 +276,7 @@ session_start();
           <i class="fa-solid fa-taxi bg-warning p-3 rounded-5"></i>
           <div>
             <p class="mb-2 fw-bold">Quick Pickup</p>
-            <p class="">
+            <p>
               Fast, reliable, and just a tap away! Conveniently located
               around the city, we're ready to get you where you need to be,
               pronto. Tap, ride, and go with us!
@@ -210,7 +288,7 @@ session_start();
           <i class="fa-solid fa-trophy bg-warning p-3 rounded-5"></i>
           <div>
             <p class="mb-2 fw-bold">Fast Booking</p>
-            <p class="">
+            <p>
               "Swift bookings, seamless rides! With our taxi service,
               booking a ride is as quick as a tap. Experience instant
               reservations, hassle-free scheduling, and prompt pickups. Your
@@ -227,7 +305,7 @@ session_start();
     <p class="fw-semibold fs-4 m-0">
       We are ready to take your call 24 hours, 07 days!
     </p>
-    <a href="tel:+123 4567 8900" class="text-decoration-none text-black fs-1 fw-bolder"><i class="fa-solid fa-mobile-screen"></i> +94754946927</a>
+    <a href="tel:+6281141286451" class="text-decoration-none text-white fs-1 fw-bolder"><i class="fa-solid fa-mobile-screen"></i> +94754946927</a>
   </div>
 
   <!-- For Drivers -->
@@ -235,8 +313,8 @@ session_start();
     <div class="bg-light container-fluid mx-auto row p-sm-2 p-md-5">
       <div class="col-12 col-md-6 p-5">
         <p class="fw-bold m-1">For Drivers</p>
-        <h1 class="fw-bolder">Do you want to Earn with Us?</h3>
-          <a href="./sign-up/driver.php" target="_blank" class="btn btn-warning fw-bold mt-2">Become a Driver</a>
+        <h1 class="fw-bolder">Do you want to Earn with Us?</h1>
+        <a href="./sign-up/driver.html" target="_blank" class="btn btn-warning fw-bold mt-2">Become a Driver</a>
       </div>
 
       <div class="col-md-6 p-5">
@@ -260,10 +338,10 @@ session_start();
           expectations!
         </p>
         <div class="text-warning">
-          <a href="#" target="_blank" class="text-decoration-none text-warning mx-3"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" target="_blank" class="text-decoration-none text-warning mx-3"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="#" target="_blank" class="text-decoration-none text-warning mx-3"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" target="_blank" class="text-decoration-none text-warning mx-3"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" target="_blank" class="text-decoration-none mx-3"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" target="_blank" class="text-decoration-none mx-3"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" target="_blank" class="text-decoration-none mx-3"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" target="_blank" class="text-decoration-none mx-3"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
       </div>
 
@@ -272,7 +350,7 @@ session_start();
   </div>
 
 
-  <!-- Boostrap JS Files -->
+  <!-- Bootstrap JS Files -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>
