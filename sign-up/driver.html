@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Driver Sign-Up | TAXI PI</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Just Validate -->
+  <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+
+  <!-- Firebase SDK v9 Modules -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
+
+    // Firebase config (ganti dengan config kamu)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    const storage = getStorage(app);
+
+    // Function to get client IP location using external API
+    async function getClientLocation() {
+      try {
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipResponse.json();
+        const ip = ipData.ip;
+        const locationResponse = await fetch(`http://ip-api.com/json/${ip}`);
+        const locationData = await locationResponse.json();
+        return {
+          latitude: locationData.lat || 0,
+          longitude: locationData.lon || 0,
+          country: locationData.country || ''
+        };
+      } catch (error) {
+        console.warn('Could not get location:', error);
+        return { latitude: 0, longitude: 0, country: '' };
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('driver-signup-form');
+      const errorDiv = document.getElementById('error-message');
+      const successDiv = document.getElementById('success-message');
+
+      // Password visibility toggles
+      document.getElementById('toggle-password').onclick = () => {
+        const pwd = document.getElementById('password');
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          document.getElementById('toggle-password').innerHTML = '<i class="fa-regular fa-eye"></i>';
+        } else {
+          pwd.type = 'password';
+          document.getElementById('toggle-password').innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+        }
+      };
+
+      document.getElementById('toggle-confirm-password').onclick = () => {
+        const pwd = document.getElementById('confirm-password');
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          document.getElementById('toggle-confirm-password').innerHTML = '<i class="fa-regular fa-eye"></i>';
+        } else {
+          pwd.type = 'password';
+          document.getElementById('toggle-confirm-password').innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+        }
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorDiv.textContent = '';
+        successDiv.textContent = '';
+
+        // Ambil lokasi dari IP
+        const location = await getClientLocation();
+
+        // Ambil nilai input
+        const driverName = form['driver-name'].value.trim();
+        const driverEmail = form['driver-email'].value.trim();
+        const driverPhoneNo = form['driver-phone-no'].value.trim();
+        const driverUsername = form['driver-username'].value.trim();
+        const password = form['password'].value;
+        const confirmPassword = form['confirm-password'].value;
+        const taxiNumber = form['taxi-number'].value.trim();
+        const addressLine = form['driver-address-line-1'].value.trim();
+        const city = form['driver-city-name'].value.trim();
+        const countryInput = form['driver-country-name'].value.trim();
+        const idCardNo = form['driver-id-card-no'].value.trim();
+        const workStartTime = form['work-start-time'].value;
+        const workEndingTime = form['work-ending-time'].value;
+        const imageFile = form['driver-image'].files[0];
+
+        if (password !== confirmPassword) {
+          errorDiv.textContent = 'Passwords do not match.';
+          return;
+        }
+        if (!imageFile) {
+          errorDiv.textContent = 'Please upload a profile image.';
+          return;
+        }
+
+        try {
+          // 1. Create user auth
+          const userCredential = await createUserWithEmailAndPassword(auth, driverEmail, password);
+          const uid = userCredential.user.uid;
+
+          // 2. Upload profile image
+          const imageStorageRef = storageRef(storage, `driver-profile-images/${uid}/${imageFile.name}`);
+          await uploadBytes(imageStorageRef, imageFile);
+          const imageUrl = await getDownloadURL(imageStorageRef);
+
+          // 3. Check if phone/email/username already exist in DB (simple check)
+          // Note: Firebase Realtime Database is NoSQL and does not support direct queries easily, 
+          // so here we do a read to check existing drivers (for demo only, not optimal for production)
+          const dbRef = ref(db, 'drivers');
+          let phoneExists = false;
+          let emailExists = false;
+          let usernameExists = false;
+
+          // Simple read snapshot
+          import { get, child } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+          const snapshot = await get(dbRef);
+          if (snapshot.exists()) {
+            snapshot.forEach((childSnap) => {
+              const d = childSnap.val();
+              if (d.driver_phone_no === driverPhoneNo) phoneExists = true;
+              if (d.driver_email === driverEmail) emailExists = true;
+              if (d.driver_username === driverUsername) usernameExists = true;
+            });
+          }
+
+          if (phoneExists) {
+            errorDiv.textContent = 'Phone number already exists. Try another.';
+            return;
+          }
+          if (emailExists) {
+            errorDiv.textContent = 'Email already exists.';
+            return;
+          }
+          if (usernameExists) {
+            errorDiv.textContent = 'Username already exists.';
+            return;
+          }
+
+          // 4. Save driver data
+          await set(ref(db, `drivers/${uid}`), {
+            driver_name: driverName,
+            driver_email: driverEmail,
+            driver_phone_no: driverPhoneNo,
+            driver_username: driverUsername,
+            driver_id_card_no: idCardNo,
+            taxi_number: taxiNumber,
+            availability_status: "available",
+            location_latitude: location.latitude,
+            location_longitude: location.longitude,
+            start_time: workStartTime,
+            end_time: workEndingTime,
+            driver_address_line: addressLine,
+            driver_city: city,
+            driver_country: countryInput || location.country,
+            driver_image_url: imageUrl,
+            created_at: new Date().toISOString()
+          });
+
+          successDiv.textContent = 'Account created successfully! Please login.';
+          form.reset();
+        } catch (err) {
+          errorDiv.textContent = 'Error: ' + err.message;
+        }
+      });
+
+      // Initialize JustValidate
+      new window.JustValidate('#driver-signup-form', {
+        rules: {
+          "driver-name": { required: true, minLength: 3, maxLength: 20 },
+          "driver-email": { required: true, email: true },
+          "driver-phone-no": { required: true, minLength: 10, maxLength: 15 },
+          "driver-username": { required: true, minLength: 3, maxLength: 15 },
+          password: { required: true, minLength: 8, maxLength: 20 },
+          "confirm-password": {
+            required: true,
+            equalTo: "#password",
+          },
+          "taxi-number": { required: true, minLength: 3, maxLength: 20 },
+          "driver-address-line-1": { required: true },
+          "driver-city-name": { required: true },
+          "driver-country-name": { required: true },
+          "driver-id-card-no": { required: true, minLength: 8, maxLength: 20 },
+          "work-start-time": { required: true },
+          "work-ending-time": { required: true },
+          "driver-image": { required: true },
+        },
+        messages: {
+          "confirm-password": {
+            equalTo: "Passwords should match",
+          }
+        },
+        submitHandler: function(form, values, ajax) {
+          // We handle submit in JS, so prevent default here
+          // (This won't run because we intercept submit event)
+        }
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: 'Sen', sans-serif;
+      background-color: #5E2B97;
+      color: white;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      background-color: #311b92;
+      padding: 2rem 3rem;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #7e57c2;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input,
+    select {
+      background-color: transparent;
+      color: white;
+      border: 2px solid #bb86fc;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #d1c4e9;
+    }
+
+    input:focus {
+      border-color: #3700b3;
+      box-shadow: 0 0 10px #bb86fc;
+      color: white;
+    }
+
+    .btn-warning {
+      background-color: #bb86fc;
+      border-color: #7e57c2;
+      color: #311b92;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 0.6rem;
+      width: 100%;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-warning:hover {
+      background-color: #7e57c2;
+      color: white;
+    }
+
+    .form-control {
+      background-color: transparent !important;
+      border: none !important;
+      color: white !important;
+      box-shadow: none !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .input-group-text {
+      background-color: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    #error-message {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #f44336;
+    }
+
+    #success-message {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #4caf50;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mb-4 text-center">Driver Sign-Up</h1>
+    <div id="error-message"></div>
+    <div id="success-message"></div>
+
+    <form id="driver-signup-form" enctype="multipart/form-data" novalidate>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="driver-name">Name <span class="text-danger">*</span></label>
+          <input type="text" id="driver-name" name="driver-name" placeholder="Enter your name" required />
+        </div>
+        <div class="col-md-4">
+          <label for="driver-email">Email <span class="text-danger">*</span></label>
+          <input type="email" id="driver-email" name="driver-email" placeholder="Enter your email" required />
+        </div>
+        <div class="col-md-4">
+          <label for="driver-phone-no">Phone Number <span class="text-danger">*</span></label>
+          <input type="tel" id="driver-phone-no" name="driver-phone-no" placeholder="Enter your phone number" required />
+        </div>
+
+        <div class="col-md-3">
+          <label for="driver-username">Username <span class="text-danger">*</span></label>
+          <input type="text" id="driver-username" name="driver-username" placeholder="Choose username" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-3 position-relative">
+          <label for="password">Password <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="Enter password" required />
+            <span class="input-group-text" id="toggle-password"><i class="fa-regular fa-eye-slash"></i></span>
+          </div>
+        </div>
+
+        <div class="col-md-3 position-relative">
+          <label for="confirm-password">Confirm Password <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required />
+            <span class="input-group-text" id="toggle-confirm-password"><i class="fa-regular fa-eye-slash"></i></span>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="taxi-number">Taxi Number <span class="text-danger">*</span></label>
+          <input type="text" id="taxi-number" name="taxi-number" placeholder="Ex: EP CAD - 9699" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="driver-address-line-1">Address Line 1 <span class="text-danger">*</span></label>
+          <input type="text" id="driver-address-line-1" name="driver-address-line-1" placeholder="Ex: No.246/A, Meera Nagar Road" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="driver-city-name">City <span class="text-danger">*</span></label>
+          <input type="text" id="driver-city-name" name="driver-city-name" placeholder="Ex: Nintavur" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="driver-country-name">Country <span class="text-danger">*</span></label>
+          <input type="text" id="driver-country-name" name="driver-country-name" placeholder="Ex: Sri Lanka" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="driver-id-card-no">ID Card No <span class="text-danger">*</span></label>
+          <input type="text" id="driver-id-card-no" name="driver-id-card-no" placeholder="Enter your ID Card Number" required autocomplete="off" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="driver-image">Profile Image <span class="text-danger">*</span></label>
+          <input type="file" id="driver-image" name="driver-image" accept="image/*" required />
+        </div>
+
+        <div class="col-md-2">
+          <label for="work-start-time">Work Start Time <span class="text-danger">*</span></label>
+          <input type="time" id="work-start-time" name="work-start-time" required />
+        </div>
+
+        <div class="col-md-2">
+          <label for="work-ending-time">Work End Time <span class="text-danger">*</span></label>
+          <input type="time" id="work-ending-time" name="work-ending-time" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-warning mt-4">Sign Up for Driver</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
