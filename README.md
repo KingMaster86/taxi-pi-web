@@ -55,11 +55,7 @@ The Taxi PI Reservation System is a web-based platform developed for Taxi PI (PV
 
 ```
 
-- Open the DB Folder
 
-- Import the database file into phpmyadmin
-
-- Run the server (XAMPP / WAMP)
 
 - Copy the Project file into "htdocs" folder.
 
