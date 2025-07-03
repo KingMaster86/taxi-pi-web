@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | TAXI PI</title>
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      background-color: #f6f1ff;
+      color: #5E2B97;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .login-box {
+      max-width: 500px;
+      margin: auto;
+      margin-top: 80px;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(94, 43, 151, 0.2);
+    }
+    .btn-purple {
+      background-color: #5E2B97;
+      color: white;
+    }
+    .btn-purple:hover {
+      background-color: #4a1f7c;
+    }
+    .text-small {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="login-box">
+      <h3 class="text-center fw-bold mb-4">Admin Login</h3>
+      <form id="adminLoginForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Admin</label>
+          <input type="email" class="form-control" id="email" placeholder="admin@example.com" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Your password" required />
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="showPasswordCheck" />
+          <label class="form-check-label" for="showPasswordCheck">Show Password</label>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-purple">Login</button>
+        </div>
+        <div class="text-center mt-3">
+          <a href="../index.html" class="text-small text-decoration-none">← Back to Home</a>
+        </div>
+      </form>
+      <div id="loginMessage" class="text-center mt-3"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824",
+      measurementId: "G-62J9SRR509"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const form = document.getElementById("adminLoginForm");
+    const loginMessage = document.getElementById("loginMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Hanya admin tertentu yang boleh masuk
+        const allowedAdmins = ["anangsuharto86@gmail.com", "anangsuharto56@gmail.com"];
+        if (allowedAdmins.includes(user.email)) {
+          loginMessage.innerHTML = `<span class="text-success fw-semibold">Login berhasil, redirecting...</span>`;
+          setTimeout(() => {
+            window.location.href = "admin-panel.html";
+          }, 1500);
+        } else {
+          loginMessage.innerHTML = `<span class="text-danger">Email ini tidak punya akses admin.</span>`;
+        }
+      } catch (error) {
+        loginMessage.innerHTML = `<span class="text-danger">Login gagal: ${error.message}</span>`;
+      }
+    });
+
+    // Show Password Toggle
+    document.getElementById("showPasswordCheck").addEventListener("change", function () {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = this.checked ? "text" : "password";
+    });
+  </script>
+
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+
+</body>
+</html>
