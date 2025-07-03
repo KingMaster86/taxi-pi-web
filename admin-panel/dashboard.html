@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | TAXI PI</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+
+  <!-- Font & Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- Firebase CDN -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const fetchData = async () => {
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, 'stats'));
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        document.getElementById('passengerCount').innerText = data.passengers || '0';
+        document.getElementById('driverCount').innerText = data.drivers || '0';
+        document.getElementById('processCount').innerText = data.onProcess || '0';
+        document.getElementById('completedCount').innerText = data.completed || '0';
+        document.getElementById('paidCount').innerText = data.paid || '0';
+      }
+    };
+
+    window.onload = fetchData;
+  </script>
+
+  <style>
+    body {
+      background-color: #5E2B97; /* Ungu gelap */
+      color: white;
+      font-family: 'Sen', sans-serif;
+    }
+
+    .dashboard-card {
+      background-color: #7E57C2; /* Ungu medium */
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #4a148c;
+      transition: transform 0.2s;
+    }
+
+    .dashboard-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #311b92;
+    }
+
+    .card-link {
+      color: #D1C4E9;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .card-link:hover {
+      color: #b39ddb;
+      text-decoration: underline;
+    }
+
+    h1.font-black {
+      font-weight: 900;
+    }
+
+    .fa-solid {
+      background-color: #4a148c;
+      padding: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row justify-content-center gap-5 p-4">
+    
+    <!-- Total Passengers -->
+    <div class="card dashboard-card" style="width: 18rem">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title fw-bold font-black">Total Passengers</h5>
+          <i class="fa-solid fa-users text-light"></i>
+        </div>
+        <h1 class="font-black" id="passengerCount">0</h1>
+        <a href="total-passenger.html" class="card-link">View All</a>
+      </div>
+    </div>
+
+    <!-- Total Drivers -->
+    <div class="card dashboard-card" style="width: 18rem">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title fw-bold font-black">Total Drivers</h5>
+          <i class="fa-solid fa-id-card text-light"></i>
+        </div>
+        <h1 class="font-black" id="driverCount">0</h1>
+        <a href="drivers.html" class="card-link">View All</a>
+      </div>
+    </div>
+
+    <!-- On Process -->
+    <div class="card dashboard-card" style="width: 18rem">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title fw-bold font-black">On Process</h5>
+          <i class="fa-solid fa-spinner text-light"></i>
+        </div>
+        <h1 class="font-black" id="processCount">0</h1>
+        <a href="drivers.html" class="card-link">View Details</a>
+      </div>
+    </div>
+
+    <!-- Completed -->
+    <div class="card dashboard-card" style="width: 18rem">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title fw-bold font-black">Completed Reservations</h5>
+          <i class="fa-solid fa-check text-light"></i>
+        </div>
+        <h1 class="font-black" id="completedCount">0</h1>
+        <a href="show-completed-reservations.html" class="card-link">View Details</a>
+      </div>
+    </div>
+
+    <!-- Paid -->
+    <div class="card dashboard-card" style="width: 18rem">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title fw-bold font-black">Paid Reservations</h5>
+          <i class="fa-solid fa-receipt text-light"></i>
+        </div>
+        <h1 class="font-black" id="paidCount">0</h1>
+        <a href="drivers.html" class="card-link">View Details</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
