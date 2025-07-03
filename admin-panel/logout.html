@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logging Out...</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#5E2B97" />
+  <style>
+    body {
+      background-color: #5E2B97;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .loader {
+      border: 4px solid white;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin-top: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h2>Logging you out...</h2>
+  <div class="loader"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlKOlAxaXuGEL0nN0zH6TaKIjskS-ZyOw",
+      authDomain: "taxi-pi-network.firebaseapp.com",
+      databaseURL: "https://taxi-pi-network-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taxi-pi-network",
+      storageBucket: "taxi-pi-network.appspot.com",
+      messagingSenderId: "424683034285",
+      appId: "1:424683034285:web:78d616a9dd98a78a0cd824",
+      measurementId: "G-62J9SRR509"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    signOut(auth).then(() => {
+      // Redirect to landing page after logout
+      window.location.href = "/index.html";
+    }).catch((error) => {
+      console.error("Logout error:", error);
+      alert("Logout gagal: " + error.message);
+      window.location.href = "/index.html";
+    });
+  </script>
+
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+</html>
