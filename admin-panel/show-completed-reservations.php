@@ -1,57 +1,54 @@
 <div class="mt-5">
-    <a href="admin-panel.php?dashboard" class="d-block pb-3 text-black ">Back to Summary</a>
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th class="background-black-color text-light">S.No</th>
-                <th class="background-black-color text-light">Reservation ID</th>
-                <th class="background-black-color text-light">Driver ID</th>
-                <th class="background-black-color text-light">Passenger ID</th>
-                <th class="background-black-color text-light">Pickup Location</th>
-                <th class="background-black-color text-light">Drop Location</th>
-                <th class="background-black-color text-light">Operator ID</th>
-                <th class="background-black-color text-light">Date</th>
-                <th class="background-black-color text-light">Payment Process</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $serialNumber = 1;
-            $operatorDetail;
-            $paymentProcess;
-            $getSuccessReservationList = mysqli_query($con, "SELECT * FROM `table_reservation` WHERE reservation_status = 'completed'");
+  <a href="admin-panel.html" class="d-block pb-3 fw-semibold text-white" style="text-decoration: none;">⬅ Back to Summary</a>
 
-            if (mysqli_num_rows($getSuccessReservationList) > 0) {
-
-                while ($arrayOfReservationDetails = mysqli_fetch_assoc($getSuccessReservationList)) {
-                    $reservationId = $arrayOfReservationDetails['reservation_id'];
-                    $driverId = $arrayOfReservationDetails['driver_id'];
-                    $passengerId = $arrayOfReservationDetails['passenger_id'];
-                    $pickupLocation = $arrayOfReservationDetails['pickup_location'];
-                    $dropLocation = $arrayOfReservationDetails['drop_location'];
-                    $operatorId = $arrayOfReservationDetails['operator_id'];
-                    $date = $arrayOfReservationDetails['ride_start_time'];
-
-                    // if ($operatorId == "0") {
-                    //     $operatorDetail = "";
-                    // }
-            ?>
-                    <tr>
-                        <td class="bg-light text-black">#<?php echo $serialNumber; ?></th>
-                        <td class="bg-light text-black"><?php echo $reservationId; ?></th>
-                        <td class="bg-light text-black"><?php echo $driverId; ?></th>
-                        <td class="bg-light text-black"><?php echo $passengerId; ?></th>
-                        <td class="bg-light text-black text-capitalize"><?php echo $pickupLocation; ?></th>
-                        <td class="bg-light text-black text-capitalize"><?php echo $dropLocation; ?></th>
-                        <td class="bg-light text-black"><?php echo $operatorId; ?></th>
-                        <td class="bg-light text-black"><?php echo $date; ?></th>
-                        <td class="bg-light text-black">Paid</th>
-                    </tr>
-            <?php
-                    $serialNumber++;
-                }
-            }
-            ?>
-        </tbody>
-    </table>
+  <table class="table table-bordered text-center shadow-lg rounded-3 overflow-hidden" style="border: 2px solid #5E2B97;">
+    <thead style="background-color: #5E2B97;">
+      <tr>
+        <th class="text-white">S.No</th>
+        <th class="text-white">Reservation ID</th>
+        <th class="text-white">Driver ID</th>
+        <th class="text-white">Passenger ID</th>
+        <th class="text-white">Pickup Location</th>
+        <th class="text-white">Drop Location</th>
+        <th class="text-white">Operator ID</th>
+        <th class="text-white">Date</th>
+        <th class="text-white">Payment Process</th>
+      </tr>
+    </thead>
+    <tbody style="background-color: #EEE6F7;">
+      <tr>
+        <td>#1</td>
+        <td>R001</td>
+        <td>D1002</td>
+        <td>P3005</td>
+        <td>Jl. Sudirman</td>
+        <td>Jl. Gatot Subroto</td>
+        <td>OP01</td>
+        <td>2025-07-02</td>
+        <td class="text-success fw-semibold">Paid</td>
+      </tr>
+      <tr>
+        <td>#2</td>
+        <td>R002</td>
+        <td>D1003</td>
+        <td>P3006</td>
+        <td>Bandara Soetta</td>
+        <td>Plaza Senayan</td>
+        <td>OP02</td>
+        <td>2025-07-02</td>
+        <td class="text-success fw-semibold">Paid</td>
+      </tr>
+      <tr>
+        <td>#3</td>
+        <td>R003</td>
+        <td>D1007</td>
+        <td>P3008</td>
+        <td>Stasiun Gambir</td>
+        <td>Universitas Indonesia</td>
+        <td>OP03</td>
+        <td>2025-07-03</td>
+        <td class="text-success fw-semibold">Paid</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
